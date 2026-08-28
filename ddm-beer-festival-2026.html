@@ -26,16 +26,18 @@ body{margin:0;background:#FFF8E7;color:#082757;font-family:-apple-system,BlinkMa
   .map-caption{font-size:11.5px;color:#667085;padding:9px 4px 2px}.map-caption b{color:#082757}
   .check-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.check-progress{font-size:11px;font-weight:900;background:#082757;color:#fff;padding:6px 9px;border-radius:999px;white-space:nowrap}
   .check-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.check-item{display:flex;align-items:flex-start;gap:9px;background:#fff;border:1px solid #E7D89F;border-radius:14px;padding:11px;cursor:pointer;transition:.15s}.check-item.checked{background:#E6F5E9;border-color:#B8DCC0}.check-item input{width:19px;height:19px;margin:1px 0 0;accent-color:#082757;flex:0 0 auto}.check-item b{display:block;font-size:12.5px}.check-item small{display:block;font-size:10.5px;color:#667085;margin-top:2px;line-height:1.35}.reset-pack{border:0;background:transparent;color:#667085;text-decoration:underline;font-size:11px;padding:6px;cursor:pointer}.mini-pack{margin-top:10px;background:#FFF2BD;border:1px solid #E0C76A;border-radius:14px;padding:11px 12px;font-size:12px}.ref-note{font-size:10.8px;color:#667085;margin-top:9px;line-height:1.45}.ref-note a{color:#0B4D94;word-break:break-all}
-  @media(max-width:520px){.check-grid{grid-template-columns:1fr}.map-card{padding:7px}}
+  .field-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.field-tip{background:#fff;border:1px solid #E7D89F;border-radius:15px;padding:13px}.field-tip b{display:block;font-size:13px;margin-bottom:4px}.field-tip p{margin:0;font-size:11.5px;color:#596579;line-height:1.5}.route-box{margin-top:10px;background:#082757;color:#fff;border-radius:16px;padding:14px}.route-box b{color:#FFD96C}.route-box .step{font-size:12px;line-height:1.7}.crowd-note{margin-top:9px;background:#FFF0EE;border:1px solid #F2C5BE;border-radius:14px;padding:11px 12px;font-size:11.5px;color:#6b3430}.source-chip{display:inline-block;margin-top:8px;padding:5px 8px;border-radius:999px;background:#EAF4FF;color:#0B4D94;font-size:10.5px;font-weight:800;text-decoration:none}
+  @media(max-width:520px){.check-grid,.field-grid{grid-template-columns:1fr}.map-card{padding:7px}}
   `;
   doc.head.appendChild(style);
 
   const nav=doc.querySelector('.nav');
   if(nav){
    const mapA=doc.createElement('a');mapA.href='#map2026';mapA.textContent='배치도';
+   const fieldA=doc.createElement('a');fieldA.href='#fieldtips';fieldA.textContent='실전팁';
    const packA=doc.createElement('a');packA.href='#packing';packA.textContent='준비물';
    const zonesA=[...nav.querySelectorAll('a')].find(a=>a.getAttribute('href')==='#zones');
-   if(zonesA){zonesA.after(mapA);mapA.after(packA)}else{nav.append(mapA,packA)}
+   if(zonesA){zonesA.after(mapA);mapA.after(fieldA);fieldA.after(packA)}else{nav.append(mapA,fieldA,packA)}
   }
 
   const map=doc.createElement('section');
@@ -43,6 +45,25 @@ body{margin:0;background:#FFF8E7;color:#082757;font-family:-apple-system,BlinkMa
   map.innerHTML=`<h2>🗺️ 2026 축제장 배치도</h2><p class="lead">보내주신 배치도입니다. 이미지를 누르면 크게 볼 수 있습니다.</p><div class="map-card"><a href="./ddm-beer-festival-map.webp?v=20260828" target="_blank" rel="noopener"><img src="./ddm-beer-festival-map.webp?v=20260828" alt="2026 동대문구 맥주축제 축제장 배치도" loading="lazy"></a><div class="map-caption"><b>추천 동선:</b> 종합안내소에서 성인인증 팔찌 → 브루&푸드 스트리트 → 비어 테라스존/돗자리존 → 메인 스테이지. 운영본부·의료부스와 화장실 위치도 미리 확인해 두면 편합니다.</div></div>`;
   const zones=doc.querySelector('#zones');
   if(zones) zones.after(map); else doc.querySelector('.wrap')?.appendChild(map);
+
+  const fieldtips=doc.createElement('section');
+  fieldtips.className='section';fieldtips.id='fieldtips';
+  fieldtips.innerHTML=`<h2>⚡ 현장 실전 팁</h2><p class="lead">도착해서부터 자리 잡기·주문·공연·귀가까지 실제 동선 기준으로 정리</p>
+  <div class="route-box"><div class="step"><b>추천 첫 20분 동선</b><br>① 종합안내소 → 성인인증 팔찌 먼저 받기<br>② 푸드트럭 QR 주문 먼저 넣기<br>③ 기다리는 동안 브루어리 둘러보고 맥주 고르기<br>④ 비어테라스/돗자리존에 거점 잡기<br>⑤ 공연 전 화장실·의료부스 위치 한 번 확인</div></div>
+  <div class="field-grid" style="margin-top:10px">
+    <div class="field-tip"><b>⏰ 17~18시대가 가장 편함</b><p>공연은 19시부터 본격화됩니다. 공개 방문 팁에서는 19~21시를 혼잡 시간대로 보고 있어, 가능하면 초반 입장 후 먹거리와 자리를 먼저 확보하는 편이 유리합니다.</p></div>
+    <div class="field-tip"><b>📱 음식은 QR 주문부터</b><p>2026년에는 푸드트럭 QR 주문이 새로 도입됐습니다. 자리부터 찾기보다 음식 주문을 먼저 넣고, 준비되는 동안 맥주 부스를 보는 동선이 효율적입니다.</p></div>
+    <div class="field-tip"><b>🍺 인기 부스 한 곳에만 매달리지 않기</b><p>브루어리·푸드트럭 수가 전년 대비 크게 늘었습니다. 줄이 긴 곳은 고집하지 말고 한 바퀴 보고 짧은 줄부터 이용하면 체감 대기시간을 줄일 수 있습니다.</p></div>
+    <div class="field-tip"><b>🧺 돗자리는 ‘작고 가볍게’</b><p>공식 운영안에 테이블·벤치·빈백·돗자리 공간이 포함돼 있습니다. 큰 캠핑장비보다 접어서 들고 다니기 쉬운 돗자리가 실용적입니다.</p></div>
+    <div class="field-tip"><b>🚻 화장실은 공연 직전 피하기</b><p>행사장에 이동식 화장실이 운영될 예정입니다. 메인 공연 직전·종료 직후에는 사람이 몰릴 수 있으니 18시대나 공연 중간에 미리 다녀오는 편이 좋습니다.</p></div>
+    <div class="field-tip"><b>🗑️ 다회용기 반납 위치 체크</b><p>2026 운영안에는 클린존과 다회용기 반납·쓰레기 처리 공간이 포함돼 있습니다. 음식 받을 때 반납 위치를 같이 봐두면 마지막에 덜 헤맵니다.</p></div>
+    <div class="field-tip"><b>🦟 수변공원은 벌레 대비</b><p>중랑천변 야외 행사라 늦은 시간에는 벌레가 불편할 수 있습니다. 벌레기피제와 물티슈는 작은 용량으로 챙기면 부담이 적습니다.</p></div>
+    <div class="field-tip"><b>🚇 귀가는 22시 전에 계획</b><p>행사 종료가 22시라 종료 직후 출구·버스 쪽 혼잡이 예상됩니다. 음주 예정이라면 미리 장한평역 방향이나 버스 환승 동선을 정해두는 편이 안전합니다.</p></div>
+  </div>
+  <div class="crowd-note"><b>혼잡 회피 핵심:</b> ‘팔찌 → QR 음식 주문 → 맥주 → 자리’ 순서가 가장 실용적입니다. 19~21시에는 주문·화장실·좋은 자리 경쟁이 동시에 몰릴 가능성이 높아 초반 1시간을 잘 쓰는 게 포인트입니다.</div>
+  <div class="ref-note">※ 17~18시 조기입장·19~21시 혼잡 회피 등은 공개된 과거 방문 팁을 참고한 <b>실전 예상</b>이며, 2026 공식 운영정보는 QR 주문·취식공간·이동식 화장실·클린존 운영안 등을 기준으로 반영했습니다.<br><a class="source-chip" href="https://blog.naver.com/ents7/224385174465" target="_blank" rel="noopener">사용자 제공 현장 팁 블로그</a></div>`;
+  const packingAnchor=doc.querySelector('#tips2026');
+  if(packingAnchor) packingAnchor.before(fieldtips); else doc.querySelector('.wrap')?.appendChild(fieldtips);
 
   const packing=doc.createElement('section');
   packing.className='section';packing.id='packing';
@@ -64,7 +85,7 @@ body{margin:0;background:#FFF8E7;color:#082757;font-family:-apple-system,BlinkMa
   const source=doc.querySelector('.source');
   if(source){
    source.innerHTML=source.innerHTML.replace('2026-08-21','2026-08-28');
-   source.insertAdjacentHTML('beforeend','<br><br>· 사용자 제공 참고 블로그 (준비물 참고)<br><a href="https://blog.naver.com/chayk3/224387859242" target="_blank" rel="noopener">네이버 블로그 참고 링크</a>');
+   source.insertAdjacentHTML('beforeend','<br><br>· 사용자 제공 참고 블로그 (준비물 참고)<br><a href="https://blog.naver.com/chayk3/224387859242" target="_blank" rel="noopener">준비물 참고 블로그</a><br><br>· 사용자 제공 참고 블로그 (현장 실전 팁 참고)<br><a href="https://blog.naver.com/ents7/224385174465" target="_blank" rel="noopener">현장 실전 팁 참고 블로그</a>');
   }
 
   document.documentElement.innerHTML=doc.documentElement.innerHTML;
