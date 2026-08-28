@@ -27,7 +27,8 @@ body{margin:0;background:#FFF8E7;color:#082757;font-family:-apple-system,BlinkMa
   .check-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}.check-progress{font-size:11px;font-weight:900;background:#082757;color:#fff;padding:6px 9px;border-radius:999px;white-space:nowrap}
   .check-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}.check-item{display:flex;align-items:flex-start;gap:9px;background:#fff;border:1px solid #E7D89F;border-radius:14px;padding:11px;cursor:pointer;transition:.15s}.check-item.checked{background:#E6F5E9;border-color:#B8DCC0}.check-item input{width:19px;height:19px;margin:1px 0 0;accent-color:#082757;flex:0 0 auto}.check-item b{display:block;font-size:12.5px}.check-item small{display:block;font-size:10.5px;color:#667085;margin-top:2px;line-height:1.35}.reset-pack{border:0;background:transparent;color:#667085;text-decoration:underline;font-size:11px;padding:6px;cursor:pointer}.mini-pack{margin-top:10px;background:#FFF2BD;border:1px solid #E0C76A;border-radius:14px;padding:11px 12px;font-size:12px}.ref-note{font-size:10.8px;color:#667085;margin-top:9px;line-height:1.45}.ref-note a{color:#0B4D94;word-break:break-all}
   .field-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.field-tip{background:#fff;border:1px solid #E7D89F;border-radius:15px;padding:13px}.field-tip b{display:block;font-size:13px;margin-bottom:4px}.field-tip p{margin:0;font-size:11.5px;color:#596579;line-height:1.5}.route-box{margin-top:10px;background:#082757;color:#fff;border-radius:16px;padding:14px}.route-box b{color:#FFD96C}.route-box .step{font-size:12px;line-height:1.7}.crowd-note{margin-top:9px;background:#FFF0EE;border:1px solid #F2C5BE;border-radius:14px;padding:11px 12px;font-size:11.5px;color:#6b3430}.source-chip{display:inline-block;margin-top:8px;padding:5px 8px;border-radius:999px;background:#EAF4FF;color:#0B4D94;font-size:10.5px;font-weight:800;text-decoration:none}
-  @media(max-width:520px){.check-grid,.field-grid{grid-template-columns:1fr}.map-card{padding:7px}}
+  .guide-gallery{display:grid;grid-template-columns:1fr 1fr;gap:10px}.guide-shot{background:#fff;border:1px solid #E7D89F;border-radius:16px;padding:8px;box-shadow:0 8px 24px rgba(8,39,87,.04)}.guide-shot a{display:block;text-decoration:none;color:inherit}.guide-shot img{display:block;width:100%;height:auto;border-radius:10px;background:#f4f4f4}.guide-shot b{display:block;font-size:12px;margin:8px 3px 2px}.guide-shot small{display:block;font-size:10.5px;color:#667085;margin:0 3px 3px}.guide-note{margin-top:9px;background:#EAF4FF;border:1px solid #C9DDF1;border-radius:14px;padding:11px 12px;font-size:11.5px;color:#43546b}
+  @media(max-width:520px){.check-grid,.field-grid,.guide-gallery{grid-template-columns:1fr}.map-card{padding:7px}}
   `;
   doc.head.appendChild(style);
 
@@ -36,8 +37,9 @@ body{margin:0;background:#FFF8E7;color:#082757;font-family:-apple-system,BlinkMa
    const mapA=doc.createElement('a');mapA.href='#map2026';mapA.textContent='배치도';
    const fieldA=doc.createElement('a');fieldA.href='#fieldtips';fieldA.textContent='실전팁';
    const packA=doc.createElement('a');packA.href='#packing';packA.textContent='준비물';
+   const galleryA=doc.createElement('a');galleryA.href='#guidegallery';galleryA.textContent='가이드이미지';
    const zonesA=[...nav.querySelectorAll('a')].find(a=>a.getAttribute('href')==='#zones');
-   if(zonesA){zonesA.after(mapA);mapA.after(fieldA);fieldA.after(packA)}else{nav.append(mapA,fieldA,packA)}
+   if(zonesA){zonesA.after(mapA);mapA.after(fieldA);fieldA.after(packA);packA.after(galleryA)}else{nav.append(mapA,fieldA,packA,galleryA)}
   }
 
   const map=doc.createElement('section');
@@ -64,6 +66,18 @@ body{margin:0;background:#FFF8E7;color:#082757;font-family:-apple-system,BlinkMa
   <div class="ref-note">※ 17~18시 조기입장·19~21시 혼잡 회피 등은 공개된 과거 방문 팁을 참고한 <b>실전 예상</b>이며, 2026 공식 운영정보는 QR 주문·취식공간·이동식 화장실·클린존 운영안 등을 기준으로 반영했습니다.<br><a class="source-chip" href="https://blog.naver.com/ents7/224385174465" target="_blank" rel="noopener">사용자 제공 현장 팁 블로그</a></div>`;
   const packingAnchor=doc.querySelector('#tips2026');
   if(packingAnchor) packingAnchor.before(fieldtips); else doc.querySelector('.wrap')?.appendChild(fieldtips);
+
+  const gallery=doc.createElement('section');
+  gallery.className='section';gallery.id='guidegallery';
+  gallery.innerHTML=`<h2>🖼️ 고화질 실전 가이드 이미지</h2><p class="lead">휴대폰에서 이미지를 누르면 크게 열립니다.</p><div class="guide-gallery">
+    <div class="guide-shot"><a href="./ddm-guide-1-hd.webp?v=20260828" target="_blank" rel="noopener"><img src="./ddm-guide-1-hd.webp?v=20260828" alt="축제 일정·라인업·주차·먹거리 종합 가이드" loading="lazy"><b>① 종합 안내</b><small>일정 · 공연 · 먹거리 · 주차 · 주변 맛집</small></a></div>
+    <div class="guide-shot"><a href="./ddm-guide-2-hd.webp?v=20260828" target="_blank" rel="noopener"><img src="./ddm-guide-2-hd.webp?v=20260828" alt="현장 이벤트와 할인 정보 가이드" loading="lazy"><b>② 이벤트·할인 정보</b><small>현장 이벤트 · 결제 혜택 · 즐길거리</small></a></div>
+    <div class="guide-shot"><a href="./ddm-guide-3-hd.webp?v=20260828" target="_blank" rel="noopener"><img src="./ddm-guide-3-hd.webp?v=20260828" alt="주차 후 성인인증 부스 최단 동선" loading="lazy"><b>③ 성인인증 최단 동선</b><small>지하주차장 → 성인인증 부스 3곳</small></a></div>
+    <div class="guide-shot"><a href="./ddm-guide-4-hd.webp?v=20260828" target="_blank" rel="noopener"><img src="./ddm-guide-4-hd.webp?v=20260828" alt="돗자리존 완벽 가이드" loading="lazy"><b>④ 돗자리존 가이드</b><small>A·B·C 구역 특징 · 추천 자리 · 동선</small></a></div>
+    <div class="guide-shot"><a href="./ddm-guide-5-hd.webp?v=20260828" target="_blank" rel="noopener"><img src="./ddm-guide-5-hd.webp?v=20260828" alt="교통약자와 전연령층 편의시설 가이드" loading="lazy"><b>⑤ 편의시설·안전</b><small>교통약자 동선 · 유모차 · 화장실 · 안전</small></a></div>
+  </div><div class="guide-note"><b>화질:</b> 원본 글자를 유지한 상태로 확대·샤픈 보정한 고화질 버전입니다. 작은 글씨는 이미지를 눌러 확대해서 보는 것이 가장 선명합니다.</div>`;
+  const packingSpot=doc.querySelector('#tips2026');
+  if(packingSpot) packingSpot.before(gallery); else doc.querySelector('.wrap')?.appendChild(gallery);
 
   const packing=doc.createElement('section');
   packing.className='section';packing.id='packing';
