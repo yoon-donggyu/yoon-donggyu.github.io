@@ -6,21 +6,433 @@
 <meta name="theme-color" content="#FFC84B">
 <title>2026 동대문구 맥주축제 최신 완성 가이드</title>
 <style>
-:root {--yellow:#FFC84B;--navy:#082757;--ink:#0D2344;--cream:#FFF7E0;--white:#FFFFFF;--muted:#667085;--line:#E6D39A;--green:#E6F5E9;--blue:#EAF4FF;--red:#FFF0EE}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#FFF8E7;color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Noto Sans KR","Segoe UI",sans-serif;line-height:1.55}.wrap{max-width:820px;margin:0 auto;padding:14px 13px 48px}.hero{border-radius:24px;padding:26px 20px;color:var(--navy);background:radial-gradient(circle at 92% 8%,rgba(255,255,255,.70),transparent 28%),linear-gradient(145deg,#FFD96C,#FFC84B);border:2px solid var(--navy);box-shadow:0 16px 40px rgba(8,39,87,.12)}.kicker{font-size:12px;font-weight:900;letter-spacing:.11em}h1{font-size:30px;line-height:1.12;margin:7px 0 10px;letter-spacing:-.04em}.hero p{margin:0;font-size:14px;font-weight:750}.hero .bigdate{font-size:18px;font-weight:950;margin-top:16px}.quick{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}.quick div{background:rgba(255,255,255,.66);border:1px solid rgba(8,39,87,.16);border-radius:14px;padding:10px 11px}.quick small{display:block;font-size:10.5px;color:#5b6371;font-weight:800}.quick b{display:block;font-size:13.5px;margin-top:2px}.nav{display:flex;gap:7px;overflow:auto;padding:13px 1px 4px;scrollbar-width:none}.nav::-webkit-scrollbar{display:none}.nav a{white-space:nowrap;text-decoration:none;color:white;background:var(--navy);padding:8px 11px;border-radius:999px;font-size:11.5px;font-weight:850}.section{margin-top:26px}.section h2{font-size:20px;letter-spacing:-.03em;margin:0 3px 11px}.lead{font-size:12.5px;color:var(--muted);margin:-5px 3px 12px}.card{background:white;border:1px solid #E7D89F;border-radius:18px;padding:15px;box-shadow:0 8px 24px rgba(8,39,87,.04)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.info{background:white;border:1px solid #E7D89F;border-radius:15px;padding:12px}.info.full{grid-column:1/-1}.info small{display:block;font-size:10.5px;color:var(--muted);font-weight:800}.info b{display:block;font-size:14px;margin-top:3px}.badge{display:inline-block;padding:4px 8px;border-radius:999px;background:var(--navy);color:#fff;font-size:10.5px;font-weight:900;margin-right:5px}.free{font-size:30px;font-weight:950;color:var(--navy);letter-spacing:-.04em}.notice{border-radius:15px;padding:12px 13px;margin-top:9px;font-size:12.5px;border:1px solid #E5D39A;background:#FFF2BD}.notice.red{background:var(--red);border-color:#F2C5BE}.notice.blue{background:var(--blue);border-color:#C9DDF1}.notice.green{background:var(--green);border-color:#C8E5CE}.schedule{display:grid;grid-template-columns:1fr 1fr;gap:10px}.day{background:var(--navy);color:white;border-radius:18px;padding:15px}.day h3{font-size:19px;margin:0 0 11px}.row{display:grid;grid-template-columns:54px 1fr;gap:9px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.14)}.row:last-child{border-bottom:none}.time{font-weight:950;color:#FFD96C}.act b{display:block;font-size:13.5px}.act span{font-size:10.5px;color:#C9D5E5}.zone-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}.zone{background:white;border:1px solid #E4D39A;border-radius:15px;padding:13px}.zone b{display:block;font-size:14px}.zone p{margin:5px 0 0;color:var(--muted);font-size:11.5px}.pills{display:flex;flex-wrap:wrap;gap:7px}.pill{padding:8px 10px;background:#FFF2BD;border:1px solid #E0C76A;border-radius:12px;font-size:12px;font-weight:850}.list{margin:0;padding-left:20px;font-size:12.5px}.list li{margin:7px 0}.transport{display:grid;grid-template-columns:1fr;gap:9px}.transport .item{background:white;border:1px solid #E4D39A;border-radius:15px;padding:13px}.transport h3{font-size:14px;margin:0 0 5px}.transport p{font-size:12px;color:#525d70;margin:0}.btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}.btn{text-decoration:none;text-align:center;background:var(--navy);color:#fff;padding:11px;border-radius:13px;font-size:12px;font-weight:900}.source{margin-top:25px;padding:14px;border-radius:16px;background:#F1E5B9;border:1px solid #DAC580;font-size:10.8px;color:#586174}.source b{color:var(--navy)}.source a{color:#0B4D94;word-break:break-all}.footer{text-align:center;font-size:10.5px;color:#8B7A55;margin-top:16px}@media(max-width:560px){h1{font-size:26px}.schedule{grid-template-columns:1fr}}@media(max-width:390px){.grid,.zone-grid{grid-template-columns:1fr}.info.full{grid-column:auto}.quick{grid-template-columns:1fr 1fr}}
+:root {
+  --yellow:#FFC84B;
+  --navy:#082757;
+  --ink:#0D2344;
+  --cream:#FFF7E0;
+  --white:#FFFFFF;
+  --muted:#667085;
+  --line:#E6D39A;
+  --green:#E6F5E9;
+  --blue:#EAF4FF;
+  --red:#FFF0EE;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:#FFF8E7;color:var(--ink);
+  font-family:-apple-system,BlinkMacSystemFont,"Pretendard","Noto Sans KR","Segoe UI",sans-serif;
+  line-height:1.55;
+}
+.wrap{max-width:820px;margin:0 auto;padding:14px 13px 48px}
+.hero{
+  border-radius:24px;padding:26px 20px;
+  color:var(--navy);
+  background:
+    radial-gradient(circle at 92% 8%, rgba(255,255,255,.70), transparent 28%),
+    linear-gradient(145deg,#FFD96C,#FFC84B);
+  border:2px solid var(--navy);
+  box-shadow:0 16px 40px rgba(8,39,87,.12);
+}
+.kicker{font-size:12px;font-weight:900;letter-spacing:.11em}
+h1{font-size:30px;line-height:1.12;margin:7px 0 10px;letter-spacing:-.04em}
+.hero p{margin:0;font-size:14px;font-weight:750}
+.hero .bigdate{font-size:18px;font-weight:950;margin-top:16px}
+.quick{
+  display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px
+}
+.quick div{
+  background:rgba(255,255,255,.66);border:1px solid rgba(8,39,87,.16);
+  border-radius:14px;padding:10px 11px
+}
+.quick small{display:block;font-size:10.5px;color:#5b6371;font-weight:800}
+.quick b{display:block;font-size:13.5px;margin-top:2px}
+.nav{
+  display:flex;gap:7px;overflow:auto;padding:13px 1px 4px;scrollbar-width:none
+}
+.nav::-webkit-scrollbar{display:none}
+.nav a{
+  white-space:nowrap;text-decoration:none;color:white;background:var(--navy);
+  padding:8px 11px;border-radius:999px;font-size:11.5px;font-weight:850
+}
+.section{margin-top:26px}
+.section h2{font-size:20px;letter-spacing:-.03em;margin:0 3px 11px}
+.lead{font-size:12.5px;color:var(--muted);margin:-5px 3px 12px}
+.card{
+  background:white;border:1px solid #E7D89F;border-radius:18px;padding:15px;
+  box-shadow:0 8px 24px rgba(8,39,87,.04)
+}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.info{
+  background:white;border:1px solid #E7D89F;border-radius:15px;padding:12px
+}
+.info.full{grid-column:1/-1}
+.info small{display:block;font-size:10.5px;color:var(--muted);font-weight:800}
+.info b{display:block;font-size:14px;margin-top:3px}
+.badge{
+  display:inline-block;padding:4px 8px;border-radius:999px;background:var(--navy);
+  color:#fff;font-size:10.5px;font-weight:900;margin-right:5px
+}
+.free{
+  font-size:30px;font-weight:950;color:var(--navy);letter-spacing:-.04em
+}
+.notice{
+  border-radius:15px;padding:12px 13px;margin-top:9px;font-size:12.5px;
+  border:1px solid #E5D39A;background:#FFF2BD
+}
+.notice.red{background:var(--red);border-color:#F2C5BE}
+.notice.blue{background:var(--blue);border-color:#C9DDF1}
+.notice.green{background:var(--green);border-color:#C8E5CE}
+.schedule{
+  display:grid;grid-template-columns:1fr 1fr;gap:10px
+}
+.day{
+  background:var(--navy);color:white;border-radius:18px;padding:15px
+}
+.day h3{font-size:19px;margin:0 0 11px}
+.row{
+  display:grid;grid-template-columns:54px 1fr;gap:9px;
+  padding:9px 0;border-bottom:1px solid rgba(255,255,255,.14)
+}
+.row:last-child{border-bottom:none}
+.time{font-weight:950;color:#FFD96C}
+.act b{display:block;font-size:13.5px}
+.act span{font-size:10.5px;color:#C9D5E5}
+.zone-grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.zone{
+  background:white;border:1px solid #E4D39A;border-radius:15px;padding:13px
+}
+.zone b{display:block;font-size:14px}
+.zone p{margin:5px 0 0;color:var(--muted);font-size:11.5px}
+.pills{display:flex;flex-wrap:wrap;gap:7px}
+.pill{
+  padding:8px 10px;background:#FFF2BD;border:1px solid #E0C76A;
+  border-radius:12px;font-size:12px;font-weight:850
+}
+.list{margin:0;padding-left:20px;font-size:12.5px}
+.list li{margin:7px 0}
+.transport{
+  display:grid;grid-template-columns:1fr;gap:9px
+}
+.transport .item{
+  background:white;border:1px solid #E4D39A;border-radius:15px;padding:13px
+}
+.transport h3{font-size:14px;margin:0 0 5px}
+.transport p{font-size:12px;color:#525d70;margin:0}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.btn{
+  text-decoration:none;text-align:center;background:var(--navy);color:#fff;
+  padding:11px;border-radius:13px;font-size:12px;font-weight:900
+}
+.source{
+  margin-top:25px;padding:14px;border-radius:16px;background:#F1E5B9;
+  border:1px solid #DAC580;font-size:10.8px;color:#586174
+}
+.source b{color:var(--navy)}
+.source a{color:#0B4D94;word-break:break-all}
+.em{color:#BC4C00;font-weight:900}
+.footer{text-align:center;font-size:10.5px;color:#8B7A55;margin-top:16px}
+@media(max-width:560px){
+  h1{font-size:26px}
+  .schedule{grid-template-columns:1fr}
+}
+@media(max-width:390px){
+  .grid,.zone-grid{grid-template-columns:1fr}
+  .info.full{grid-column:auto}
+  .quick{grid-template-columns:1fr 1fr}
+}
 </style>
 </head>
-<body><div class="wrap">
-<header class="hero"><div class="kicker">2026 DONGDAEMUN-GU BEER FESTIVAL</div><h1>2026 동대문구<br>맥주축제</h1><p>‘같이의 가치’ · 수제맥주 · 푸드트럭 · 공연 · 영화 · 체험</p><div class="bigdate">2026. 8. 28.(금) ~ 8. 29.(토)</div><div class="quick"><div><small>운영시간</small><b>17:00 ~ 22:00</b></div><div><small>입장료</small><b>무료</b></div><div><small>장소</small><b>장안1수변공원</b></div><div><small>문의</small><b>02-3291-5506</b></div></div></header>
-<nav class="nav"><a href="#new2026">2026 핵심</a><a href="#basic">기본정보</a><a href="#schedule">공연</a><a href="#zones">공간구성</a><a href="#movie">영화·체험</a><a href="#beer">맥주·먹거리</a><a href="#parking">주차·교통</a><a href="#tips2026">현장팁</a><a href="#rules">유의사항</a></nav>
-<section class="section" id="new2026"><h2>🔥 2026년 핵심 업데이트</h2><p class="lead">최근 공개된 동대문구·축제 운영 자료 기준</p><div class="grid"><div class="info"><small>올해 개최 횟수</small><b>제3회 동대문구 맥주축제</b></div><div class="info"><small>행사계획 규모</small><b>약 3만 명 방문 규모</b></div><div class="info"><small>2026 행사 공간</small><b>전년 대비 약 2배 확대</b></div><div class="info"><small>브루어리·푸드트럭</small><b>전년 대비 약 2배 확대</b></div></div><div class="card" style="margin-top:10px"><b style="font-size:16px">📱 푸드트럭 QR코드 주문 시스템 도입</b><p style="font-size:12.5px;color:#566174;margin:7px 0 0">2026년에는 푸드트럭 앞에서 오래 줄을 서는 불편을 줄이기 위해 <b>QR코드를 이용한 모바일 주문 시스템</b>을 새로 도입합니다. 현장에서 QR을 스캔해 메뉴를 확인하고 주문한 뒤, 음식이 준비되면 픽업하는 방식으로 안내되고 있습니다.</p></div><div class="notice green"><b>이번 축제의 방향:</b> 슬로건은 <b>‘같이의 가치’</b>. 단순히 맥주를 마시는 행사보다 가족·친구·연인, 지역 주민과 외국인 방문객까지 함께 즐기는 <b>수변 문화축제</b> 성격으로 규모와 콘텐츠를 확대했습니다.</div></section>
-<section class="section" id="basic"><h2>📌 축제 기본정보</h2><div class="grid"><div class="info"><small>기간</small><b>8월 28일(금) ~ 29일(토)</b></div><div class="info"><small>시간</small><b>17:00 ~ 22:00</b></div><div class="info"><small>관람료</small><b>입장 무료</b></div><div class="info"><small>관람연령</small><b>전 연령</b></div><div class="info full"><small>장소</small><b>장안1수변공원 일대 · 서울특별시 동대문구 장안동 24-1 일대</b></div><div class="info full"><small>내비게이션 검색</small><b>“장안1수변공원”</b></div></div><div class="card" style="margin-top:10px"><span class="badge">입장</span><div class="free">무료</div><div style="font-size:12.5px;color:#5f6878">행사장 입장은 무료이며 <b>맥주와 음식은 각 부스에서 별도 구매</b>합니다. 브루어리 주류 판매는 만 19세 이상만 가능합니다.</div></div></section>
-<section class="section" id="schedule"><h2>🎤 메인무대 타임테이블</h2><p class="lead">공식 2026 행사 포스터 기준</p><div class="schedule"><div class="day"><h3>DAY 1 · 8/28 금요일</h3><div class="row"><div class="time">19:00</div><div class="act"><b>온수</b><span>보컬</span></div></div><div class="row"><div class="time">19:30</div><div class="act"><b>개막식</b><span>개막 프로그램</span></div></div><div class="row"><div class="time">20:00</div><div class="act"><b>박유라 재즈밴드</b><span>재즈</span></div></div><div class="row"><div class="time">20:30</div><div class="act"><b>미선레나타</b><span>재즈 · 20:30~21:00 구간</span></div></div><div class="row"><div class="time">21:30</div><div class="act"><b>감성골목</b><span>밴드</span></div></div></div><div class="day"><h3>DAY 2 · 8/29 토요일</h3><div class="row"><div class="time">19:00</div><div class="act"><b>박명현</b><span>첼로</span></div></div><div class="row"><div class="time">19:30</div><div class="act"><b>트라움</b><span>현악 4중주</span></div></div><div class="row"><div class="time">20:00</div><div class="act"><b>박송인 앤 프렌즈</b><span>재즈</span></div></div><div class="row"><div class="time">20:30</div><div class="act"><b>세룰리안 블루</b><span>재즈</span></div></div><div class="row"><div class="time">21:00</div><div class="act"><b>백찬영 트리오</b><span>하모니카</span></div></div><div class="row"><div class="time">21:30</div><div class="act"><b>조준형 퀸텟</b><span>재즈</span></div></div></div></div><div class="notice">축제 전체 운영시간은 17:00~22:00이며, 위 표는 <b>메인무대 공연 프로그램</b>입니다. 기상 및 현장 상황에 따라 일부 프로그램은 변경될 수 있습니다.</div></section>
-<section class="section" id="zones"><h2>🗺️ 축제장 구성</h2><div class="zone-grid"><div class="zone"><b>🍺 브루 & 푸드 스트리트</b><p>수제맥주 브루어리 20개 · 푸드트럭 20개</p></div><div class="zone"><b>🍽️ 비어 테라스존</b><p>자율 돗자리존 · 취식 및 휴식 공간</p></div><div class="zone"><b>🎵 메인 스테이지존</b><p>메인무대 · 관람 취식존</p></div><div class="zone"><b>🎬 미드나잇 콘텐츠존</b><p>무성영화관 · 캠핑 휴게존 · 관람 취식존</p></div><div class="zone"><b>🤝 웰컴 플레이존</b><p>유관기관 운영부스 · 버블포토존 · 취식존</p></div><div class="zone"><b>🎮 체험 프로그램</b><p>게임 및 현장 이벤트 6종</p></div><div class="zone"><b>ℹ️ 종합안내소</b><p>성인인증 팔찌 배부 · 협찬품 지급</p></div><div class="zone"><b>➕ 운영본부 / 의료부스</b><p>축제 운영 및 의료 지원</p></div></div></section>
-<section class="section" id="movie"><h2>🎬 무성영화 & 체험 프로그램</h2><div class="card"><small style="color:#667085;font-weight:800">미드나잇 무성영화관</small><div style="font-size:18px;font-weight:950;margin-top:3px">18:00 ~ 22:00</div><div style="margin-top:9px;font-size:13px">찰리 채플린 <b>〈모던 타임즈 Modern Times〉</b> · <b>〈황금광 시대 The Gold Rush〉</b></div></div><div class="pills" style="margin-top:10px"><span class="pill">🎯 다트 게임</span><span class="pill">⭕ 병맥주 링토스</span><span class="pill">🌿 석고방향제 만들기</span><span class="pill">🏓 비어퐁 게임</span><span class="pill">🥫 비어캔 컬링</span><span class="pill">⏱️ 타임워치 이벤트</span></div></section>
-<section class="section" id="beer"><h2>🍺 맥주 & 먹거리</h2><div class="grid"><div class="info"><small>브루어리</small><b>20개 참여</b></div><div class="info"><small>푸드트럭</small><b>20개 참여</b></div></div><div class="card" style="margin-top:10px"><b style="font-size:14px">포스터에서 확인되는 참여 브루어리</b><div style="font-size:12px;color:#566174;margin-top:8px">댄싱사이더 · 더랜치브루잉 · 더테이블브루잉컴퍼니 · 동두천브루어리 · 라인도이치 브루어리 · 매직트리브루어리 · 메즈나인 브루잉컴퍼니 · 버블케미스트리 · 보글보글브루어리 · 브로이하우스 바네하임 · 블루웨일브루하우스 · 속초맥주크래프트루트 · 아리랑브루어리 · 아트몬스터 · 앰비션 브루어리 · 와일드캣브루잉 · 제이씨브루어리 · 크래머리 · 히든트랙브루잉 등</div></div><div class="notice green">푸드트럭은 스테이크·새우·츄러스·타코·피자·치킨·떡볶이·꼬치·튀김·음료 등 다양한 메뉴가 구성되어 있습니다. <b>현장 판매가격은 부스별 상이</b>합니다.</div></section>
-<section class="section" id="parking"><h2>🚗 주차 & 대중교통</h2><div class="notice red"><b>2026 공식 포스터: 행사장 내 주차장 없음.</b><br>음주 행사 특성상 공식 안내에서도 대중교통 이용을 권장합니다.</div><div class="transport" style="margin-top:10px"><div class="item"><h3>🚇 5호선 장한평역에서 도보</h3><p>동일 장소의 공식 교통 안내 기준, <b>3·4번 출구에서 도보 약 20분</b> 정도입니다.</p></div><div class="item"><h3>🚌 장한평역 → 버스 환승</h3><p><b>장한평역 2번 출구 → 2112 또는 2233번 → ‘구민회관앞’ 하차 → 도보 약 5분</b> 안내가 있습니다.</p></div><div class="item"><h3>📍 위치 참고</h3><p>장안1수변공원은 중랑천변에 있으며, 내비게이션에서는 <b>“장안1수변공원”</b>으로 검색하는 것이 가장 안전합니다.</p></div></div><div class="btns"><a class="btn" href="https://map.naver.com/p/search/%EC%9E%A5%EC%95%881%EC%88%98%EB%B3%80%EA%B3%B5%EC%9B%90" target="_blank" rel="noopener">네이버지도 검색</a><a class="btn" href="https://map.kakao.com/?q=%EC%9E%A5%EC%95%881%EC%88%98%EB%B3%80%EA%B3%B5%EC%9B%90" target="_blank" rel="noopener">카카오맵 검색</a></div><div class="notice blue">과거 장안1수변공원 다른 행사에서 임시주차장을 운영한 사례가 있지만, <b>2026 동대문구 맥주축제 공식 안내에는 주차장 미운영으로 명시</b>되어 있으므로 임시주차가 있을 것으로 보고 차량을 가져가는 것은 권하지 않습니다.</div></section>
-<section class="section" id="tips2026"><h2>💡 현장에서 편하게 즐기는 팁</h2><div class="card"><ul class="list"><li><b>17시 초반 입장 추천:</b> 공연은 저녁부터 본격적으로 시작하므로, 일찍 도착하면 맥주·푸드·체험존을 비교적 여유롭게 둘러볼 수 있습니다.</li><li><b>QR 주문 대비:</b> 푸드트럭 모바일 주문이 도입되므로 스마트폰 배터리를 충분히 충전해 가는 것이 좋습니다.</li><li><b>신분증은 꼭 챙기기:</b> 주류 구매 전 성인 인증 팔찌가 필요합니다.</li><li><b>중랑천 야외 행사:</b> 오래 머무를 예정이면 얇은 돗자리·휴대용 보조배터리·벌레기피제 정도가 실용적입니다.</li><li><b>귀가 계획 미리 세우기:</b> 행사장 주차장이 없고 맥주 행사이므로 장한평역 및 버스 이용을 우선 추천합니다.</li></ul></div></section>
-<section class="section" id="rules"><h2>⚠️ 공식 유의사항</h2><div class="card"><ol class="list"><li>축제 입·퇴장 시간은 행사 운영시간과 동일합니다.</li><li>안전하고 원활한 운영을 위해 현장 안내요원의 안내에 협조해야 합니다.</li><li>주류 구매 시 신분증 검사를 통한 <b>성인 인증 팔찌</b>가 필요합니다.</li><li><b>만 19세 미만 미성년자에게 주류를 판매하거나 제공하지 않습니다.</b></li><li>행사장 내 <b>반려동물 출입 금지</b>입니다.</li><li>축제장 전체가 <b>금연구역</b>이며 궐련형 전자담배를 포함해 흡연할 수 없습니다.</li><li>과도한 음주·고성방가 등 다른 방문객에게 불편을 주는 행동은 삼가야 합니다.</li><li><b>행사장 내 주차장이 마련되어 있지 않습니다.</b></li><li>쓰레기는 지정된 장소에 분리배출하고 사용한 자리는 정리해 주세요.</li><li>기상 및 현장 상황에 따라 일부 프로그램·운영사항이 변경될 수 있습니다.</li></ol></div></section>
-<div class="source"><b>자료 확인 기준: 2026-08-21</b><br><br>이 페이지는 <b>2026 동대문구 맥주축제 전용</b>으로 구성했습니다.<br><br>· 동대문문화재단 2026 공식 축제 페이지<br><a href="https://www.ddmac.or.kr/sub09/sub02.php?type=view&uid=9389" target="_blank">동대문문화재단 공식 축제 페이지</a><br><br>· 사용자가 제공한 참고 블로그<br><a href="https://blog.naver.com/kd_1577/224374092821" target="_blank">네이버 블로그 참고 링크</a></div>
-<div class="footer">2026 동대문구 맥주축제 모바일 가이드</div></div></body></html>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">2026 DONGDAEMUN-GU BEER FESTIVAL</div>
+  <h1>2026 동대문구<br>맥주축제</h1>
+  <p>‘같이의 가치’ · 수제맥주 · 푸드트럭 · 공연 · 영화 · 체험</p>
+  <div class="bigdate">2026. 8. 28.(금) ~ 8. 29.(토)</div>
+  <div class="quick">
+    <div><small>운영시간</small><b>17:00 ~ 22:00</b></div>
+    <div><small>입장료</small><b>무료</b></div>
+    <div><small>장소</small><b>장안1수변공원</b></div>
+    <div><small>문의</small><b>02-3291-5506</b></div>
+  </div>
+</header>
+
+<nav class="nav">
+  <a href="#new2026">2026 핵심</a>
+  <a href="#basic">기본정보</a>
+  <a href="#schedule">공연</a>
+  <a href="#zones">공간구성</a>
+  <a href="#movie">영화·체험</a>
+  <a href="#beer">맥주·먹거리</a>
+  <a href="#parking">주차·교통</a>
+  <a href="#tips2026">현장팁</a>
+  <a href="#rules">유의사항</a>
+</nav>
+
+<section class="section" id="new2026">
+  <h2>🔥 2026년 핵심 업데이트</h2>
+  <p class="lead">최근 공개된 동대문구·축제 운영 자료 기준</p>
+
+  <div class="grid">
+    <div class="info">
+      <small>올해 개최 횟수</small>
+      <b>제3회 동대문구 맥주축제</b>
+    </div>
+    <div class="info">
+      <small>행사계획 규모</small>
+      <b>약 3만 명 방문 규모</b>
+    </div>
+    <div class="info">
+      <small>2026 행사 공간</small>
+      <b>전년 대비 약 2배 확대</b>
+    </div>
+    <div class="info">
+      <small>브루어리·푸드트럭</small>
+      <b>전년 대비 약 2배 확대</b>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:10px">
+    <b style="font-size:16px">📱 푸드트럭 QR코드 주문 시스템 도입</b>
+    <p style="font-size:12.5px;color:#566174;margin:7px 0 0">
+      2026년에는 푸드트럭 앞에서 오래 줄을 서는 불편을 줄이기 위해
+      <b>QR코드를 이용한 모바일 주문 시스템</b>을 새로 도입합니다.
+      현장에서 QR을 스캔해 메뉴를 확인하고 주문한 뒤, 음식이 준비되면 픽업하는 방식으로 안내되고 있습니다.
+    </p>
+  </div>
+
+  <div class="notice green">
+    <b>이번 축제의 방향:</b> 슬로건은 <b>‘같이의 가치’</b>.
+    단순히 맥주를 마시는 행사보다 가족·친구·연인, 지역 주민과 외국인 방문객까지
+    함께 즐기는 <b>수변 문화축제</b> 성격으로 규모와 콘텐츠를 확대했습니다.
+  </div>
+</section>
+
+<section class="section" id="basic">
+  <h2>📌 축제 기본정보</h2>
+  <div class="grid">
+    <div class="info"><small>기간</small><b>8월 28일(금) ~ 29일(토)</b></div>
+    <div class="info"><small>시간</small><b>17:00 ~ 22:00</b></div>
+    <div class="info"><small>관람료</small><b>입장 무료</b></div>
+    <div class="info"><small>관람연령</small><b>전 연령</b></div>
+    <div class="info full"><small>장소</small><b>장안1수변공원 일대 · 서울특별시 동대문구 장안동 24-1 일대</b></div>
+    <div class="info full"><small>내비게이션 검색</small><b>“장안1수변공원”</b></div>
+  </div>
+
+  <div class="card" style="margin-top:10px">
+    <span class="badge">입장</span>
+    <div class="free">무료</div>
+    <div style="font-size:12.5px;color:#5f6878">
+      행사장 입장은 무료이며 <b>맥주와 음식은 각 부스에서 별도 구매</b>합니다.
+      브루어리 주류 판매는 만 19세 이상만 가능합니다.
+    </div>
+  </div>
+</section>
+
+<section class="section" id="schedule">
+  <h2>🎤 메인무대 타임테이블</h2>
+  <p class="lead">공식 2026 행사 포스터 기준</p>
+
+  <div class="schedule">
+    <div class="day">
+      <h3>DAY 1 · 8/28 금요일</h3>
+      <div class="row"><div class="time">19:00</div><div class="act"><b>온수</b><span>보컬</span></div></div>
+      <div class="row"><div class="time">19:30</div><div class="act"><b>개막식</b><span>개막 프로그램</span></div></div>
+      <div class="row"><div class="time">20:00</div><div class="act"><b>박유라 재즈밴드</b><span>재즈</span></div></div>
+      <div class="row"><div class="time">20:30</div><div class="act"><b>미선레나타</b><span>재즈 · 20:30~21:00 구간</span></div></div>
+      <div class="row"><div class="time">21:30</div><div class="act"><b>감성골목</b><span>밴드</span></div></div>
+    </div>
+
+    <div class="day">
+      <h3>DAY 2 · 8/29 토요일</h3>
+      <div class="row"><div class="time">19:00</div><div class="act"><b>박명현</b><span>첼로</span></div></div>
+      <div class="row"><div class="time">19:30</div><div class="act"><b>트라움</b><span>현악 4중주</span></div></div>
+      <div class="row"><div class="time">20:00</div><div class="act"><b>박송인 앤 프렌즈</b><span>재즈</span></div></div>
+      <div class="row"><div class="time">20:30</div><div class="act"><b>세룰리안 블루</b><span>재즈</span></div></div>
+      <div class="row"><div class="time">21:00</div><div class="act"><b>백찬영 트리오</b><span>하모니카</span></div></div>
+      <div class="row"><div class="time">21:30</div><div class="act"><b>조준형 퀸텟</b><span>재즈</span></div></div>
+    </div>
+  </div>
+
+  <div class="notice">
+    축제 전체 운영시간은 17:00~22:00이며, 위 표는 <b>메인무대 공연 프로그램</b>입니다.
+    기상 및 현장 상황에 따라 일부 프로그램은 변경될 수 있습니다.
+  </div>
+</section>
+
+<section class="section" id="zones">
+  <h2>🗺️ 축제장 구성</h2>
+  <div class="zone-grid">
+    <div class="zone"><b>🍺 브루 & 푸드 스트리트</b><p>수제맥주 브루어리 20개 · 푸드트럭 20개</p></div>
+    <div class="zone"><b>🍽️ 비어 테라스존</b><p>자율 돗자리존 · 취식 및 휴식 공간</p></div>
+    <div class="zone"><b>🎵 메인 스테이지존</b><p>메인무대 · 관람 취식존</p></div>
+    <div class="zone"><b>🎬 미드나잇 콘텐츠존</b><p>무성영화관 · 캠핑 휴게존 · 관람 취식존</p></div>
+    <div class="zone"><b>🤝 웰컴 플레이존</b><p>유관기관 운영부스 · 버블포토존 · 취식존</p></div>
+    <div class="zone"><b>🎮 체험 프로그램</b><p>게임 및 현장 이벤트 6종</p></div>
+    <div class="zone"><b>ℹ️ 종합안내소</b><p>성인인증 팔찌 배부 · 협찬품 지급</p></div>
+    <div class="zone"><b>➕ 운영본부 / 의료부스</b><p>축제 운영 및 의료 지원</p></div>
+  </div>
+</section>
+
+<section class="section" id="movie">
+  <h2>🎬 무성영화 & 체험 프로그램</h2>
+  <div class="card">
+    <small style="color:#667085;font-weight:800">미드나잇 무성영화관</small>
+    <div style="font-size:18px;font-weight:950;margin-top:3px">18:00 ~ 22:00</div>
+    <div style="margin-top:9px;font-size:13px">
+      찰리 채플린 <b>〈모던 타임즈 Modern Times〉</b> ·
+      <b>〈황금광 시대 The Gold Rush〉</b>
+    </div>
+  </div>
+
+  <div class="pills" style="margin-top:10px">
+    <span class="pill">🎯 다트 게임</span>
+    <span class="pill">⭕ 병맥주 링토스</span>
+    <span class="pill">🌿 석고방향제 만들기</span>
+    <span class="pill">🏓 비어퐁 게임</span>
+    <span class="pill">🥫 비어캔 컬링</span>
+    <span class="pill">⏱️ 타임워치 이벤트</span>
+  </div>
+</section>
+
+<section class="section" id="beer">
+  <h2>🍺 맥주 & 먹거리</h2>
+  <div class="grid">
+    <div class="info"><small>브루어리</small><b>20개 참여</b></div>
+    <div class="info"><small>푸드트럭</small><b>20개 참여</b></div>
+  </div>
+
+  <div class="card" style="margin-top:10px">
+    <b style="font-size:14px">포스터에서 확인되는 참여 브루어리</b>
+    <div style="font-size:12px;color:#566174;margin-top:8px">
+      댄싱사이더 · 더랜치브루잉 · 더테이블브루잉컴퍼니 · 동두천브루어리 ·
+      라인도이치 브루어리 · 매직트리브루어리 · 메즈나인 브루잉컴퍼니 ·
+      버블케미스트리 · 보글보글브루어리 · 브로이하우스 바네하임 ·
+      블루웨일브루하우스 · 속초맥주크래프트루트 · 아리랑브루어리 ·
+      아트몬스터 · 앰비션 브루어리 · 와일드캣브루잉 · 제이씨브루어리 ·
+      크래머리 · 히든트랙브루잉 등
+    </div>
+  </div>
+
+  <div class="notice green">
+    푸드트럭은 스테이크·새우·츄러스·타코·피자·치킨·떡볶이·꼬치·튀김·음료 등
+    다양한 메뉴가 구성되어 있습니다. <b>현장 판매가격은 부스별 상이</b>합니다.
+  </div>
+
+  <div class="card" style="margin-top:10px">
+    <b style="font-size:14px">🌏 2026 추가 프로그램</b>
+    <ul class="list" style="margin-top:8px">
+      <li><b>문화교류 홍보부스:</b> 동대문구 이주배경 주민과 외국인 유학생 등이 참여해 여러 문화를 소개하는 프로그램이 운영될 예정입니다.</li>
+      <li><b>지역 예술인 기부 프로젝트:</b> 다트 게임과 연계한 소액기부 프로그램을 운영하며, 모금액은 지역 예술인 창작활동 지원에 활용될 예정입니다.</li>
+      <li><b>대용량 맥주 판매:</b> 여러 명이 함께 방문하는 관람객을 위한 대용량 맥주 판매도 준비됩니다.</li>
+      <li><b>협찬 이벤트:</b> 공개된 행사 안내에 따르면 맥심 T.O.P와 컨디션 등이 협찬사로 참여합니다. 현장 지급 여부·수량은 당일 운영 상황에 따라 달라질 수 있습니다.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section" id="parking">
+  <h2>🚗 주차 & 대중교통</h2>
+  <div class="notice red">
+    <b>2026 공식 포스터: 행사장 내 주차장 없음.</b><br>
+    음주 행사 특성상 공식 안내에서도 대중교통 이용을 권장합니다.
+  </div>
+
+  <div class="transport" style="margin-top:10px">
+    <div class="item">
+      <h3>🚇 5호선 장한평역에서 도보</h3>
+      <p>동일 장소의 공식 교통 안내 기준, <b>3·4번 출구에서 도보 약 20분</b> 정도입니다.</p>
+    </div>
+    <div class="item">
+      <h3>🚌 장한평역 → 버스 환승</h3>
+      <p><b>장한평역 2번 출구 → 2112 또는 2233번 → ‘구민회관앞’ 하차 → 도보 약 5분</b> 안내가 있습니다.</p>
+    </div>
+    <div class="item">
+      <h3>📍 위치 참고</h3>
+      <p>장안1수변공원은 중랑천변에 있으며, 내비게이션에서는 <b>“장안1수변공원”</b>으로 검색하는 것이 가장 안전합니다.</p>
+    </div>
+  </div>
+
+  <div class="btns">
+    <a class="btn" href="https://map.naver.com/p/search/%EC%9E%A5%EC%95%881%EC%88%98%EB%B3%80%EA%B3%B5%EC%9B%90" target="_blank" rel="noopener">네이버지도 검색</a>
+    <a class="btn" href="https://map.kakao.com/?q=%EC%9E%A5%EC%95%881%EC%88%98%EB%B3%80%EA%B3%B5%EC%9B%90" target="_blank" rel="noopener">카카오맵 검색</a>
+  </div>
+
+  <div class="notice blue">
+    과거 장안1수변공원 다른 행사에서 임시주차장을 운영한 사례가 있지만,
+    <b>2026 동대문구 맥주축제 공식 안내에는 주차장 미운영으로 명시</b>되어 있으므로
+    임시주차가 있을 것으로 보고 차량을 가져가는 것은 권하지 않습니다.
+  </div>
+</section>
+
+<section class="section" id="tips2026">
+  <h2>💡 현장에서 편하게 즐기는 팁</h2>
+  <div class="card">
+    <ul class="list">
+      <li><b>17시 초반 입장 추천:</b> 공연은 저녁부터 본격적으로 시작하므로, 일찍 도착하면 맥주·푸드·체험존을 비교적 여유롭게 둘러볼 수 있습니다.</li>
+      <li><b>QR 주문 대비:</b> 푸드트럭 모바일 주문이 도입되므로 스마트폰 배터리를 충분히 충전해 가는 것이 좋습니다.</li>
+      <li><b>신분증은 꼭 챙기기:</b> 주류 구매 전 성인 인증 팔찌가 필요합니다.</li>
+      <li><b>중랑천 야외 행사:</b> 오래 머무를 예정이면 얇은 돗자리·휴대용 보조배터리·벌레기피제 정도가 실용적입니다.</li>
+      <li><b>귀가 계획 미리 세우기:</b> 행사장 주차장이 없고 맥주 행사이므로 장한평역 및 버스 이용을 우선 추천합니다.</li>
+    </ul>
+  </div>
+</section>
+
+<section class="section" id="rules">
+  <h2>⚠️ 공식 유의사항</h2>
+  <div class="card">
+    <ol class="list">
+      <li>축제 입·퇴장 시간은 행사 운영시간과 동일합니다.</li>
+      <li>안전하고 원활한 운영을 위해 현장 안내요원의 안내에 협조해야 합니다.</li>
+      <li>주류 구매 시 신분증 검사를 통한 <b>성인 인증 팔찌</b>가 필요합니다.</li>
+      <li><b>만 19세 미만 미성년자에게 주류를 판매하거나 제공하지 않습니다.</b></li>
+      <li>행사장 내 <b>반려동물 출입 금지</b>입니다.</li>
+      <li>축제장 전체가 <b>금연구역</b>이며 궐련형 전자담배를 포함해 흡연할 수 없습니다.</li>
+      <li>과도한 음주·고성방가 등 다른 방문객에게 불편을 주는 행동은 삼가야 합니다.</li>
+      <li><b>행사장 내 주차장이 마련되어 있지 않습니다.</b></li>
+      <li>쓰레기는 지정된 장소에 분리배출하고 사용한 자리는 정리해 주세요.</li>
+      <li>기상 및 현장 상황에 따라 일부 프로그램·운영사항이 변경될 수 있습니다.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="section">
+  <h2>✅ 방문 전에 이것만</h2>
+  <div class="card">
+    <ul class="list">
+      <li><b>신분증 필수:</b> 맥주 구매 시 성인 인증 팔찌 발급에 필요.</li>
+      <li><b>차보다는 대중교통:</b> 행사장 주차장 없음.</li>
+      <li><b>공연 목적이면:</b> 메인 공연은 19:00부터 시작.</li>
+      <li><b>일찍 가면:</b> 17시부터 브루어리·푸드·체험존 이용 가능.</li>
+      <li><b>영화도 볼 경우:</b> 무성영화관은 18:00~22:00 운영.</li>
+      <li><b>가족 방문 가능:</b> 축제 자체는 전 연령 관람 가능, 주류만 성인 판매.</li>
+    </ul>
+  </div>
+</section>
+
+<div class="source">
+  <b>자료 확인 기준: 2026-08-21</b><br><br>
+  이 페이지는 <b>2026 동대문구 맥주축제 전용</b>으로 구성했습니다.<br><br>
+  · 동대문문화재단 2026 공식 축제 페이지<br>
+  <a href="https://www.ddmac.or.kr/sub09/sub02.php?type=view&uid=9389" target="_blank">https://www.ddmac.or.kr/sub09/sub02.php?type=view&uid=9389</a><br><br>
+  · 동대문구청 2026 월별 행사 일정<br>
+  <a href="https://www.ddm.go.kr/www/selectSchdulWebView.do?key=3896&schdulNo=10953&searchDay=01&searchMonth=08&searchYear=2026" target="_blank">https://www.ddm.go.kr/www/selectSchdulWebView.do?key=3896&schdulNo=10953&searchDay=01&searchMonth=08&searchYear=2026</a><br><br>
+  · 장안1수변공원 대중교통 참고: 서울문화포털 동일 장소 축제 안내<br>
+  <a href="https://culture.seoul.go.kr/culture/festival/borough/view.do?festivalId=338&menuNo=200029&pageIndex=3" target="_blank">https://culture.seoul.go.kr/culture/festival/borough/view.do?festivalId=338&menuNo=200029&pageIndex=3</a>
+  <br><br>
+  · 대한민국 구석구석 2026 축제정보 — 위치(장안동 24-1), 가격·프로그램<br>
+  <a href="https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do?fstvlCntntsId=190d3058-f265-4025-a720-94b58de5eadb" target="_blank">대한민국 구석구석 축제정보</a><br><br>
+  · 2026.08.18 동대문구 축제 최신 보도 — 제3회, 전년 대비 약 2배 확대, 푸드트럭 QR주문<br>
+  <a href="https://www.yna.co.kr/amp/view/AKR20260818016200004" target="_blank">연합뉴스 보도</a><br><br>
+  · 사용자가 제공한 참고 블로그<br>
+  <a href="https://blog.naver.com/kd_1577/224374092821" target="_blank">네이버 블로그 참고 링크</a>
+
+</div>
+
+<div class="footer">2026 동대문구 맥주축제 모바일 가이드</div>
+
+</div>
+</body>
+</html>
