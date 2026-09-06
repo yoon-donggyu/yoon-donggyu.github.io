@@ -1,210 +1,24 @@
 <!doctype html>
-<html lang="ko">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0b0d10">
-<title>서울 정비사업 Pocket</title>
-<style>
-:root{--bg:#0b0d10;--card:#15181d;--card2:#101318;--line:#282e36;--text:#f5f7f9;--muted:#9aa4ae;--blue:#7da9ff;--green:#73d397;--amber:#f3c96e;--red:#ff8b86;--shadow:0 12px 34px rgba(0,0,0,.18)}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans KR",sans-serif}
-button,input{font:inherit}.app{max-width:780px;margin:auto;padding:14px 14px 110px}.hero{padding:12px 2px 8px}.eyebrow{font-size:11px;font-weight:800;letter-spacing:.09em;color:var(--blue)}
-h1{font-size:28px;letter-spacing:-.045em;line-height:1.15;margin:7px 0}.update,.mini{font-size:11px;color:var(--muted);line-height:1.55}.offline{display:none;margin-top:9px;padding:10px 12px;border-radius:13px;background:#402727;border:1px solid #6a3936;color:#ffd8d5;font-size:12px}
-.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin:12px 0}.stat{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:11px 9px;box-shadow:var(--shadow)}.stat b{font-size:21px;display:block;letter-spacing:-.04em}.stat span{font-size:10px;color:var(--muted)}
-.toolstrip{position:sticky;top:0;z-index:8;margin:6px -14px 12px;padding:8px 14px;background:rgba(11,13,16,.9);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.04)}.toolrow{display:flex;gap:7px;overflow:auto;scrollbar-width:none}.toolrow::-webkit-scrollbar{display:none}
-.tool{white-space:nowrap;border:1px solid var(--line);background:#11151a;color:#cfd5dc;border-radius:999px;padding:8px 11px;font-size:12px}.tool.active{background:#f4f6f8;color:#111;border-color:#f4f6f8;font-weight:800}
-.searchbox{display:flex;gap:8px;margin-top:8px}.searchbox input{width:100%;background:#101419;border:1px solid var(--line);color:var(--text);border-radius:13px;padding:11px 12px;outline:none}.searchbox input:focus{border-color:#5e7fb6}
-.section{margin-top:17px}.section-title{display:flex;justify-content:space-between;align-items:end;margin:0 2px 8px}.section-title h2{font-size:18px;margin:0;letter-spacing:-.025em}.section-title small{font-size:11px;color:var(--muted)}
-.card{background:var(--card);border:1px solid var(--line);border-radius:19px;padding:15px;margin-bottom:9px;box-shadow:var(--shadow)}.hero-card{background:linear-gradient(180deg,#182130,#14181d)}
-.row{display:flex;gap:10px;align-items:flex-start}.rank{min-width:28px;height:28px;display:grid;place-items:center;background:#222831;border-radius:9px;font-size:12px;font-weight:900}.title{font-weight:850;letter-spacing:-.02em;line-height:1.35}.meta{font-size:11px;color:var(--muted);margin-top:4px}.desc{font-size:13px;line-height:1.58;color:#dce2e8;margin-top:8px}
-.badge{display:inline-flex;align-items:center;padding:4px 7px;border-radius:999px;background:#222831;font-size:10px;font-weight:850;margin-right:5px}.b-red{color:var(--red)}.b-green{color:var(--green)}.b-amber{color:var(--amber)}.b-blue{color:var(--blue)}
-.kv{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:10px}.kv>div{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:9px}.kv small{display:block;color:var(--muted);font-size:10px;margin-bottom:3px}.kv b{font-size:13px}
-.progress{height:7px;background:#22272e;border-radius:999px;overflow:hidden;margin-top:10px}.progress i{height:100%;display:block;background:linear-gradient(90deg,#648cf4,#9fc0ff)}.stage-label{display:flex;justify-content:space-between;margin-top:5px;font-size:10px;color:var(--muted)}
-.btns{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.btn{border:1px solid var(--line);background:#101419;color:var(--blue);border-radius:11px;padding:8px 10px;font-size:11px;text-decoration:none}.btn.primary{background:#edf3ff;color:#17243b;border-color:#edf3ff;font-weight:800}
-.selectline{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-top:10px}.compare-check{display:flex;align-items:center;gap:6px;color:#cdd4dc;font-size:11px}.compare-check input{accent-color:#7da9ff}
-.rankgrid{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}.score{font-size:21px;font-weight:900}.score small{font-size:10px;color:var(--muted);font-weight:600}.barrow{display:grid;grid-template-columns:58px 1fr 34px;align-items:center;gap:7px;margin-top:7px;font-size:11px;color:var(--muted)}.bar{height:6px;background:#22272e;border-radius:99px;overflow:hidden}.bar i{display:block;height:100%;background:#7da9ff}
-.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:15px}.compact{width:100%;border-collapse:collapse;font-size:11px;min-width:580px}.compact th,.compact td{text-align:left;padding:9px 8px;border-bottom:1px solid var(--line);vertical-align:top}.compact th{color:var(--muted);font-weight:650;background:#11151a;position:sticky;top:0}.compact tr:last-child td{border-bottom:0}
-.empty{padding:14px;border:1px dashed var(--line);border-radius:14px;color:var(--muted);font-size:12px;line-height:1.55}.callout{border-left:3px solid var(--blue);padding-left:11px}.hidden{display:none!important}
-.bottom{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:min(780px,100%);display:grid;grid-template-columns:repeat(5,1fr);padding:7px 8px calc(7px + env(safe-area-inset-bottom));background:rgba(13,15,18,.94);backdrop-filter:blur(18px);border-top:1px solid var(--line);z-index:20}.bottom a{text-align:center;text-decoration:none;color:#aeb6bf;font-size:10px;padding:5px}.bottom b{font-size:17px;display:block;margin-bottom:1px}
-@media(max-width:560px){.stats{grid-template-columns:repeat(3,1fr)}.stat:nth-child(4),.stat:nth-child(5){grid-column:span 1}.hero h1{font-size:26px}.kv{grid-template-columns:1fr 1fr}}
-</style>
-</head>
-<body>
-<main class="app" id="today">
-<section class="hero">
-<div class="eyebrow">SEOUL REDEVELOPMENT POCKET · DATA FIRST</div>
-<h1>서울 정비사업, 비교하고 판단하기</h1>
-<div class="update">UI 개편 2026-09-06 · 마지막 공식 데이터 기준 2026-09-05 · 미확인 값은 점수화하지 않음</div>
-<div id="offline" class="offline">오프라인 상태입니다. 마지막 저장 데이터를 표시하고 있습니다.</div>
+<html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#0b0d10"><title>서울 정비사업 Pocket</title><style>
+:root{--bg:#0b0d10;--card:#15181d;--card2:#101318;--line:#282e36;--text:#f5f7f9;--muted:#9aa4ae;--blue:#7da9ff;--green:#73d397;--amber:#f3c96e;--red:#ff8b86}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",sans-serif}.app{max-width:780px;margin:auto;padding:15px 14px 100px}.eyebrow{font-size:11px;font-weight:800;letter-spacing:.08em;color:var(--blue)}h1{font-size:27px;margin:7px 0 5px;letter-spacing:-.04em}.muted{color:var(--muted);font-size:11px;line-height:1.55}.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin:14px 0}.stat,.card{background:var(--card);border:1px solid var(--line);border-radius:17px}.stat{padding:11px 9px}.stat b{display:block;font-size:21px}.stat span{font-size:10px;color:var(--muted)}.section{margin-top:18px}.head{display:flex;justify-content:space-between;align-items:end;margin:0 2px 8px}.head h2{font-size:18px;margin:0}.head small{font-size:10px;color:var(--muted)}.card{padding:14px;margin-bottom:9px}.row{display:flex;gap:10px}.rank{width:28px;height:28px;display:grid;place-items:center;border-radius:9px;background:#222831;font-weight:900;font-size:12px;flex:0 0 auto}.title{font-weight:850;line-height:1.35}.meta{font-size:11px;color:var(--muted);margin-top:4px}.desc{font-size:13px;line-height:1.55;color:#dde3e9;margin-top:8px}.badge{display:inline-flex;padding:4px 7px;border-radius:999px;background:#222831;font-size:10px;font-weight:850;margin-right:5px}.red{color:var(--red)}.green{color:var(--green)}.amber{color:var(--amber)}.blue{color:var(--blue)}.kv{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:10px}.kv>div{background:var(--card2);border:1px solid var(--line);border-radius:12px;padding:9px}.kv small{display:block;color:var(--muted);font-size:10px;margin-bottom:3px}.kv b{font-size:12px}.progress{height:7px;background:#22272e;border-radius:99px;overflow:hidden;margin-top:10px}.progress i{display:block;height:100%;background:linear-gradient(90deg,#6b8ff5,#9dbdff)}.btns{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}.btn{border:1px solid var(--line);background:#101419;color:var(--blue);border-radius:10px;padding:8px 9px;font-size:11px;text-decoration:none}.tablewrap{overflow:auto;border:1px solid var(--line);border-radius:14px}.tbl{width:100%;border-collapse:collapse;min-width:610px;font-size:11px}.tbl th,.tbl td{padding:9px 8px;border-bottom:1px solid var(--line);text-align:left}.tbl th{color:var(--muted);background:#11151a}.note{padding:13px;border:1px dashed var(--line);border-radius:14px;color:var(--muted);font-size:12px;line-height:1.55}.bottom{position:fixed;left:50%;bottom:0;transform:translateX(-50%);width:min(780px,100%);display:grid;grid-template-columns:repeat(5,1fr);background:rgba(13,15,18,.95);backdrop-filter:blur(18px);border-top:1px solid var(--line);padding:8px 6px calc(8px + env(safe-area-inset-bottom))}.bottom a{text-align:center;color:#aeb6bf;text-decoration:none;font-size:10px}.bottom b{display:block;font-size:17px}@media(max-width:560px){.stats{grid-template-columns:repeat(3,1fr)}.stats .stat:nth-child(4),.stats .stat:nth-child(5){grid-column:span 1}.kv{grid-template-columns:1fr 1fr}}
+</style></head><body><main class="app" id="today"><div class="eyebrow">SEOUL REDEVELOPMENT POCKET · OFFICIAL DATA FIRST</div><h1>서울 정비사업, 오늘 바뀐 것부터</h1><div class="muted">업데이트 2026-09-07 · 공식자료 확인 기준 2026-09-07 · 미확인 숫자는 임의 산정하지 않음</div>
+<section class="stats"><div class="stat"><b>6</b><span>관심사업지</span></div><div class="stat"><b>2</b><span>상태 정정</span></div><div class="stat"><b>4</b><span>D-7 이내</span></div><div class="stat"><b>4</b><span>신통기획 확정</span></div><div class="stat"><b>0</b><span>오늘 신규 정책</span></div></section>
+<section class="section"><div class="head"><h2>오늘의 변경</h2><small>우선 확인 순서</small></div>
+<div class="card"><div class="row"><div class="rank">1</div><div><div class="title"><span class="badge red">D-2</span>신림5구역 입찰 마감</div><div class="meta">2026-09-09 16:00 · 정비기반시설(도로) 협력업체</div><div class="desc">오늘 기준 가장 가까운 공식 마감입니다. 제출조건은 정보몽땅 원문 최종 확인.</div><div class="btns"><a class="btn" href="https://cleanup.seoul.go.kr/cleanup/bidpblanc/lscr.do" target="_blank" rel="noopener">공식 입찰공고</a></div></div></div></div>
+<div class="card"><div class="row"><div class="rank">2</div><div><div class="title"><span class="badge red">D-3</span>9월 10일 입찰 집중</div><div class="meta">고척동253 · 상계1구역 · 잠실5단지 · 목동7단지 등</div><div class="desc">같은 날 오전 10시~오후 3시 사이 마감이 집중됩니다. 일정별 시간 확인이 필요합니다.</div></div></div></div>
+<div class="card"><div class="row"><div class="rank">3</div><div><div class="title"><span class="badge green">정정</span>방학동 638·641 신통기획 확정</div><div class="meta">서울시 가이드라인 확정 · 2026-07-31 수정</div><div class="desc">기존 ‘확인필요/신통 추적’에서 ‘신통기획 확정’으로 상태를 올렸습니다. 최고 35층, 약 2,800세대 계획이 공식 아카이브에 확인됩니다.</div></div></div></div>
+<div class="card"><div class="row"><div class="rank">4</div><div><div class="title"><span class="badge green">정정</span>신림4구역 신통기획 확정</div><div class="meta">2026-04-26 발표 · 정비계획 입안 단계 추적</div><div class="desc">기존 ‘추진위 준비’ 표시는 최신 공식자료와 맞지 않아 ‘신통기획 확정 → 정비계획 입안 추적’으로 정정했습니다.</div></div></div></div>
 </section>
-
-<section class="stats">
-<div class="stat"><b>6</b><span>핵심 관심사업지</span></div>
-<div class="stat"><b>0</b><span>신규 단계변경</span></div>
-<div class="stat"><b>5</b><span>D-9 이내</span></div>
-<div class="stat"><b>2</b><span>구역지정 확인</span></div>
-<div class="stat"><b>4</b><span>추적·확인필요</span></div>
+<section class="section" id="sites"><div class="head"><h2>관심사업지</h2><small>현재 공식 단계</small></div>
+<div class="card"><div class="title">미아동 258 일대 <span class="badge blue">신속통합기획</span></div><div class="meta">강북구 · 가이드라인 확정</div><div class="progress"><i style="width:20%"></i></div><div class="kv"><div><small>현재 단계</small><b>신통기획안 확정</b></div><div><small>다음 확인</small><b>정비계획 입안/구역지정</b></div><div><small>공식 업데이트</small><b>2026-06-02</b></div><div><small>권리산정기준일</small><b>확인필요</b></div></div><div class="btns"><a class="btn" href="https://news.seoul.go.kr/citybuild/archives/530966" target="_blank" rel="noopener">서울시 공식자료</a></div></div>
+<div class="card"><div class="title">번동 148 일대 <span class="badge blue">신속통합기획</span></div><div class="meta">강북구 · 가이드라인 확정</div><div class="progress"><i style="width:20%"></i></div><div class="kv"><div><small>현재 단계</small><b>신통기획안 확정</b></div><div><small>다음 확인</small><b>정비계획 입안/구역지정</b></div><div><small>공식 업데이트</small><b>2026-06-02</b></div><div><small>권리산정기준일</small><b>확인필요</b></div></div></div>
+<div class="card"><div class="title">방학동 638 일대 <span class="badge green">기획완료</span></div><div class="meta">도봉구 · 신통기획 확정</div><div class="progress"><i style="width:20%"></i></div><div class="kv"><div><small>현재 단계</small><b>신통기획안 확정</b></div><div><small>계획 규모</small><b>약 986세대</b></div><div><small>최고층</small><b>35층</b></div><div><small>권리산정기준일</small><b>확인필요</b></div></div><div class="btns"><a class="btn" href="https://news.seoul.go.kr/citybuild/archives/541398" target="_blank" rel="noopener">서울시 공식자료</a></div></div>
+<div class="card"><div class="title">방학동 641 일대 <span class="badge green">기획완료</span></div><div class="meta">도봉구 · 신통기획 확정</div><div class="progress"><i style="width:20%"></i></div><div class="kv"><div><small>현재 단계</small><b>신통기획안 확정</b></div><div><small>계획 규모</small><b>약 1,813세대</b></div><div><small>최고층</small><b>35층</b></div><div><small>권리산정기준일</small><b>확인필요</b></div></div></div>
+<div class="card"><div class="title">신림4구역 <span class="badge green">기획완료</span></div><div class="meta">관악구 · 신통기획 확정</div><div class="progress"><i style="width:20%"></i></div><div class="kv"><div><small>현재 단계</small><b>신통기획안 확정</b></div><div><small>다음 단계</small><b>정비계획 입안/주민공람</b></div><div><small>계획 규모</small><b>992세대</b></div><div><small>권리산정기준일</small><b>확인필요</b></div></div></div>
+<div class="card"><div class="title">구로동 466 일대 <span class="badge amber">추적</span></div><div class="meta">구로구 · 공식 단계 재확인 필요</div><div class="progress"><i style="width:10%"></i></div><div class="kv"><div><small>현재 단계</small><b>확인필요</b></div><div><small>다음 확인</small><b>정비계획 공식절차</b></div><div><small>실거래</small><b>연동대기</b></div><div><small>권리산정기준일</small><b>확인필요</b></div></div></div>
 </section>
-
-<div class="toolstrip">
-<div class="toolrow" id="modeTabs">
-<button class="tool active" data-mode="today">오늘</button>
-<button class="tool" data-mode="ranking">단계랭킹</button>
-<button class="tool" data-mode="compare">비교</button>
-<button class="tool" data-mode="report">리포트</button>
-</div>
-<div class="searchbox"><input id="searchInput" placeholder="사업지·구·유형 검색 (예: 미아, 도봉, 신통)"></div>
-<div class="toolrow" style="margin-top:7px" id="filterTabs">
-<button class="tool active" data-filter="all">전체</button>
-<button class="tool" data-filter="강북구">강북구</button>
-<button class="tool" data-filter="도봉구">도봉구</button>
-<button class="tool" data-filter="관악구">관악구</button>
-<button class="tool" data-filter="구로구">구로구</button>
-<button class="tool" data-filter="확인필요">확인필요</button>
-</div>
-</div>
-
-<section id="view-today" class="view">
-<section class="section">
-<div class="section-title"><h2>지금 먼저 확인</h2><small>행동 우선순위</small></div>
-<div class="card hero-card"><div class="row"><div class="rank">1</div><div><div class="title"><span class="badge b-red">D-4</span>9월 10일 마감 입찰 집중</div><div class="meta">고척동 253 · 상계1구역 · 잠실5단지 등</div><div class="desc">현재 저장된 공식 일정 중 가장 가까운 마감군입니다. 원문에서 세부 시간과 제출조건을 최종 확인하세요.</div><div class="btns"><a class="btn primary" href="https://cleanup.seoul.go.kr/cleanup/bidpblanc/lscr.do" target="_blank" rel="noopener">공식 입찰공고</a></div></div></div></div>
-<div class="card"><div class="row"><div class="rank">2</div><div><div class="title"><span class="badge b-red">D-5</span>역촌1구역 상가 매각입찰</div><div class="meta">2026-09-11 15:00</div><div class="desc">마감시간이 확인된 일정입니다. D-day는 오늘(9/6) 기준 자동 계산값입니다.</div></div></div></div>
-<div class="card"><div class="row"><div class="rank">3</div><div><div class="title"><span class="badge b-red">D-8</span>금호21구역 협력업체 입찰</div><div class="meta">2026-09-14 10:00</div><div class="desc">측량 및 임대주택 유형별 매매가격 산정 관련 협력업체 선정 일정입니다.</div></div></div></div>
-</section>
-
-<section class="section" id="sites">
-<div class="section-title"><h2>관심사업지</h2><small>검색·필터·비교 가능</small></div>
-<div id="siteList"></div>
-</section>
-
-<section class="section" id="trade">
-<div class="section-title"><h2>실거래 · 가격</h2><small>종류 분리</small></div>
-<div class="empty"><b>공식 실거래 신규값 미반영</b><br>현재 관심사업지 주변 가격 데이터는 신뢰성 있게 재확인되기 전까지 랭킹·4분면에 사용하지 않습니다. 실거래·호가·가격지수는 별도 데이터셋으로 관리합니다.</div>
-</section>
-
-<section class="section" id="schedule">
-<div class="section-title"><h2>마감 일정</h2><small>가까운 순</small></div>
-<div class="tablewrap"><table class="compact"><thead><tr><th>D-day</th><th>일정</th><th>마감</th><th>상태</th></tr></thead><tbody>
-<tr><td><b>D-4</b></td><td>9/10 입찰 마감군</td><td>9/10 · 세부시간 원문확인</td><td><span class="badge b-red">마감임박</span></td></tr>
-<tr><td><b>D-5</b></td><td>역촌1구역 상가 매각입찰</td><td>9/11 15:00</td><td><span class="badge b-red">마감임박</span></td></tr>
-<tr><td><b>D-8</b></td><td>금호21구역 협력업체 입찰</td><td>9/14 10:00</td><td><span class="badge b-red">마감임박</span></td></tr>
-</tbody></table></div>
-</section>
-</section>
-
-<section id="view-ranking" class="view hidden">
-<section class="section">
-<div class="section-title"><h2>정비사업 단계 랭킹</h2><small>투자추천 아님</small></div>
-<div class="card callout"><div class="title">Realdex 방식에서 가져온 원칙</div><div class="desc">한 화면에서 후보를 정렬하되, 지금은 <b>공식 확인된 행정단계만</b> 정렬합니다. 실거래·사업성 데이터가 쌓이면 별도 지표를 추가하고 근거를 함께 공개합니다.</div></div>
-<div id="rankingList"></div>
-</section>
-<section class="section">
-<div class="section-title"><h2>향후 종합지수</h2><small>데이터 확보 후</small></div>
-<div class="card">
-<div class="barrow"><span>사업진행</span><div class="bar"><i style="width:100%"></i></div><b>우선</b></div>
-<div class="barrow"><span>실거래</span><div class="bar"><i style="width:0%"></i></div><b>대기</b></div>
-<div class="barrow"><span>입지</span><div class="bar"><i style="width:0%"></i></div><b>대기</b></div>
-<div class="barrow"><span>사업성</span><div class="bar"><i style="width:0%"></i></div><b>대기</b></div>
-<div class="mini">근거 없는 70점·80점 같은 숫자는 만들지 않습니다.</div>
-</div>
-</section>
-</section>
-
-<section id="view-compare" class="view hidden">
-<section class="section">
-<div class="section-title"><h2>사업지 비교</h2><small>최대 4개</small></div>
-<div class="card"><div class="desc">관심사업지 카드에서 <b>비교 담기</b>를 선택하면 같은 기준으로 나란히 보여줍니다. Realdex의 비교 UX를 정비사업용으로 단순화했습니다.</div></div>
-<div id="compareEmpty" class="empty">아직 선택한 사업지가 없습니다. ‘오늘 → 관심사업지’에서 최대 4개를 선택하세요.</div>
-<div id="compareWrap" class="tablewrap hidden"><table class="compact"><thead><tr><th>사업지</th><th>지역</th><th>현재단계</th><th>최근 공식변경</th><th>권리산정</th><th>가격데이터</th></tr></thead><tbody id="compareBody"></tbody></table></div>
-</section>
-<section class="section">
-<div class="section-title"><h2>4분면</h2><small>현재 비활성</small></div>
-<div class="empty">가격·사업성 데이터가 충분해지면 <b>사업진행도 × 가격매력</b> 4분면을 활성화합니다. 현재는 축을 채울 공식 데이터가 부족하므로 장식용 차트를 표시하지 않습니다.</div>
-</section>
-</section>
-
-<section id="view-report" class="view hidden">
-<section class="section">
-<div class="section-title"><h2>오늘 리포트</h2><small>판단용 요약</small></div>
-<div class="card hero-card"><div class="title">오늘의 결론</div><div class="desc">관심사업지 자체의 신규 단계변경은 현재 저장 데이터 기준 없습니다. 단기 행동은 9/10~9/14 마감 일정 확인이 우선입니다. 미아동 258·번동 148은 정비구역 지정 상태를 유지하고, 방학동 638·641·구로동 466·신림4구역은 다음 공식 절차를 계속 추적합니다.</div></div>
-<div class="card"><div class="title">데이터 신뢰 원칙</div><div class="desc">① 공식자료 우선 ② 실거래·호가·지수 분리 ③ 미확인 값 미산정 ④ 숫자 점수는 계산근거가 있을 때만 표시 ⑤ 외부 서비스 데이터를 무단 복제하지 않고 원천 공공데이터에서 재구축.</div></div>
-</section>
-<section class="section" id="sources">
-<div class="section-title"><h2>공식자료</h2><small>원문 바로가기</small></div>
-<div class="card"><div class="btns">
-<a class="btn" href="https://cleanup.seoul.go.kr/" target="_blank" rel="noopener">정비사업 정보몽땅</a>
-<a class="btn" href="https://urban.seoul.go.kr/" target="_blank" rel="noopener">서울도시계획포털</a>
-<a class="btn" href="https://www.seoul.go.kr/" target="_blank" rel="noopener">서울시</a>
-<a class="btn" href="https://www.molit.go.kr/" target="_blank" rel="noopener">국토교통부</a>
-<a class="btn" href="https://rt.molit.go.kr/" target="_blank" rel="noopener">실거래가</a>
-</div></div>
-</section>
-</section>
-</main>
-
-<nav class="bottom">
-<a href="#today" data-nav="today"><b>◉</b>오늘</a>
-<a href="#sites" data-nav="today"><b>⌂</b>사업지</a>
-<a href="#trade" data-nav="today"><b>↗</b>실거래</a>
-<a href="#schedule" data-nav="today"><b>◷</b>일정</a>
-<a href="#sources" data-nav="report"><b>▤</b>공식자료</a>
-</nav>
-
-<script>
-const sites=[
-{name:"미아동 258",district:"강북구",type:"신속통합기획",stage:"정비구역 지정",stageNo:4,date:"2026-05-28",status:"유지",rights:"확인필요",price:"연동대기",next:"추진위/사업시행 주체 확인",note:"계획 세대수 4,236세대",source:"https://cleanup.seoul.go.kr/"},
-{name:"번동 148 일대",district:"강북구",type:"신속통합기획",stage:"정비구역 지정",stageNo:4,date:"2026-05-28",status:"유지",rights:"확인필요",price:"연동대기",next:"추진위/사업시행 주체 확인",note:"계획 세대수 3,125세대",source:"https://cleanup.seoul.go.kr/"},
-{name:"방학동 641 일대",district:"도봉구",type:"신속통합기획",stage:"신통 추적",stageNo:2,date:"확인필요",status:"유지",rights:"확인필요",price:"연동대기",next:"정비계획·사업방식 공식자료 확인",note:"구역면적 72,282.6㎡ · 주민설명회 추적",source:"https://cleanup.seoul.go.kr/"},
-{name:"방학동 638",district:"도봉구",type:"신속통합기획",stage:"확인필요",stageNo:1,date:"확인필요",status:"확인필요",rights:"확인필요",price:"연동대기",next:"후보지·정비계획 공식상태 재확인",note:"신규 공식변경 확인 없음",source:"https://cleanup.seoul.go.kr/"},
-{name:"신림4구역",district:"관악구",type:"재개발",stage:"추진위 준비",stageNo:5,date:"2026-08-13",status:"유지",rights:"확인필요",price:"연동대기",next:"추진위 구성/승인",note:"예비 임원 확정 상태 추적",source:"https://cleanup.seoul.go.kr/"},
-{name:"구로동 466 일대",district:"구로구",type:"신속통합기획",stage:"신통 추적",stageNo:2,date:"확인필요",status:"유지",rights:"확인필요",price:"연동대기",next:"정비계획 공식절차 확인",note:"구역면적 63,871㎡",source:"https://cleanup.seoul.go.kr/"}
-];
-const stageNames=["후보지 선정","신통기획안 확정","정비계획 입안/열람","정비구역 지정","추진위","조합설립","사업시행인가","관리처분","이주/철거","착공"];
-let filter="all",query="",selected=new Set();
-function stagePct(n){return Math.max(10,Math.min(100,n*10))}
-function siteCard(s){
- const checked=selected.has(s.name)?"checked":"";
- const badge=s.status==="확인필요"?"b-amber":"b-green";
- return `<article class="card site-card" data-district="${s.district}" data-status="${s.status}" data-search="${(s.name+" "+s.district+" "+s.type+" "+s.stage).toLowerCase()}">
- <div class="title">${s.name} <span class="badge ${badge}">${s.status}</span></div>
- <div class="meta">${s.district} · ${s.type}</div>
- <div class="kv"><div><small>현재 단계</small><b>${s.stage}</b></div><div><small>최근 공식변경</small><b>${s.date}</b></div><div><small>다음 확인</small><b>${s.next}</b></div><div><small>권리산정기준일</small><b>${s.rights}</b></div></div>
- <div class="progress"><i style="width:${stagePct(s.stageNo)}%"></i></div><div class="stage-label"><span>후보지</span><span>${s.stageNo}/10 단계 기준</span><span>착공</span></div>
- <div class="desc">${s.note}</div>
- <div class="selectline"><label class="compare-check"><input type="checkbox" ${checked} onchange="toggleCompare('${s.name}',this.checked)"> 비교 담기</label><a class="btn" href="${s.source}" target="_blank" rel="noopener">공식자료</a></div>
- </article>`;
-}
-function renderSites(){
- const list=sites.filter(s=>(filter==="all"||s.district===filter||s.status===filter)&&(!query||(`${s.name} ${s.district} ${s.type} ${s.stage}`).toLowerCase().includes(query)));
- document.getElementById("siteList").innerHTML=list.length?list.map(siteCard).join(""):`<div class="empty">조건에 맞는 사업지가 없습니다.</div>`;
-}
-function renderRanking(){
- const sorted=[...sites].sort((a,b)=>b.stageNo-a.stageNo||a.name.localeCompare(b.name));
- document.getElementById("rankingList").innerHTML=sorted.map((s,i)=>`<div class="card"><div class="rankgrid"><div><div class="title">${i+1}. ${s.name}</div><div class="meta">${s.district} · ${s.stage} · 최근변경 ${s.date}</div></div><div class="score">${s.stageNo}<small>/10</small></div></div><div class="progress"><i style="width:${stagePct(s.stageNo)}%"></i></div><div class="mini">공식 행정단계 위치만 반영 · 가격/투자 추천 점수 아님</div></div>`).join("");
-}
-function toggleCompare(name,on){
- if(on&&selected.size>=4){alert("비교는 최대 4개까지 가능합니다.");renderSites();return}
- on?selected.add(name):selected.delete(name);renderCompare();
-}
-function renderCompare(){
- const rows=sites.filter(s=>selected.has(s.name));
- const body=document.getElementById("compareBody"),wrap=document.getElementById("compareWrap"),empty=document.getElementById("compareEmpty");
- if(!rows.length){wrap.classList.add("hidden");empty.classList.remove("hidden");return}
- empty.classList.add("hidden");wrap.classList.remove("hidden");
- body.innerHTML=rows.map(s=>`<tr><td><b>${s.name}</b></td><td>${s.district}</td><td>${s.stage}</td><td>${s.date}</td><td>${s.rights}</td><td>${s.price}</td></tr>`).join("");
-}
-function setMode(mode){
- document.querySelectorAll(".view").forEach(v=>v.classList.add("hidden"));
- document.getElementById("view-"+mode).classList.remove("hidden");
- document.querySelectorAll("#modeTabs .tool").forEach(b=>b.classList.toggle("active",b.dataset.mode===mode));
- if(mode==="ranking")renderRanking(); if(mode==="compare")renderCompare(); window.scrollTo({top:0,behavior:"smooth"});
-}
-document.getElementById("modeTabs").addEventListener("click",e=>{if(e.target.dataset.mode)setMode(e.target.dataset.mode)});
-document.getElementById("filterTabs").addEventListener("click",e=>{if(!e.target.dataset.filter)return;filter=e.target.dataset.filter;document.querySelectorAll("#filterTabs .tool").forEach(b=>b.classList.toggle("active",b===e.target));renderSites()});
-document.getElementById("searchInput").addEventListener("input",e=>{query=e.target.value.trim().toLowerCase();renderSites()});
-document.querySelectorAll(".bottom a").forEach(a=>a.addEventListener("click",()=>{const m=a.dataset.nav||"today";setMode(m)}));
-function onlineState(){document.getElementById("offline").style.display=navigator.onLine?"none":"block"}
-addEventListener("online",onlineState);addEventListener("offline",onlineState);onlineState();renderSites();renderRanking();
-</script>
-</body>
-</html>
+<section class="section" id="schedule"><div class="head"><h2>마감 일정</h2><small>오늘 기준</small></div><div class="tablewrap"><table class="tbl"><thead><tr><th>D-day</th><th>사업/공고</th><th>마감</th></tr></thead><tbody><tr><td><b>D-2</b></td><td>신림5구역 도로 협력업체</td><td>9/9 16:00</td></tr><tr><td><b>D-3</b></td><td>고척동253·상계1·잠실5 등</td><td>9/10 10:00~15:00</td></tr><tr><td><b>D-4</b></td><td>역촌1구역 상가 매각</td><td>9/11 15:00</td></tr><tr><td><b>D-7</b></td><td>금호21구역 협력업체</td><td>9/14 10:00</td></tr></tbody></table></div></section>
+<section class="section"><div class="head"><h2>정책 변화</h2><small>최근 7일 공식자료</small></div><div class="note"><b>오늘 새로 반영할 중대 정책변화 없음.</b><br>기존 정책은 유지하되, 새 서울시·국토부 공식 발표가 확인될 때만 상단 ‘오늘의 변경’에 올립니다.</div></section>
+<section class="section" id="trade"><div class="head"><h2>실거래 · 시세</h2><small>데이터 구분</small></div><div class="note"><b>공식 실거래 신규값 연동대기</b><br>실거래 · 호가 · 가격지수를 섞지 않습니다. 신뢰 가능한 신고가 데이터를 확보하기 전까지 0원/0건 또는 임의 추정가를 표시하지 않습니다.</div></section>
+<section class="section" id="official"><div class="head"><h2>공식자료</h2><small>바로가기</small></div><div class="card"><div class="btns"><a class="btn" href="https://cleanup.seoul.go.kr/" target="_blank" rel="noopener">정비사업 정보몽땅</a><a class="btn" href="https://urban.seoul.go.kr/" target="_blank" rel="noopener">서울도시계획포털</a><a class="btn" href="https://news.seoul.go.kr/citybuild/" target="_blank" rel="noopener">서울시 주택자료</a><a class="btn" href="https://www.molit.go.kr/" target="_blank" rel="noopener">국토교통부</a><a class="btn" href="https://rt.molit.go.kr/" target="_blank" rel="noopener">실거래가</a></div></div></section></main>
+<nav class="bottom"><a href="#today"><b>⌂</b>오늘</a><a href="#sites"><b>▦</b>사업지</a><a href="#trade"><b>↗</b>실거래</a><a href="#schedule"><b>◷</b>일정</a><a href="#official"><b>◎</b>공식자료</a></nav></body></html>
