@@ -1,0 +1,79 @@
+name: Patch Holdem All-in Calculator
+
+on:
+  push:
+    paths:
+      - '.github/workflows/patch-holdem-allin.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Backup and patch holdem
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p holdem/backups
+          cp holdem/index.html holdem/backups/index-pre-allin-2026-09-10.html
+          python3 - <<'PY'
+          from pathlib import Path
+          p = Path('holdem/index.html')
+          s = p.read_text(encoding='utf-8')
+          if 'id="allinModal"' in s:
+              print('All-in calculator already present; nothing to patch.')
+              raise SystemExit(0)
+
+          css = r'''
+          .allinOpen{width:100%;margin-top:10px;border:1px solid #3a3a3c;border-radius:16px;background:#1c1c1e;color:#fff;padding:13px 14px;text-align:left;font-weight:850;cursor:pointer}.allinOpen span{display:block;color:var(--muted);font-size:12px;font-weight:650;margin-top:4px}.allinSheet{padding-top:12px}.allinLead{color:#b5b5ba;font-size:13px;line-height:1.5;margin:8px 0 14px}.allinPlayers{display:grid;gap:9px}.allinPlayer{background:#262629;border:1px solid #38383d;border-radius:16px;padding:12px}.allinPlayerTop{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:9px}.allinName{font-weight:900}.allinCheck{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:5px}.allinMoney{width:100%;border:1px solid #4a4a4f;border-radius:12px;background:#111214;color:#fff;padding:12px;font-size:18px;font-weight:850;outline:none}.allinMoney:focus{border-color:var(--blue)}.winnerRow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:9px}.winnerBtn{border:1px solid #3c3c42;border-radius:12px;background:#262629;color:#aaa;padding:10px 6px;font-weight:850}.winnerBtn.sel{background:#f5f5f7;color:#000;border-color:#f5f5f7}.allinBtns{display:grid;grid-template-columns:2fr 1fr;gap:8px;margin-top:12px}.allinPrimary,.allinGhost{border:0;border-radius:13px;padding:12px;font-weight:900}.allinPrimary{background:var(--green);color:#06150a}.allinGhost{background:#2c2c2e;color:#fff}.allinResult{display:none;margin-top:14px;background:#111214;border:1px solid #343438;border-radius:16px;padding:13px}.allinResult.show{display:block}.allinSummary{font-size:22px;font-weight:900;margin-bottom:8px}.allinStats{display:grid;grid-template-columns:1fr 1fr;gap:7px}.allinStat{background:#1c1c1e;border-radius:11px;padding:9px}.allinStat small{display:block;color:var(--muted);font-size:11px}.allinStat b{display:block;margin-top:3px;font-size:16px}.potRows{margin-top:9px;display:grid;gap:6px}.potRow{display:flex;justify-content:space-between;gap:10px;background:#1c1c1e;border-radius:10px;padding:9px;font-size:12px}.historyHead{display:flex;justify-content:space-between;align-items:center;margin-top:15px}.historyList{display:grid;gap:7px;margin-top:8px}.historyItem{background:#262629;border-radius:12px;padding:10px;font-size:12px;line-height:1.5}.historyItem b{font-size:13px}.historyEmpty{color:var(--muted);font-size:12px;padding:4px 0}.clearHistory{border:0;background:transparent;color:var(--red);font-size:12px;font-weight:800}.saveSettlement{width:100%;margin-top:9px;border:1px solid #48484d;background:#2c2c2e;color:#fff;border-radius:12px;padding:10px;font-weight:850}.allinNote{color:var(--muted);font-size:11px;line-height:1.45;margin-top:9px}
+          '''
+          css_anchor='</style></head>'
+          if css_anchor not in s: raise RuntimeError('CSS anchor not found')
+          s=s.replace(css_anchor,css+css_anchor,1)
+
+          bet_anchor='<div class="act"><b>하프</b><span>팟의 절반 정도 배팅</span></div></div></section>'
+          bet_extra='''<button class="allinOpen" type="button" onclick="openAllin()">🧮 올인 팟 계산기<span>플레이어 A · B · C 메인팟 / 사이드팟 / 미콜 환급 계산</span></button>'''
+          if bet_anchor not in s: raise RuntimeError('Betting section anchor not found')
+          s=s.replace(bet_anchor,bet_anchor[:-10]+bet_extra+'</section>',1)
+
+          modal='''<div id="allinModal" class="modal" onclick="if(event.target===this)closeAllin()"><div class="sheet allinSheet"><div class="st"><b>🧮 3인 올인 팟 계산기</b><button class="close" onclick="closeAllin()">×</button></div><div class="allinLead">각 플레이어가 이번 판에 실제로 넣은 <b>총 배팅액</b>을 입력하세요. 올인한 사람의 한도를 기준으로 메인팟과 사이드팟을 자동으로 나눕니다.</div><div class="allinPlayers"><div class="allinPlayer"><div class="allinPlayerTop"><div class="allinName">플레이어 A</div><label class="allinCheck"><input id="aiAllinA" type="checkbox"> ALL-IN</label></div><input id="aiA" class="allinMoney" type="number" inputmode="numeric" min="0" step="1" placeholder="총 배팅액"></div><div class="allinPlayer"><div class="allinPlayerTop"><div class="allinName">플레이어 B</div><label class="allinCheck"><input id="aiAllinB" type="checkbox"> ALL-IN</label></div><input id="aiB" class="allinMoney" type="number" inputmode="numeric" min="0" step="1" placeholder="총 배팅액"></div><div class="allinPlayer"><div class="allinPlayerTop"><div class="allinName">플레이어 C</div><label class="allinCheck"><input id="aiAllinC" type="checkbox"> ALL-IN</label></div><input id="aiC" class="allinMoney" type="number" inputmode="numeric" min="0" step="1" placeholder="총 배팅액"></div></div><div class="step">최종 승자</div><div class="winnerRow"><button class="winnerBtn sel" data-winner="A" onclick="setAllinWinner('A')">A 승</button><button class="winnerBtn" data-winner="B" onclick="setAllinWinner('B')">B 승</button><button class="winnerBtn" data-winner="C" onclick="setAllinWinner('C')">C 승</button></div><div class="allinBtns"><button class="allinPrimary" onclick="calcAllin()">계산하기</button><button class="allinGhost" onclick="resetAllinCalc()">초기화</button></div><div id="allinResult" class="allinResult"></div><button id="saveSettlement" class="saveSettlement" style="display:none" onclick="saveAllinSettlement()">이 정산 기록 저장</button><div class="historyHead"><b>저장한 정산</b><button class="clearHistory" onclick="clearAllinHistory()">전체 삭제</button></div><div id="allinHistory" class="historyList"></div><div class="allinNote">※ 선택한 1명이 최종 승자라고 가정합니다. 동점(스플릿 팟)은 이번 버전에서 제외합니다. 한 사람만 남는 초과 배팅액은 미콜(uncalled) 금액으로 자동 환급 처리합니다.</div></div></div>'''
+          modal_anchor='</div><div id="modal" class="modal"'
+          if modal_anchor not in s: raise RuntimeError('Modal anchor not found')
+          s=s.replace(modal_anchor,'</div>'+modal+'<div id="modal" class="modal"',1)
+
+          js=r'''
+          let allinWinner='A',allinLast=null;const ALLIN_HISTORY_KEY='holdemAllInHistoryV1';
+          function openAllin(){document.getElementById('allinModal').classList.add('show');renderAllinHistory()}
+          function closeAllin(){document.getElementById('allinModal').classList.remove('show')}
+          function setAllinWinner(w){allinWinner=w;document.querySelectorAll('.winnerBtn').forEach(b=>b.classList.toggle('sel',b.dataset.winner===w))}
+          function chipFmt(n){return Number(n||0).toLocaleString('ko-KR')}
+          function getAllinInputs(){return ['A','B','C'].map(k=>({k,amt:Math.max(0,Math.floor(Number(document.getElementById('ai'+k).value)||0)),allin:document.getElementById('aiAllin'+k).checked}))}
+          function buildPots(players){const levels=[...new Set(players.map(p=>p.amt).filter(v=>v>0))].sort((a,b)=>a-b),pots=[],refunds={A:0,B:0,C:0};let prev=0;for(const level of levels){const eligible=players.filter(p=>p.amt>=level);const amount=(level-prev)*eligible.length;if(eligible.length>=2)pots.push({amount,eligible:eligible.map(p=>p.k),from:prev,to:level});else if(eligible.length===1)refunds[eligible[0].k]+=amount;prev=level}return{pots,refunds}}
+          function calcAllin(){const players=getAllinInputs(),positive=players.filter(p=>p.amt>0);if(positive.length<2){alert('배팅액을 2명 이상 입력해주세요.');return}const total=players.reduce((a,p)=>a+p.amt,0),built=buildPots(players),contested=built.pots.reduce((a,p)=>a+p.amount,0),winnerPot=built.pots.filter(p=>p.eligible.includes(allinWinner)).reduce((a,p)=>a+p.amount,0),refundTotal=Object.values(built.refunds).reduce((a,v)=>a+v,0),winnerRefund=built.refunds[allinWinner]||0,winnerAmt=players.find(p=>p.k===allinWinner).amt,winnerReturn=winnerPot+winnerRefund,winnerNet=winnerReturn-winnerAmt,sideLeft=contested-winnerPot;allinLast={time:Date.now(),winner:allinWinner,players,pots:built.pots,refunds:built.refunds,total,contested,winnerPot,winnerReturn,winnerNet,sideLeft,refundTotal};renderAllinResult(allinLast);return allinLast}
+          function renderAllinResult(r){const el=document.getElementById('allinResult');let rows=r.pots.map((p,i)=>`<div class="potRow"><span>${i===0?'메인팟':'사이드팟 '+i} · ${p.eligible.join('/')}</span><b>${chipFmt(p.amount)}</b></div>`).join('');Object.entries(r.refunds).filter(([,v])=>v>0).forEach(([k,v])=>rows+=`<div class="potRow"><span>플레이어 ${k} 미콜 환급</span><b>${chipFmt(v)}</b></div>`);el.innerHTML=`<div class="allinSummary">플레이어 ${r.winner}가 가져가는 팟 <span style="color:var(--green)">${chipFmt(r.winnerPot)}</span></div><div class="allinStats"><div class="allinStat"><small>총 투입액</small><b>${chipFmt(r.total)}</b></div><div class="allinStat"><small>실제 경쟁 팟</small><b>${chipFmt(r.contested)}</b></div><div class="allinStat"><small>승자 최종 회수</small><b>${chipFmt(r.winnerReturn)}</b></div><div class="allinStat"><small>승자 순증가</small><b>${r.winnerNet>=0?'+':''}${chipFmt(r.winnerNet)}</b></div><div class="allinStat"><small>남은 사이드팟</small><b>${chipFmt(r.sideLeft)}</b></div><div class="allinStat"><small>미콜 환급 합계</small><b>${chipFmt(r.refundTotal)}</b></div></div><div class="potRows">${rows}</div>${r.sideLeft>0?`<div class="allinNote">플레이어 ${r.winner}의 배팅 한도를 넘는 ${chipFmt(r.sideLeft)}은 다른 플레이어끼리 겨루는 사이드팟입니다.</div>`:''}`;el.classList.add('show');document.getElementById('saveSettlement').style.display='block'}
+          function resetAllinCalc(){['A','B','C'].forEach(k=>{document.getElementById('ai'+k).value='';document.getElementById('aiAllin'+k).checked=false});setAllinWinner('A');allinLast=null;document.getElementById('allinResult').classList.remove('show');document.getElementById('saveSettlement').style.display='none'}
+          function getAllinHistory(){try{return JSON.parse(localStorage.getItem(ALLIN_HISTORY_KEY)||'[]')}catch(e){return[]}}
+          function saveAllinSettlement(){if(!allinLast)calcAllin();if(!allinLast)return;const h=getAllinHistory();h.unshift(allinLast);localStorage.setItem(ALLIN_HISTORY_KEY,JSON.stringify(h.slice(0,20)));renderAllinHistory();document.getElementById('saveSettlement').textContent='저장됨 ✓';setTimeout(()=>{const b=document.getElementById('saveSettlement');if(b)b.textContent='이 정산 기록 저장'},900)}
+          function renderAllinHistory(){const el=document.getElementById('allinHistory');if(!el)return;const h=getAllinHistory();if(!h.length){el.innerHTML='<div class="historyEmpty">아직 저장한 정산이 없습니다.</div>';return}el.innerHTML=h.slice(0,5).map(r=>{const p=r.players.map(x=>`${x.k} ${chipFmt(x.amt)}${x.allin?' ALL-IN':''}`).join(' · ');return `<div class="historyItem"><b>${new Date(r.time).toLocaleString('ko-KR')} · ${r.winner} 승</b><br>${p}<br>승자 팟 ${chipFmt(r.winnerPot)} · 최종 회수 ${chipFmt(r.winnerReturn)}${r.sideLeft?` · 사이드팟 ${chipFmt(r.sideLeft)}`:''}</div>`}).join('')}
+          function clearAllinHistory(){if(!confirm('저장한 올인 정산 기록을 모두 삭제할까요?'))return;localStorage.removeItem(ALLIN_HISTORY_KEY);renderAllinHistory()}
+          '''
+          script_anchor='</script></body></html>'
+          if script_anchor not in s: raise RuntimeError('Script anchor not found')
+          s=s.replace(script_anchor,js+script_anchor,1)
+          p.write_text(s,encoding='utf-8')
+          print('Patched bytes:', p.stat().st_size)
+          PY
+          if ! grep -q 'id="allinModal"' holdem/index.html; then
+            echo 'Patch verification failed' >&2
+            exit 1
+          fi
+          git config user.name 'ChatGPT Update Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add holdem/index.html holdem/backups/index-pre-allin-2026-09-10.html
+          git commit -m 'Add 3-player all-in pot calculator with rollback backup'
+          git push
