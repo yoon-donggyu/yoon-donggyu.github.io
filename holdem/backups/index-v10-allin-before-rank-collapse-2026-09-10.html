@@ -205,7 +205,6 @@ button{font:inherit}
 .potCalcResult{display:none;margin-top:14px;background:#111214;border:1px solid #343438;border-radius:16px;padding:13px}.potCalcResult.show{display:block}.potCalcSummary{font-size:20px;font-weight:900;line-height:1.35;margin-bottom:10px}.potCalcStats{display:grid;grid-template-columns:1fr 1fr;gap:7px}.potCalcStat{background:#1c1c1e;border-radius:11px;padding:9px}.potCalcStat small{display:block;color:var(--muted);font-size:11px}.potCalcStat b{display:block;margin-top:3px;font-size:16px}.potCalcRows{margin-top:9px;display:grid;gap:6px}.potCalcRow{display:flex;justify-content:space-between;gap:10px;background:#1c1c1e;border-radius:10px;padding:9px;font-size:12px}.potCalcNote{color:var(--muted);font-size:11px;line-height:1.5;margin-top:9px}
 .potCalcSave{width:100%;margin-top:9px;border:1px solid #48484d;background:#2c2c2e;color:#fff;border-radius:12px;padding:10px;font-weight:850}.potCalcHistoryHead{display:flex;justify-content:space-between;align-items:center;margin-top:15px}.potCalcHistory{display:grid;gap:7px;margin-top:8px}.potCalcHistoryItem{background:#262629;border-radius:12px;padding:10px;font-size:12px;line-height:1.55}.potCalcHistoryItem b{font-size:13px}.potCalcHistoryEmpty{color:var(--muted);font-size:12px;padding:4px 0}.potCalcClear{border:0;background:transparent;color:var(--red);font-size:12px;font-weight:800}
 
-.rankDetails{background:var(--card);border:1px solid #1f2023;border-radius:22px;overflow:hidden}.rankDetails summary{list-style:none;cursor:pointer;padding:16px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:16px;font-weight:850;-webkit-user-select:none;user-select:none}.rankDetails summary::-webkit-details-marker{display:none}.rankDetails summary::after{content:"펼치기 +";color:var(--muted);font-size:12px;font-weight:750}.rankDetails[open] summary::after{content:"접기 −"}.rankDetails .chartWrap{padding:0 12px 14px}.rankDetails .chart{display:block;width:100%;height:auto;border-radius:14px}
 </style>
 </head>
 <body>
@@ -262,7 +261,10 @@ button{font:inherit}
       <div class="rule"><div class="ruleTop"><b>쇼다운</b><div class="num">5</div></div><span>내 카드 2장과 공용 카드 5장, 총 7장 중 가장 좋은 5장으로 승부.</span></div>
     </div>
   </section>
-  
+  <section class="section">
+    <div class="sectionHead"><div class="sectionTitle">족보 순위</div><div class="sectionMeta">1위가 가장 강함</div></div>
+<div class="chartWrap"><img class="chart" src="poker_hand_rank_chart_v13_small.webp" alt="포커 족보 순위"></div>
+  </section>
 </div>
 
 
@@ -302,15 +304,6 @@ button{font:inherit}
       내 패는 위에서 입력한 카드 자동 적용 · 같은 족보는 숫자로 비교 · 무늬는 승패에 영향 없음 · 완전히 같으면 팟 분배
     </div>
   </div>
-</section>
-
-<section class="section rankGuideSection" id="rankGuideSection">
-  <div class="sectionHead"><div class="sectionTitle">족보 순위</div><div class="sectionMeta">필요할 때 펼쳐보기</div></div>
-  <details class="rankDetails" id="rankGuideDetails">
-    <summary>🃏 포커 족보 순위 이미지</summary>
-    <div class="chartWrap"><img class="chart" src="poker_hand_rank_chart_v13_small.webp" alt="포커 족보 순위"></div>
-  </section>
-  </details>
 </section>
 
 
