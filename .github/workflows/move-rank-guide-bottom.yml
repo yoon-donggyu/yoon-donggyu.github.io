@@ -1,0 +1,80 @@
+name: Move Holdem Rank Guide Bottom
+
+on:
+  push:
+    paths:
+      - '.github/workflows/move-rank-guide-bottom.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  patch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Move hand-rank image to bottom and collapse by default
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p holdem/backups
+          cp holdem/index.html holdem/backups/index-v10-allin-before-rank-collapse-2026-09-10.html
+          python3 - <<'PY'
+          from pathlib import Path
+          p=Path('holdem/index.html')
+          s=p.read_text(encoding='utf-8')
+          if 'id="rankGuideDetails"' in s:
+              print('Already patched')
+              raise SystemExit(0)
+
+          required=['id="rankGrid"','id="suitGrid"','id="oppASlots"','id="oppBSlots"','id="oppCSlots"','alt="포커 족보 순위"','id="potCalcModal"']
+          for x in required:
+              if x not in s:
+                  raise RuntimeError(f'missing required feature before patch: {x}')
+
+          css='''.rankDetails{background:var(--card);border:1px solid #1f2023;border-radius:22px;overflow:hidden}.rankDetails summary{list-style:none;cursor:pointer;padding:16px;display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:16px;font-weight:850;-webkit-user-select:none;user-select:none}.rankDetails summary::-webkit-details-marker{display:none}.rankDetails summary::after{content:"펼치기 +";color:var(--muted);font-size:12px;font-weight:750}.rankDetails[open] summary::after{content:"접기 −"}.rankDetails .chartWrap{padding:0 12px 14px}.rankDetails .chart{display:block;width:100%;height:auto;border-radius:14px}\n'''
+          if '</style>' not in s: raise RuntimeError('style anchor missing')
+          s=s.replace('</style>',css+'</style>',1)
+
+          marker='<div class="sectionTitle">족보 순위</div>'
+          pos=s.index(marker)
+          start=s.rfind('<section class="section">',0,pos)
+          end=s.index('</section>',pos)+len('</section>')
+          old=s[start:end]
+          chart_start=old.index('<div class="chartWrap">')
+          chart=old[chart_start:]
+          new='''<section class="section rankGuideSection" id="rankGuideSection">\n  <div class="sectionHead"><div class="sectionTitle">족보 순위</div><div class="sectionMeta">필요할 때 펼쳐보기</div></div>\n  <details class="rankDetails" id="rankGuideDetails">\n    <summary>🃏 포커 족보 순위 이미지</summary>\n    '''+chart+'''\n  </details>\n</section>'''
+          s=s[:start]+s[end:]
+
+          compare_marker='<div class="sectionTitle">상대방 패 비교</div>'
+          cpos=s.index(compare_marker)
+          cend=s.index('</section>',cpos)+len('</section>')
+          s=s[:cend]+'\n\n'+new+s[cend:]
+          p.write_text(s,encoding='utf-8')
+          PY
+
+          grep -q 'id="rankGuideDetails"' holdem/index.html
+          grep -q 'id="rankGrid"' holdem/index.html
+          grep -q 'id="suitGrid"' holdem/index.html
+          grep -q 'id="oppASlots"' holdem/index.html
+          grep -q 'id="oppBSlots"' holdem/index.html
+          grep -q 'id="oppCSlots"' holdem/index.html
+          grep -q 'alt="포커 족보 순위"' holdem/index.html
+          grep -q 'id="potCalcModal"' holdem/index.html
+          python3 - <<'PY'
+          from pathlib import Path
+          s=Path('holdem/index.html').read_text(encoding='utf-8')
+          a=s.index('<script>')+len('<script>'); b=s.index('</script>',a)
+          Path('/tmp/holdem.js').write_text(s[a:b],encoding='utf-8')
+          assert s.index('상대방 패 비교') < s.index('id="rankGuideSection"') < s.index('id="potCalcModal"')
+          assert '<details class="rankDetails" id="rankGuideDetails">' in s
+          assert '<details class="rankDetails" id="rankGuideDetails" open>' not in s
+          PY
+          node --check /tmp/holdem.js
+          git config user.name 'ChatGPT Update Bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add holdem/index.html holdem/backups/index-v10-allin-before-rank-collapse-2026-09-10.html
+          git commit -m 'Move Holdem rank guide to bottom with collapsible view'
+          git push
