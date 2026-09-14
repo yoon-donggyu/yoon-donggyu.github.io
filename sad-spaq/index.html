@@ -3,205 +3,154 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>SPAQ 계절성 변화 자가체크</title>
-<meta name="description" content="SPAQ 구조를 바탕으로 계절에 따른 기분·수면·식욕·활동 변화를 확인하는 자가보고 선별 체크입니다.">
+<title>SPAQ 계절성 정서 자가체크</title>
+<meta name="description" content="국내 SPAQ 연구의 문항 구조와 분류 기준을 반영한 계절성 정서 자가보고 선별 체크">
 <style>
-:root{--bg:#f6f7fb;--card:#fff;--text:#17202a;--muted:#68707c;--line:#e5e7eb;--accent:#4455c7;--soft:#eef0ff;--good:#147d64;--warn:#a65f00;--bad:#b42318}
-*{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",Arial,sans-serif}
-.wrap{max-width:800px;margin:auto;padding:16px 12px 50px}.hero{padding:12px 4px 6px}h1{font-size:25px;margin:0 0 8px;line-height:1.25}.lead{margin:0;color:var(--muted);font-size:14px;line-height:1.65}
-.badge{display:inline-block;margin-top:10px;background:var(--soft);color:var(--accent);font-size:12px;font-weight:800;padding:6px 10px;border-radius:999px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:17px;margin-top:13px;box-shadow:0 8px 24px rgba(15,23,42,.05)}
-h2{font-size:18px;margin:0 0 10px}.info{font-size:13px;line-height:1.65;color:#4b5563}.muted{font-size:12px;color:var(--muted);line-height:1.55}
-.q{padding:17px 0;border-top:1px solid var(--line)}.q:first-child{border-top:0;padding-top:0}.q:last-child{padding-bottom:0}.qtitle{font-size:15px;font-weight:800;line-height:1.5;margin-bottom:10px}
-.scale{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.scale input{display:none}.scale label{display:flex;align-items:center;justify-content:center;text-align:center;min-height:49px;padding:6px 3px;border:1px solid var(--line);border-radius:11px;font-size:11px;background:#fff;cursor:pointer}
-.scale input:checked+label{border-color:var(--accent);background:var(--soft);color:var(--accent);font-weight:800;box-shadow:inset 0 0 0 1px var(--accent)}
-.problem{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.problem input{display:none}.problem label{padding:10px 7px;border:1px solid var(--line);border-radius:11px;text-align:center;font-size:12px;cursor:pointer}.problem input:checked+label{border-color:var(--accent);background:var(--soft);color:var(--accent);font-weight:800}
-.months{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}.mcheck input{display:none}.mcheck label{display:block;text-align:center;padding:9px 3px;border:1px solid var(--line);border-radius:10px;font-size:12px;cursor:pointer}.mcheck input:checked+label{border-color:var(--accent);background:var(--soft);color:var(--accent);font-weight:800}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:8px}.field label{display:block;font-size:12px;color:var(--muted);margin:0 0 5px}.field input,.field select{width:100%;padding:11px;border:1px solid var(--line);border-radius:11px;background:#fff;font-size:14px}
+:root{--bg:#f6f7fb;--card:#fff;--text:#17202a;--muted:#6b7280;--line:#e5e7eb;--accent:#4656c8;--soft:#eef0ff;--good:#147d64;--warn:#a65f00;--bad:#b42318}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans KR",Arial,sans-serif}
+.wrap{max-width:800px;margin:auto;padding:16px 12px 48px}.hero{padding:12px 4px 6px}h1{font-size:24px;margin:0 0 8px}.lead,.muted{color:var(--muted);line-height:1.6}.lead{font-size:14px;margin:0}.muted{font-size:12px}.badge{display:inline-block;margin-top:10px;background:var(--soft);color:var(--accent);font-size:12px;font-weight:800;padding:6px 10px;border-radius:999px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:16px;margin-top:13px;box-shadow:0 8px 24px rgba(15,23,42,.05)}h2{font-size:18px;margin:0 0 10px}.info{font-size:13px;line-height:1.65;color:#4b5563}
+.q{padding:16px 0;border-top:1px solid var(--line)}.q:first-child{border-top:0;padding-top:0}.qtitle{font-size:15px;font-weight:800;line-height:1.45;margin-bottom:10px}
+.scale{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.scale input,.problem input,.mcheck input{display:none}.scale label,.problem label,.mcheck label{border:1px solid var(--line);border-radius:11px;background:#fff;text-align:center;cursor:pointer}
+.scale label{display:flex;align-items:center;justify-content:center;min-height:50px;padding:6px 3px;font-size:11px}.problem{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.problem label{padding:10px 7px;font-size:12px}.months{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}.mcheck label{display:block;padding:9px 3px;font-size:12px}
+.scale input:checked+label,.problem input:checked+label,.mcheck input:checked+label{border-color:var(--accent);background:var(--soft);color:var(--accent);font-weight:800;box-shadow:inset 0 0 0 1px var(--accent)}
 .actions{display:flex;gap:8px;margin-top:15px}button{border:0;border-radius:12px;padding:13px 14px;font-weight:800;font-size:14px;cursor:pointer}.primary{background:var(--accent);color:#fff;flex:1}.secondary{background:#edf0f4;color:#374151}
-.result{display:none}.scorebox{display:flex;gap:7px;align-items:flex-end}.score{font-size:46px;font-weight:900}.max{font-size:17px;color:var(--muted);padding-bottom:8px}.bar{height:11px;border-radius:999px;background:#edf0f4;overflow:hidden;margin:10px 0 12px}.fill{height:100%;width:0;background:var(--accent);transition:.35s}.level{font-size:19px;font-weight:900;margin:4px 0 8px}.note{border:1px solid var(--line);background:#f9fafb;border-radius:13px;padding:12px;font-size:13px;line-height:1.65}.alert{margin-top:10px;border:1px solid #ffd5cf;background:#fff4f2;color:#7a271a;border-radius:13px;padding:12px;font-size:13px;line-height:1.65}
-details{border-top:1px solid var(--line);padding:12px 0}details:first-of-type{border-top:0}summary{font-weight:800;cursor:pointer}
-table{width:100%;border-collapse:collapse;font-size:12px;margin-top:8px}th,td{border-bottom:1px solid var(--line);padding:8px 5px;text-align:left}th{color:var(--muted)}
-a{color:var(--accent);text-decoration:none}.footer{text-align:center;color:#9ca3af;font-size:11px;padding:20px 8px}
-@media(max-width:560px){h1{font-size:22px}.card{padding:14px}.scale{gap:4px}.scale label{font-size:10px;min-height:53px}.problem{grid-template-columns:repeat(2,1fr)}.months{grid-template-columns:repeat(4,1fr)}.row{grid-template-columns:1fr}}
+.result{display:none}.scorebox{display:flex;gap:7px;align-items:flex-end}.score{font-size:46px;font-weight:900}.max{font-size:17px;color:var(--muted);padding-bottom:8px}.level{font-size:20px;font-weight:900;margin:8px 0}.note{border:1px solid var(--line);background:#f9fafb;border-radius:13px;padding:12px;font-size:13px;line-height:1.65}.alert{margin-top:10px;border:1px solid #ffd5cf;background:#fff4f2;color:#7a271a;border-radius:13px;padding:12px;font-size:13px;line-height:1.65}
+.criteria{font-size:13px;line-height:1.7}.criteria b{color:#111827}.footer{text-align:center;color:#9ca3af;font-size:11px;padding:20px 8px}
+@media(max-width:560px){h1{font-size:22px}.card{padding:14px}.scale{gap:4px}.scale label{font-size:10px;min-height:54px}.problem{grid-template-columns:repeat(2,1fr)}.months{grid-template-columns:repeat(4,1fr)}}
 </style>
 </head>
 <body>
 <div class="wrap">
 <section class="hero">
-<h1>SPAQ 계절성 변화 자가체크</h1>
-<p class="lead">계절이 바뀔 때 기분·수면·식욕·활동이 얼마나 달라지는지 확인하는 자가보고 선별 체크입니다.</p>
-<span class="badge">SPAQ 핵심 구조 기반 · 약 4분</span>
+<h1>SPAQ 계절성 정서 자가체크</h1>
+<p class="lead">국내 SPAQ 연구에서 사용한 핵심 문항 구조와 분류 기준을 반영한 자가보고 선별 체크입니다.</p>
+<span class="badge">GSS 0~24점 · SAD / S-SAD 선별 참고</span>
 </section>
 
 <section class="card info">
-<strong>먼저 알아두세요.</strong> SPAQ(Seasonal Pattern Assessment Questionnaire)는 계절성을 평가하는 널리 사용된 <strong>자가보고 선별 도구</strong>입니다. 결과는 SAD(계절성 정서장애)를 확진하지 않으며, 진단은 우울 증상과 계절 반복성, 기능 저하 등을 의료진이 함께 평가해야 합니다.
+<strong>주의:</strong> SPAQ는 계절성을 평가하는 자가보고 선별도구이며 확진검사가 아닙니다. 이 페이지의 분류는 논문에서 사용된 연구 기준을 재현한 참고 결과입니다.
 </section>
 
 <section class="card">
 <h2>1. 계절에 따른 변화 정도</h2>
-<p class="muted">평균적인 한 해를 떠올리면서 각 항목이 계절에 따라 얼마나 달라지는지 체크하세요. 0~4점, 총 0~24점(GSS).</p>
-<div id="gssQs"></div>
+<p class="muted">평균적인 한 해를 떠올리며 각 항목이 계절에 따라 얼마나 변하는지 체크하세요. 각 0~4점, 총 0~24점(GSS).</p>
+<div id="gss"></div>
 </section>
 
 <section class="card">
 <h2>2. 계절 변화가 생활에 주는 문제</h2>
-<p class="muted">SPAQ에서 GSS와 함께 중요하게 보는 항목입니다.</p>
-<div class="problem" id="problemScale"></div>
+<p class="muted">논문에서는 0점(영향 없음)~5점(매우 심하게 영향을 미침)으로 평가했습니다.</p>
+<div class="problem" id="problem"></div>
 </section>
 
 <section class="card">
-<h2>3. 어느 달에 가장 좋고 나쁜가요?</h2>
-<p class="muted">여러 달 선택 가능. 해당되는 달이 없으면 '특정 달 없음'을 선택하세요.</p>
-<div class="q"><div class="qtitle">기분이 가장 좋은 달</div><div class="months" id="bestMonths"></div></div>
-<div class="q"><div class="qtitle">기분이 가장 나쁜 달</div><div class="months" id="worstMonths"></div></div>
+<h2>3. 기분이 가장 나쁜 달</h2>
+<p class="muted">여러 달 선택 가능. 논문에서는 겨울형/여름형 계절 패턴 구분에 사용했습니다.</p>
+<div class="months" id="worst"></div>
 </section>
 
 <section class="card">
-<h2>4. 월별 계절 패턴</h2>
-<p class="muted">SPAQ 원형의 월별 패턴 확인 항목을 간결하게 구성했습니다. 각 항목에서 해당되는 달을 여러 개 선택할 수 있습니다.</p>
-<div id="calendarQs"></div>
-</section>
-
-<section class="card">
-<h2>5. 보조 항목</h2>
-<div class="row">
-<div class="field"><label>1년 동안 체중 변동폭</label><select id="weightVar"><option value="">선택 안 함</option><option>약 1kg 이하</option><option>약 1~2kg</option><option>약 2~4kg</option><option>약 4~6kg</option><option>약 6~9kg</option><option>약 9kg 이상</option></select></div>
-<div class="field"><label>계절에 따라 음식 선호가 달라지나요?</label><select id="foodPref"><option value="">선택 안 함</option><option>아니오</option><option>예</option></select></div>
-</div>
-<div style="height:10px"></div>
-<div class="row">
-<div class="field"><label>겨울 평균 수면시간(낮잠 포함)</label><input id="sleepWinter" type="number" min="0" max="24" step="0.5" placeholder="예: 8"></div>
-<div class="field"><label>여름 평균 수면시간(낮잠 포함)</label><input id="sleepSummer" type="number" min="0" max="24" step="0.5" placeholder="예: 7"></div>
-</div>
-</section>
-
-<section class="card">
-<h2>6. 반복성 확인</h2>
-<p class="muted">이 항목은 SPAQ 점수에는 합산하지 않습니다. NIMH가 설명하는 SAD 진단의 계절 반복성을 참고하기 위한 보조 문항입니다.</p>
+<h2>4. 반복성 참고</h2>
+<p class="muted">아래 항목은 SPAQ GSS에는 합산하지 않지만 실제 진료에서 계절 반복성을 설명할 때 유용합니다.</p>
 <div class="problem">
-<input id="rep0" type="radio" name="repeatYears" value="0"><label for="rep0">반복 아님</label>
-<input id="rep1" type="radio" name="repeatYears" value="1"><label for="rep1">1년 정도</label>
-<input id="rep2" type="radio" name="repeatYears" value="2"><label for="rep2">2년 이상 반복</label>
+<input id="r0" type="radio" name="repeat" value="0"><label for="r0">반복 아님</label>
+<input id="r1" type="radio" name="repeat" value="1"><label for="r1">1년 정도</label>
+<input id="r2" type="radio" name="repeat" value="2"><label for="r2">2년 이상 반복</label>
 </div>
 <div class="actions"><button class="primary" id="calc">결과 보기</button><button class="secondary" id="reset">초기화</button></div>
 </section>
 
 <section class="card result" id="result">
-<div class="muted">Global Seasonality Score (GSS)</div>
+<div class="muted">Global Seasonality Score</div>
 <div class="scorebox"><div class="score" id="score">0</div><div class="max">/ 24점</div></div>
-<div class="bar"><div class="fill" id="fill"></div></div>
 <div class="level" id="level"></div>
 <div class="note" id="summary"></div>
 <div class="alert" id="advice" style="display:none"></div>
 </section>
 
 <section class="card">
-<h2>해석 기준</h2>
+<h2>논문 기준 분류</h2>
+<div class="criteria">
+<b>SAD 선별 기준:</b> GSS 11점 이상 + 계절 변화가 최소 중등도(2점) 이상의 문제.<br>
+<b>S-SAD(준임상형) 선별 기준:</b> ① GSS 11점 이상이지만 계절 변화가 문제 없음/경도이거나, ② GSS 9~10점이면서 계절 변화가 최소 중등도 이상.<br>
+<b>계절형:</b> 기분이 가장 나쁜 달이 12~2월이면 겨울형, 6~8월이면 여름형으로 참고합니다.<br><br>
+이 분류는 연구용 선별 기준이며 실제 정신건강의학과 진단과 동일하지 않습니다.
+</div>
+</section>
+
+<section class="card">
+<h2>이 검사에서 보는 6개 영역</h2>
+<div class="info">수면시간 · 기분 · 사회적 관계/활동 · 체중 · 식욕/음식 선호 · 에너지 수준을 계절별 변화 정도로 평가합니다.</div>
+</section>
+
+<section class="card">
+<h2>추가 연구 근거</h2>
 <div class="info">
-연구에서 많이 사용된 Kasper 기준은 <strong>GSS 11점 이상</strong>, 계절 변화가 <strong>최소 중등도 이상의 문제</strong>, 그리고 특정 계절의 '기분이 가장 나쁜 달' 패턴을 함께 봅니다. 따라서 점수만 높다고 SAD로 진단할 수 없습니다.
+<strong>웹 기반 SPAQ 연구:</strong> 브라질 1,001명 대상 웹 설문에서도 SPAQ의 6개 핵심 영역(기분·식욕·체중·수면시간·에너지·사회활동)과 0~24점 계절성 점수를 사용했습니다. 다만 이 연구는 저·중위도 환경에 맞춰 통상 기준보다 1점 낮은 선별점을 사용했기 때문에, 이 앱의 국내 기준 판정에는 그 낮춘 컷오프를 적용하지 않습니다.<br><br>
+<strong>신뢰도:</strong> 기존 여러 언어권 연구에서 SPAQ의 내적 일관성은 대체로 양호하게 보고됐지만, 브라질 웹 버전 전체 표본에서는 Cronbach α가 0.66으로 낮게 나타나기도 했습니다. 따라서 결과는 어디까지나 <strong>선별 참고</strong>로 해석합니다.<br><br>
+<strong>영양 관련 근거:</strong> 2020년 체계적 문헌고찰에서는 SAD에서 저녁 식사량 증가, 야식, 정서적·폭식 성향, 전분 음식 선호 같은 식행동 차이가 보고됐지만, 비타민 D/B12 보충이나 탄수화물 식사가 SAD 증상을 개선한다는 근거는 확인되지 않았습니다. 따라서 앱에서는 특정 영양제 복용을 치료처럼 권하지 않습니다.
 </div>
 </section>
 
 <section class="card">
-<h2>근거와 한계</h2>
-<details open><summary>SPAQ는 얼마나 신뢰할 만한가요?</summary><p class="info">SPAQ GSS는 여러 연구에서 내적 일관성과 재검사 신뢰도가 보고된 선별 도구입니다. 다만 회상에 의존하는 자가보고 검사이며, 실제 SAD 진단을 대신하지 않습니다.</p></details>
-<details><summary>왜 6문항인데 충분한가요?</summary><p class="info">GSS의 6문항은 수면시간, 사회활동, 기분, 체중, 식욕, 에너지의 <strong>계절 변화 정도</strong>를 합산하는 SPAQ 핵심 척도입니다. 정확도를 높이기 위해 이 페이지에서는 문제 정도, 월별 최고/최악 패턴, 수면·체중·음식 선호와 반복성까지 별도 확인합니다.</p></details>
-<details><summary>언제 전문 상담을 권하나요?</summary><p class="info">우울감이나 흥미 저하가 대부분의 날에 2주 이상 지속되거나, 일·학업·관계에 뚜렷한 지장이 있으면 전문적인 평가를 권합니다. 특정 계절의 우울 삽화가 2년 이상 반복되는지는 SAD 평가에서 중요한 단서입니다.</p></details>
-<div class="alert">죽고 싶다는 생각이나 자해 충동이 있다면 이 검사 결과와 관계없이 즉시 도움을 받으세요. 한국에서는 자살예방상담전화 <strong>109</strong>, 응급 상황은 <strong>119 또는 112</strong>를 이용할 수 있습니다.</div>
+<h2>도움이 필요한 경우</h2>
+<div class="info">우울감이나 흥미 저하가 2주 이상 지속되거나 일·학업·관계에 뚜렷한 지장이 있으면 전문적인 평가를 권합니다.</div>
+<div class="alert">죽고 싶다는 생각이나 자해 충동이 있다면 검사 결과와 관계없이 즉시 도움을 받으세요. 한국: 자살예방상담전화 109, 응급 119 또는 112.</div>
 </section>
 
-<section class="card">
-<h2>참고자료</h2>
-<ul class="info">
-<li><a href="https://www.nimh.nih.gov/health/publications/seasonal-affective-disorder" target="_blank">NIMH — Seasonal Affective Disorder</a></li>
-<li><a href="https://www.psychiatry.org/patients-families/seasonal-affective-disorder" target="_blank">American Psychiatric Association — Seasonal Affective Disorder</a></li>
-<li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC8123881/" target="_blank">Peer-reviewed: SPAQ 구성·타당도 연구</a></li>
-<li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3307123/" target="_blank">Peer-reviewed: GSS 및 Kasper 기준 설명</a></li>
-</ul>
-</section>
-<div class="footer">참고용 자가보고 선별검사 · 의료 진단을 대신하지 않습니다.</div>
+<div class="footer">SPAQ 기반 참고용 자가보고 선별체크 · 국내 SPAQ 연구 + 웹 기반 SPAQ 연구 + 체계적 문헌고찰 참고 · 의료 진단을 대신하지 않습니다.</div>
 </div>
+
 <script>
 const labels=["전혀 없음","약간","보통","많이","매우 많이"];
-const gss=[
-["수면시간","계절에 따라 평소 수면 시간이 얼마나 달라지나요?"],
-["사회활동","사람을 만나거나 외부 활동을 하는 정도가 얼마나 달라지나요?"],
-["기분","전반적인 기분이나 웰빙 상태가 얼마나 달라지나요?"],
-["체중","체중이 계절에 따라 얼마나 달라지나요?"],
-["식욕","식욕이나 먹는 양이 계절에 따라 얼마나 달라지나요?"],
-["에너지","활력이나 에너지 수준이 계절에 따라 얼마나 달라지나요?"]
+const qs=[
+["수면시간","계절에 따라 수면시간이 얼마나 달라지나요?"],
+["기분","계절에 따라 전반적인 기분이 얼마나 달라지나요?"],
+["사회적 관계/활동","계절에 따라 사람을 만나거나 활동하는 정도가 얼마나 달라지나요?"],
+["체중","계절에 따라 체중이 얼마나 달라지나요?"],
+["식욕/음식 선호","계절에 따라 식욕이나 음식 선호가 얼마나 달라지나요?"],
+["에너지","계절에 따라 활력이나 에너지 수준이 얼마나 달라지나요?"]
 ];
+function scale(n){return labels.map((x,i)=>`<input id="${n}_${i}" name="${n}" type="radio" value="${i}"><label for="${n}_${i}">${x}</label>`).join("")}
+document.getElementById("gss").innerHTML=qs.map((q,i)=>`<div class="q"><div class="qtitle">${i+1}. ${q[0]}<div class="muted">${q[1]}</div></div><div class="scale">${scale("q"+i)}</div></div>`).join("");
+
+const problems=["영향 없음","경도","중등도","다소 심함","심함","매우 심함"];
+document.getElementById("problem").innerHTML=problems.map((x,i)=>`<input id="p${i}" name="problem" type="radio" value="${i}"><label for="p${i}">${x}<br><span class="muted">${i}점</span></label>`).join("");
+
 const months=["1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월","특정 달 없음"];
-function scale(name){
- return labels.map((x,i)=>`<input id="${name}_${i}" name="${name}" type="radio" value="${i}"><label for="${name}_${i}">${x}</label>`).join("");
-}
-document.getElementById("gssQs").innerHTML=gss.map((q,i)=>`<div class="q"><div class="qtitle">${i+1}. ${q[0]}<div class="muted">${q[1]}</div></div><div class="scale">${scale("g"+i)}</div></div>`).join("");
-const ps=["전혀 문제 없음","약간","중등도","뚜렷함","심함","매우 심함/기능 방해"];
-document.getElementById("problemScale").innerHTML=ps.map((x,i)=>`<input id="p_${i}" name="problem" type="radio" value="${i}"><label for="p_${i}">${x}</label>`).join("");
-function monthChecks(prefix){
- return months.map((m,i)=>`<div class="mcheck"><input type="checkbox" id="${prefix}_${i}" data-group="${prefix}" value="${i}"><label for="${prefix}_${i}">${m}</label></div>`).join("");
-}
-document.getElementById("bestMonths").innerHTML=monthChecks("best");
-document.getElementById("worstMonths").innerHTML=monthChecks("worst");
-const cal=[
-["잠을 가장 많이 자는 달","sleepMost"],["잠을 가장 적게 자는 달","sleepLeast"],
-["사회활동이 가장 많은 달","socialMost"],["사회활동이 가장 적은 달","socialLeast"],
-["가장 많이 먹는 달","eatMost"],["가장 적게 먹는 달","eatLeast"],
-["체중이 가장 많이 늘어나는 달","gainMost"],["체중이 가장 많이 줄어드는 달","loseMost"]
-];
-document.getElementById("calendarQs").innerHTML=cal.map((x,i)=>`<details><summary>${x[0]}</summary><div class="months" style="margin-top:10px">${monthChecks(x[1])}</div></details>`).join("");
+document.getElementById("worst").innerHTML=months.map((m,i)=>`<div class="mcheck"><input type="checkbox" id="m${i}" value="${i}"><label for="m${i}">${m}</label></div>`).join("");
 
 document.addEventListener("change",e=>{
- if(e.target.type==="checkbox" && e.target.dataset.group){
-   const g=e.target.dataset.group;
-   if(e.target.value==="12" && e.target.checked){
-     document.querySelectorAll(`input[data-group="${g}"]`).forEach(x=>{if(x!==e.target)x.checked=false});
-   } else if(e.target.checked){
-     const none=document.querySelector(`input[data-group="${g}"][value="12"]`); if(none)none.checked=false;
-   }
+ if(e.target.type==="checkbox"){
+   if(e.target.value==="12"&&e.target.checked) document.querySelectorAll('#worst input').forEach(x=>{if(x!==e.target)x.checked=false});
+   else if(e.target.checked){const n=document.getElementById("m12");if(n)n.checked=false}
  }
- save();
 });
 function rv(n){const x=document.querySelector(`input[name="${n}"]:checked`);return x?Number(x.value):null}
-function selected(prefix){return [...document.querySelectorAll(`input[data-group="${prefix}"]:checked`)].map(x=>Number(x.value))}
-function save(){
- const d={g:[0,1,2,3,4,5].map(i=>rv("g"+i)),problem:rv("problem"),best:selected("best"),worst:selected("worst"),weightVar:weightVar.value,foodPref:foodPref.value,sleepWinter:sleepWinter.value,sleepSummer:sleepSummer.value,repeatYears:rv("repeatYears")};
- localStorage.setItem("spaq-check",JSON.stringify(d));
-}
-function load(){
- try{const d=JSON.parse(localStorage.getItem("spaq-check")||"{}");
- (d.g||[]).forEach((v,i)=>{if(v!==null){const x=document.querySelector(`input[name="g${i}"][value="${v}"]`);if(x)x.checked=true}});
- if(d.problem!==null&&d.problem!==undefined){const x=document.querySelector(`input[name="problem"][value="${d.problem}"]`);if(x)x.checked=true}
- ["best","worst"].forEach(k=>(d[k]||[]).forEach(v=>{const x=document.querySelector(`input[data-group="${k}"][value="${v}"]`);if(x)x.checked=true}));
- weightVar.value=d.weightVar||"";foodPref.value=d.foodPref||"";sleepWinter.value=d.sleepWinter||"";sleepSummer.value=d.sleepSummer||"";
- if(d.repeatYears!==null&&d.repeatYears!==undefined){const x=document.querySelector(`input[name="repeatYears"][value="${d.repeatYears}"]`);if(x)x.checked=true}
- }catch(e){}
-}
 document.getElementById("calc").onclick=()=>{
- const vals=[0,1,2,3,4,5].map(i=>rv("g"+i));
- if(vals.some(v=>v===null)){alert("1번 영역의 6개 문항을 모두 체크해 주세요.");return}
- const prob=rv("problem");if(prob===null){alert("계절 변화가 생활에 주는 문제 정도를 체크해 주세요.");return}
- const score=vals.reduce((a,b)=>a+b,0), worst=selected("worst"), repeat=rv("repeatYears");
- if(worst.length===0){alert("기분이 가장 나쁜 달을 선택해 주세요. 해당되는 달이 없다면 '특정 달 없음'을 선택하세요.");return}
- const winter=worst.some(m=>[0,1,10,11].includes(m)) && !worst.includes(12);
- const summer=worst.some(m=>[5,6,7].includes(m)) && !worst.includes(12);
- scoreEl=document.getElementById("score");scoreEl.textContent=score;document.getElementById("fill").style.width=(score/24*100)+"%";
- const lvl=document.getElementById("level"),sum=document.getElementById("summary"),adv=document.getElementById("advice");
- let text="";
- if(score<8){lvl.textContent="계절성 변화가 낮은 편";lvl.style.color="var(--good)";text="GSS상 계절에 따른 변화 정도가 낮은 범위입니다."}
- else if(score<11){lvl.textContent="계절성 변화가 중간 정도";lvl.style.color="var(--warn)";text="계절에 따른 변화가 어느 정도 나타납니다. 점수뿐 아니라 일상 기능에 미치는 영향과 월별 패턴을 함께 보세요."}
- else{lvl.textContent="계절성 변화가 높은 편";lvl.style.color="var(--bad)";text="GSS 11점 이상으로 계절성이 높은 범위입니다. 하지만 이것만으로 SAD가 진단되지는 않습니다."}
- let pattern=worst.includes(12)?"특정 계절 패턴 없음":(winter?"겨울형 패턴 단서":(summer?"여름형 패턴 단서":"혼합/비전형 계절 패턴"));
- sum.innerHTML=`${text}<br><br><strong>생활 문제 정도:</strong> ${ps[prob]}<br><strong>월별 패턴:</strong> ${pattern}`;
- let a=[];
- if(score>=11&&prob>=2)a.push("연구에서 사용되는 SPAQ 선별 기준 중 'GSS 11점 이상 + 중등도 이상의 문제'에 해당합니다.");
- if(repeat===2)a.push("2년 이상 반복되는 계절 패턴도 체크했습니다. 의료진 평가 시 중요한 정보가 될 수 있습니다.");
- if(prob>=3)a.push("일상생활의 불편이 뚜렷하므로 전문 상담을 고려하는 편이 좋습니다.");
- adv.style.display=a.length?"block":"none";adv.innerHTML=a.join(" ");
- document.getElementById("result").style.display="block";document.getElementById("result").scrollIntoView({behavior:"smooth"});save();
+ const vals=[0,1,2,3,4,5].map(i=>rv("q"+i));
+ if(vals.some(v=>v===null)){alert("6개 문항을 모두 체크해 주세요.");return}
+ const prob=rv("problem");if(prob===null){alert("생활에 주는 문제 정도를 체크해 주세요.");return}
+ const worst=[...document.querySelectorAll("#worst input:checked")].map(x=>Number(x.value));
+ if(!worst.length){alert("기분이 가장 나쁜 달을 선택해 주세요.");return}
+ const score=vals.reduce((a,b)=>a+b,0);
+ let cls="낮은 계절성", color="var(--good)";
+ if(score>=11&&prob>=2){cls="SAD 선별 기준에 해당";color="var(--bad)"}
+ else if((score>=11&&prob<=1)||((score===9||score===10)&&prob>=2)){cls="S-SAD(준임상형) 선별 기준에 해당";color="var(--warn)"}
+ else if(score>=8){cls="계절성 변화가 중간 정도";color="var(--warn)"}
+ const winter=worst.some(m=>[11,0,1].includes(m)), summer=worst.some(m=>[5,6,7].includes(m));
+ let type=worst.includes(12)?"특정 계절형 없음":winter&&!summer?"겨울형 패턴":summer&&!winter?"여름형 패턴":winter&&summer?"겨울·여름 혼합 패턴":"기타 월 패턴";
+ document.getElementById("score").textContent=score;
+ const level=document.getElementById("level");level.textContent=cls;level.style.color=color;
+ document.getElementById("summary").innerHTML=`<strong>생활 문제:</strong> ${problems[prob]} (${prob}점)<br><strong>계절 패턴:</strong> ${type}<br><br>이 결과는 논문의 연구용 선별 기준을 적용한 참고 결과이며 진단이 아닙니다.`;
+ const repeat=rv("repeat"), a=[];
+ if(repeat===2)a.push("2년 이상 반복되는 패턴을 체크했습니다. 진료 시 이 반복성을 함께 설명하면 도움이 됩니다.");
+ if(score>=11&&prob>=2)a.push("SAD 선별 기준에 해당하므로 증상이 지속되거나 일상 기능이 떨어지면 전문 평가를 권합니다.");
+ const adv=document.getElementById("advice");adv.style.display=a.length?"block":"none";adv.innerHTML=a.join(" ");
+ document.getElementById("result").style.display="block";document.getElementById("result").scrollIntoView({behavior:"smooth"});
 };
-document.getElementById("reset").onclick=()=>{if(!confirm("모든 체크 내용을 초기화할까요?"))return;localStorage.removeItem("spaq-check");location.reload()};
-load();
+document.getElementById("reset").onclick=()=>{if(confirm("모든 체크 내용을 초기화할까요?"))location.reload()}
 </script>
-</body></html>
+</body>
+</html>
