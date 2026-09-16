@@ -1,0 +1,125 @@
+/* v11 forced/virtual landscape for room screens */
+html,body{overscroll-behavior:none}
+body.room-landscape{background:#050706!important}
+body.room-landscape .rotate-hint{display:none!important}
+
+/* Native landscape room layout */
+@media (orientation:landscape){
+  body.room-landscape .room-shell{min-height:100dvh!important;padding-bottom:0!important;overflow:hidden!important}
+  body.room-landscape .game-header{height:48px!important;padding:0 10px!important}
+  body.room-landscape .stage{height:calc(100dvh - 48px)!important;min-height:0!important;padding:4px 176px 62px 10px!important;overflow:hidden!important}
+  body.room-landscape .poker-table{width:min(76vw,940px)!important;height:calc(100dvh - 72px)!important;min-height:290px!important;max-height:none!important;margin:5px auto 0!important;border-radius:48%/43%!important}
+  body.room-landscape .player-hud{position:fixed!important;right:10px!important;top:54px!important;width:156px!important;display:flex!important;flex-direction:column!important;gap:7px!important;z-index:50!important}
+  body.room-landscape .actionbar{left:auto!important;right:8px!important;bottom:8px!important;width:342px!important;transform:none!important;grid-template-columns:90px 110px 126px!important;padding:7px!important;border-radius:15px!important;background:rgba(8,11,9,.9)!important;backdrop-filter:blur(18px)!important;border:1px solid rgba(224,194,129,.14)!important}
+  body.room-landscape .waitbar{left:auto!important;right:8px!important;bottom:8px!important;width:342px!important;transform:none!important;border-radius:14px!important;background:rgba(8,11,9,.88)!important;border:1px solid rgba(224,194,129,.12)!important}
+  body.room-landscape .my-panel{position:fixed!important;left:50%!important;bottom:7px!important;transform:translateX(-50%)!important;z-index:48!important;margin:0!important;flex-direction:row!important;gap:8px!important;align-items:flex-end!important}
+  body.room-landscape .my-cards .card-ui{width:54px!important;height:74px!important}
+  body.room-landscape .made{margin:0 0 5px 1px!important;max-width:155px!important;white-space:nowrap!important}
+  body.room-landscape .pos0{left:50%!important;top:91%!important}
+  body.room-landscape .pos1{left:13%!important;top:76%!important}
+  body.room-landscape .pos2{left:13%!important;top:23%!important}
+  body.room-landscape .pos3{left:50%!important;top:8%!important}
+  body.room-landscape .pos4{left:87%!important;top:23%!important}
+  body.room-landscape .pos5{left:87%!important;top:76%!important}
+  body.room-landscape .seat{width:94px!important;min-height:58px!important}
+  body.room-landscape .seat.me{width:104px!important}
+  body.room-landscape .community{gap:5px!important}
+  body.room-landscape .card-ui.small,body.room-landscape .slot{width:42px!important;height:59px!important}
+  body.room-landscape .table-center{width:62%!important;top:48%!important}
+  body.room-landscape .pot{font-size:18px!important}
+  body.room-landscape .lobby-shell-grid{width:min(1180px,97vw)!important;grid-template-columns:minmax(0,1fr) 276px!important;padding:10px 12px 12px!important;gap:12px!important}
+  body.room-landscape .seat-grid{min-height:calc(100dvh - 205px)!important;max-height:520px!important;margin:10px 0 8px!important}
+  body.room-landscape .lobby-settings{margin:6px 0!important}
+  body.room-landscape .lobby:before{margin:0 0 8px!important}
+  body.room-landscape .room-roster{top:55px!important;max-height:calc(100dvh - 68px)!important;overflow:auto!important}
+}
+
+/* Browser cannot lock orientation: rotate the whole room UI into a virtual landscape canvas */
+@media (orientation:portrait){
+  html.virtual-landscape,html.virtual-landscape body{width:100%;height:100%;overflow:hidden!important;background:#050706!important}
+  body.virtual-landscape{position:fixed!important;inset:0!important;margin:0!important}
+  body.virtual-landscape #app,
+  body.virtual-landscape #modal,
+  body.virtual-landscape #toast,
+  body.virtual-landscape #net{
+    transform-origin:top left!important;
+  }
+  body.virtual-landscape #app{
+    position:fixed!important;
+    left:100vw!important;
+    top:0!important;
+    width:100vh!important;
+    height:100vw!important;
+    min-height:0!important;
+    transform:rotate(90deg)!important;
+    overflow:hidden!important;
+    background:#050706!important;
+  }
+  body.virtual-landscape #modal{
+    position:fixed!important;
+    left:100vw!important;
+    top:0!important;
+    width:100vh!important;
+    height:100vw!important;
+    transform:rotate(90deg)!important;
+    z-index:1000!important;
+    pointer-events:none;
+  }
+  body.virtual-landscape #modal>*{pointer-events:auto}
+  body.virtual-landscape #toast{
+    position:fixed!important;
+    left:calc(100vw - 95px)!important;
+    top:50%!important;
+    bottom:auto!important;
+    transform:rotate(90deg) translateX(-50%)!important;
+    transform-origin:left top!important;
+    z-index:1200!important;
+  }
+  body.virtual-landscape #net{display:none!important}
+  body.virtual-landscape .rotate-hint{display:none!important}
+  body.virtual-landscape .room-shell{width:100vh!important;height:100vw!important;min-height:0!important;padding-bottom:0!important;overflow:hidden!important}
+  body.virtual-landscape .game-header{height:44px!important;padding:0 9px!important}
+  body.virtual-landscape .game-header strong{font-size:11px!important}
+  body.virtual-landscape .icon-btn{height:29px!important;padding:0 8px!important;font-size:8px!important}
+  body.virtual-landscape .stage{height:calc(100vw - 44px)!important;min-height:0!important;padding:4px 165px 58px 8px!important;overflow:hidden!important}
+  body.virtual-landscape .poker-table{width:calc(100vh - 185px)!important;height:calc(100vw - 64px)!important;min-height:270px!important;max-height:none!important;margin:4px auto 0!important;border-width:8px!important;border-radius:48%/43%!important}
+  body.virtual-landscape .table-center{width:60%!important;top:48%!important;gap:5px!important}
+  body.virtual-landscape .card-ui.small,body.virtual-landscape .slot{width:35px!important;height:49px!important}
+  body.virtual-landscape .community{gap:3px!important}
+  body.virtual-landscape .pot{font-size:14px!important}
+  body.virtual-landscape .seat{width:78px!important;min-height:50px!important;padding:4px!important}
+  body.virtual-landscape .seat.me{width:86px!important}
+  body.virtual-landscape .seat .avatar{width:19px!important;height:19px!important;font-size:8px!important}
+  body.virtual-landscape .seat strong{font-size:8px!important}
+  body.virtual-landscape .seat span{font-size:8px!important}
+  body.virtual-landscape .pos0{left:50%!important;top:91%!important}
+  body.virtual-landscape .pos1{left:13%!important;top:76%!important}
+  body.virtual-landscape .pos2{left:13%!important;top:23%!important}
+  body.virtual-landscape .pos3{left:50%!important;top:8%!important}
+  body.virtual-landscape .pos4{left:87%!important;top:23%!important}
+  body.virtual-landscape .pos5{left:87%!important;top:76%!important}
+  body.virtual-landscape .player-hud{position:fixed!important;right:7px!important;top:49px!important;width:147px!important;display:flex!important;flex-direction:column!important;gap:5px!important;z-index:50!important}
+  body.virtual-landscape .hud-box{padding:7px 9px!important;min-height:0!important}
+  body.virtual-landscape .hud-box.chips b,body.virtual-landscape .hud-box.profit b{font-size:19px!important}
+  body.virtual-landscape .hud-box.hand b{font-size:13px!important}
+  body.virtual-landscape .actionbar{left:auto!important;right:7px!important;bottom:7px!important;width:320px!important;transform:none!important;grid-template-columns:84px 103px 117px!important;padding:6px!important;border-radius:13px!important;background:rgba(8,11,9,.92)!important;border:1px solid rgba(224,194,129,.13)!important}
+  body.virtual-landscape .action{height:42px!important;font-size:11px!important}
+  body.virtual-landscape .waitbar{left:auto!important;right:7px!important;bottom:7px!important;width:320px!important;transform:none!important;padding:12px!important;border-radius:12px!important}
+  body.virtual-landscape .my-panel{position:fixed!important;left:50%!important;bottom:4px!important;transform:translateX(-50%)!important;z-index:48!important;margin:0!important;flex-direction:row!important;gap:7px!important;align-items:flex-end!important}
+  body.virtual-landscape .my-cards .card-ui{width:48px!important;height:66px!important}
+  body.virtual-landscape .made{margin:0 0 4px!important;font-size:9px!important;max-width:135px!important;white-space:nowrap!important}
+  body.virtual-landscape .lobby-shell-grid{width:100%!important;height:calc(100vw - 44px)!important;grid-template-columns:minmax(0,1fr) 240px!important;padding:8px!important;gap:9px!important;overflow:hidden!important}
+  body.virtual-landscape .lobby-main{height:100%!important;overflow:hidden!important}
+  body.virtual-landscape .lobby{height:100%!important}
+  body.virtual-landscape .lobby:before{margin:0 0 5px!important;font-size:8px!important}
+  body.virtual-landscape .lobby-top{margin-bottom:5px!important}
+  body.virtual-landscape .code-box{padding:7px 10px!important}.room-landscape .code-box b{font-size:16px!important}
+  body.virtual-landscape .lobby-settings{margin:5px 0!important;gap:5px!important}.virtual-landscape .lobby-settings span{padding:6px!important}
+  body.virtual-landscape .seat-grid{min-height:0!important;height:calc(100% - 128px)!important;margin:7px 0 4px!important;border-width:7px!important}
+  body.virtual-landscape .seat-choice{width:94px!important;min-height:57px!important;padding:7px!important;border-radius:15px!important}
+  body.virtual-landscape .seat-choice b{font-size:10px!important}.virtual-landscape .seat-choice span{font-size:8px!important}
+  body.virtual-landscape .room-roster{position:relative!important;top:0!important;max-height:100%!important;overflow:auto!important;border-radius:14px!important}
+  body.virtual-landscape .roster-person{padding:8px 9px!important}
+  body.virtual-landscape .roster-title{padding:10px!important}
+  body.virtual-landscape .sheet{width:min(82vh,620px)!important;max-height:88vw!important}
+}
