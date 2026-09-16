@@ -1,4 +1,4 @@
-/* v7 room membership guard, verified seating, roster, landscape state */
+/* v8 roster + verified seating only. Room loading is handled in app-a.js. */
 (function(){
   const baseRenderLobby=renderLobby;
   renderLobby=function(member){
@@ -8,35 +8,7 @@
     return `<div class="lobby-shell-grid"><div class="lobby-main">${body}</div>${roster}</div>`;
   };
 
-  loadRoom=async function(quiet=true){
-    const code=routeCode();
-    if(!code)return renderHome();
-    if(!token){renderInvite(code);return}
-    try{
-      const j=await api({op:'state',code});
-      state=j.state;
-      const member=state?.players?.find(p=>p.playerId===state?.me?.playerId);
-      if(!member){
-        stopPoll();
-        setNet(false);
-        renderInvite(code);
-        return;
-      }
-      setNet(false);
-      renderRoom();
-      startPoll();
-    }catch(e){
-      if(e.code==='SESSION_INVALID'){
-        setToken('');
-        renderInvite(code);
-      }else if(!quiet){
-        app.innerHTML=`<main class="center"><section class="card"><p class="error">${esc(e.message)}</p><button class="btn secondary" id="homeAfterError">홈으로</button></section></main>`;
-        document.getElementById('homeAfterError')?.addEventListener('click',()=>{history.pushState({},'',location.pathname);renderHome()});
-      }else setNet(true);
-    }
-  };
-
-  let seatPendingV7=false;
+  let seatPendingV8=false;
   wireLobby=function(member){
     const copy=document.getElementById('copyCode');
     if(copy)copy.onclick=()=>copyText(state.room.code);
@@ -46,8 +18,8 @@
       const seatNo=Number(btn.dataset.seat);
       const takeSeat=async ev=>{
         ev?.preventDefault?.();ev?.stopPropagation?.();
-        if(seatPendingV7||busy||!Number.isInteger(seatNo))return;
-        seatPendingV7=true;busy=true;stopPoll();btn.disabled=true;
+        if(seatPendingV8||busy||!Number.isInteger(seatNo))return;
+        seatPendingV8=true;busy=true;stopPoll();btn.disabled=true;
         const label=btn.querySelector('b'),old=label?.textContent||'앉기';
         if(label)label.textContent='앉는 중…';
         try{
@@ -64,7 +36,7 @@
           showToast(`착석 실패 · ${e.message||'다시 시도해주세요.'}`);
           try{await loadRoom(true)}catch{}
         }finally{
-          busy=false;seatPendingV7=false;startPoll();
+          busy=false;seatPendingV8=false;startPoll();
         }
       };
       btn.addEventListener('pointerup',takeSeat,{passive:false});
@@ -74,9 +46,9 @@
     if(start)start.onclick=()=>command({op:'start',code:state.room.code});
   };
 
-  const baseRenderRoomV7=renderRoom;
+  const baseRenderRoomV8=renderRoom;
   renderRoom=function(){
-    baseRenderRoomV7();
+    baseRenderRoomV8();
     const me=state?.players?.find(p=>p.playerId===state?.me?.playerId);
     document.body.classList.toggle('game-active',Boolean(me?.seatNo&&state?.hand));
   };
