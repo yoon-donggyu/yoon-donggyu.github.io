@@ -1,0 +1,11 @@
+/* v9 seat-count aware lobby layouts */
+.seat-grid:has(.seat-choice:nth-child(2):last-child) .seat-choice:nth-child(1){left:34%!important;top:50%!important}
+.seat-grid:has(.seat-choice:nth-child(2):last-child) .seat-choice:nth-child(2){left:66%!important;top:50%!important}
+.seat-grid:has(.seat-choice:nth-child(3):last-child) .seat-choice:nth-child(1){left:50%!important;top:10%!important}
+.seat-grid:has(.seat-choice:nth-child(3):last-child) .seat-choice:nth-child(2){left:78%!important;top:72%!important}
+.seat-grid:has(.seat-choice:nth-child(3):last-child) .seat-choice:nth-child(3){left:22%!important;top:72%!important}
+.seat-grid:has(.seat-choice:nth-child(4):last-child) .seat-choice:nth-child(1){left:50%!important;top:8%!important}
+.seat-grid:has(.seat-choice:nth-child(4):last-child) .seat-choice:nth-child(2){left:82%!important;top:50%!important}
+.seat-grid:has(.seat-choice:nth-child(4):last-child) .seat-choice:nth-child(3){left:50%!important;top:92%!important}
+.seat-grid:has(.seat-choice:nth-child(4):last-child) .seat-choice:nth-child(4){left:18%!important;top:50%!important}
+@media(max-width:620px){.seat-grid:has(.seat-choice:nth-child(2):last-child) .seat-choice:nth-child(1){left:31%!important}.seat-grid:has(.seat-choice:nth-child(2):last-child) .seat-choice:nth-child(2){left:69%!important}}
