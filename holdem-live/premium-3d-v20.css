@@ -1,0 +1,392 @@
+/* v20 — collision-free full-scene selective 3D poker layout.
+   Visual-only: server/game state logic remains unchanged. */
+:root{
+  --v20-bg:#070907;
+  --v20-panel:#0d110f;
+  --v20-felt:#123529;
+  --v20-felt-deep:#0c241b;
+  --v20-gold:#c8a968;
+  --v20-gold2:#e0c88e;
+  --v20-ivory:#eee4cb;
+  --v20-red:#9c3038;
+  --v20-green:#174d39;
+}
+
+/* ----- the whole game is one camera space ----- */
+body.game-active .room-shell{
+  position:relative;
+  overflow:hidden!important;
+  background:
+    radial-gradient(ellipse at 50% 18%,rgba(52,85,67,.16),transparent 36%),
+    radial-gradient(ellipse at 50% 70%,rgba(18,55,41,.13),transparent 54%),
+    linear-gradient(180deg,#080a08 0%,#050705 100%)!important;
+}
+body.game-active .stage{
+  perspective:1450px!important;
+  perspective-origin:50% 30%!important;
+  transform-style:preserve-3d!important;
+  isolation:isolate;
+}
+
+/* A true tilted table plane, while the UI floats above it. */
+body.game-active .poker-table{
+  transform:perspective(1450px) rotateX(7deg) translate3d(0,-3px,0)!important;
+  transform-origin:50% 44%!important;
+  transform-style:preserve-3d!important;
+  overflow:visible!important;
+  isolation:isolate!important;
+}
+body.game-active .poker-table:before{
+  transform:translateZ(-8px)!important;
+  border-radius:48%/42%!important;
+  background:
+    radial-gradient(ellipse at 50% 35%,rgba(42,105,77,.20),transparent 30%),
+    repeating-linear-gradient(128deg,rgba(255,255,255,.010) 0 1px,transparent 1px 8px),
+    radial-gradient(ellipse at 50% 50%,#174936 0%,#123529 54%,#0c241b 82%,#071811 100%)!important;
+  border:10px solid #1b120d!important;
+  box-shadow:
+    0 0 0 2px #070605,
+    0 0 0 5px #5a4028,
+    0 0 0 6px rgba(224,200,142,.46),
+    0 0 0 10px #21150e,
+    0 12px 0 #130c08,
+    0 21px 0 #090604,
+    0 38px 42px rgba(0,0,0,.45),
+    0 62px 100px rgba(0,0,0,.56),
+    inset 0 0 82px rgba(0,0,0,.30)!important;
+}
+body.game-active .poker-table:after{
+  transform:translateZ(-4px)!important;
+  inset:18px!important;
+  border-color:rgba(224,200,142,.32)!important;
+  box-shadow:inset 0 0 0 1px rgba(0,0,0,.5),inset 0 0 25px rgba(200,169,104,.06)!important;
+}
+body.game-active .table-logo{
+  transform:translate(-50%,-50%) translateZ(1px)!important;
+  color:rgba(238,228,203,.042)!important;
+  letter-spacing:6px!important;
+}
+
+/* ----- centre objects float at independent Z levels ----- */
+body.game-active .table-center{
+  top:48%!important;
+  width:58%!important;
+  transform:translate(-50%,-50%) translateZ(46px) rotateX(-3deg)!important;
+  transform-style:preserve-3d!important;
+  gap:7px!important;
+}
+body.game-active .community{
+  gap:6px!important;
+  transform:translateZ(18px)!important;
+  transform-style:preserve-3d!important;
+}
+body.game-active .community .card-ui,
+body.game-active .community .slot{
+  width:42px!important;
+  height:59px!important;
+}
+body.game-active .community .card-ui{
+  border-radius:8px!important;
+  box-shadow:0 3px 0 #ad9f79,0 8px 14px rgba(0,0,0,.42),0 14px 22px rgba(0,0,0,.18)!important;
+}
+body.game-active .slot{
+  background:rgba(4,22,15,.12)!important;
+  border:1px solid rgba(224,200,142,.22)!important;
+  box-shadow:inset 0 5px 12px rgba(0,0,0,.20)!important;
+}
+body.game-active .street-pill{
+  transform:translateZ(30px)!important;
+  background:linear-gradient(180deg,rgba(17,25,21,.86),rgba(7,12,9,.85))!important;
+  border:1px solid rgba(224,200,142,.19)!important;
+  box-shadow:0 5px 10px rgba(0,0,0,.24),inset 0 1px rgba(255,255,255,.04)!important;
+}
+body.game-active .pot{
+  position:relative!important;
+  min-width:112px!important;
+  padding:36px 12px 7px!important;
+  transform:translateZ(34px)!important;
+  border:1px solid rgba(224,200,142,.10)!important;
+  background:linear-gradient(180deg,rgba(10,17,13,.42),rgba(4,8,6,.24))!important;
+  box-shadow:0 9px 18px rgba(0,0,0,.20),inset 0 1px rgba(255,255,255,.025)!important;
+}
+body.game-active .pot:before{
+  top:5px!important;
+  width:38px!important;
+  height:10px!important;
+  box-shadow:
+    0 5px 0 #721f29,0 10px 0 #5b1821,0 15px 0 #44121a,
+    -18px 5px 0 #1a4767,-18px 10px 0 #11354e,
+    18px 4px 0 #252a27,18px 9px 0 #141815,
+    0 20px 9px rgba(0,0,0,.42)!important;
+}
+body.game-active .recent{
+  transform:translateZ(26px)!important;
+  background:rgba(5,13,10,.72)!important;
+  border:1px solid rgba(224,200,142,.11)!important;
+}
+
+/* ----- physical cards ----- */
+body.game-active .card-ui{
+  transform-style:preserve-3d!important;
+  backface-visibility:hidden!important;
+  border-radius:10px!important;
+  background:linear-gradient(145deg,#fffdf7 0%,#f4efe2 56%,#e4dcc9 100%)!important;
+  border:1px solid #d7c79d!important;
+  box-shadow:0 3px 0 #b3a57f,0 8px 15px rgba(0,0,0,.38),inset 0 0 0 1px rgba(255,255,255,.82)!important;
+}
+body.game-active .card-ui:after{
+  content:"";position:absolute;left:4px;right:4px;bottom:-3px;height:3px;border-radius:0 0 6px 6px;
+  background:linear-gradient(180deg,#c6b895,#9d8f70);opacity:.85;pointer-events:none;
+}
+body.game-active .card-ui.back{
+  background:
+    linear-gradient(145deg,rgba(224,200,142,.12),transparent 36%),
+    repeating-linear-gradient(45deg,#173b2e 0 4px,#285541 4px 7px,#10291f 7px 10px)!important;
+  border-color:rgba(224,200,142,.74)!important;
+  box-shadow:0 3px 0 #0a1711,0 8px 14px rgba(0,0,0,.43),inset 0 0 0 2px rgba(255,255,255,.035)!important;
+}
+
+/* ----- player pods are separate 3D objects ----- */
+body.game-active .seat-v18:not(.empty){
+  width:116px!important;height:64px!important;min-height:64px!important;
+  transform-style:preserve-3d!important;
+  perspective:700px!important;
+  z-index:18!important;
+}
+body.game-active .seat-v18 .seat-plate-v18{
+  transform:translateZ(34px)!important;
+  background:linear-gradient(155deg,#292f2b 0%,#151a17 48%,#080b09 100%)!important;
+  border:1px solid rgba(224,200,142,.30)!important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.075),
+    inset 0 -2px 0 rgba(0,0,0,.72),
+    0 3px 0 #070906,
+    0 7px 0 #030403,
+    0 13px 18px rgba(0,0,0,.48),
+    0 24px 34px rgba(0,0,0,.22)!important;
+}
+body.game-active .seat-v18 .seat-plate-v18:after{
+  content:"";position:absolute;left:10px;right:10px;bottom:-6px;height:6px;border-radius:0 0 10px 10px;
+  background:linear-gradient(180deg,#090c0a,#030403);z-index:-1;pointer-events:none;
+}
+body.game-active .seat-v18.turn .seat-plate-v18{
+  transform:translate3d(0,-3px,44px)!important;
+  border-color:rgba(224,200,142,.72)!important;
+  box-shadow:inset 0 1px rgba(255,255,255,.08),0 3px 0 #070906,0 7px 0 #030403,0 0 0 2px rgba(200,169,104,.09),0 0 20px rgba(200,169,104,.17),0 19px 28px rgba(0,0,0,.45)!important;
+}
+body.game-active .seat-v18 .avatar{transform:translateZ(46px)!important}
+body.game-active .seat-v18 .badges{transform:translateZ(60px)!important}
+body.game-active .seat-v18 .timer{transform:translateZ(64px)!important}
+
+/* Camera depth: far seats are smaller, near seat is larger. */
+body.game-active .seat-v18.pos3{transform:translate(-50%,-50%) scale(.88)!important;top:11%!important}
+body.game-active .seat-v18.pos2,
+body.game-active .seat-v18.pos4{transform:translate(-50%,-50%) scale(.92)!important;top:27%!important}
+body.game-active .seat-v18.pos1,
+body.game-active .seat-v18.pos5{transform:translate(-50%,-50%) scale(.97)!important;top:68%!important}
+body.game-active .seat-v18.pos0{transform:translate(-50%,-50%) scale(1.06)!important;top:82%!important}
+
+/* ----- strict collision lanes: opponent cards / bets never share a lane ----- */
+body.game-active .seat-v18 .mini-hole-v18{
+  z-index:12!important;
+  transform-style:preserve-3d!important;
+  filter:drop-shadow(0 9px 7px rgba(0,0,0,.40))!important;
+}
+body.game-active .seat-v18 .mini-hole-v18 .card-ui{
+  width:28px!important;height:39px!important;border-radius:7px!important;
+}
+/* Opposite seat: cards directly below pod; bet chip to the RIGHT of the pod. */
+body.game-active .seat-v18.pos3 .mini-hole-v18{
+  left:50%!important;top:calc(100% + 9px)!important;right:auto!important;bottom:auto!important;
+  transform:translateX(-50%) translateZ(28px)!important;
+}
+body.game-active .seat-v18.pos3 .bet-chip{
+  left:calc(100% + 10px)!important;right:auto!important;top:50%!important;bottom:auto!important;
+  transform:translateY(-50%) translateZ(50px)!important;
+}
+/* Upper/side opponents: cards toward centre, bet chip vertically separated. */
+body.game-active .seat-v18.pos1 .mini-hole-v18,
+body.game-active .seat-v18.pos2 .mini-hole-v18{
+  left:calc(100% + 9px)!important;right:auto!important;top:36%!important;bottom:auto!important;
+  transform:translateY(-50%) translateZ(28px)!important;
+}
+body.game-active .seat-v18.pos1 .bet-chip,
+body.game-active .seat-v18.pos2 .bet-chip{
+  left:calc(100% + 12px)!important;right:auto!important;top:calc(100% + 3px)!important;bottom:auto!important;
+  transform:translateZ(50px)!important;
+}
+body.game-active .seat-v18.pos4 .mini-hole-v18,
+body.game-active .seat-v18.pos5 .mini-hole-v18{
+  right:calc(100% + 9px)!important;left:auto!important;top:36%!important;bottom:auto!important;
+  transform:translateY(-50%) translateZ(28px)!important;
+}
+body.game-active .seat-v18.pos4 .bet-chip,
+body.game-active .seat-v18.pos5 .bet-chip{
+  right:calc(100% + 12px)!important;left:auto!important;top:calc(100% + 3px)!important;bottom:auto!important;
+  transform:translateZ(50px)!important;
+}
+/* My street bet is above the pod, never under the hole cards. */
+body.game-active .seat-v18.pos0 .bet-chip{
+  left:calc(100% + 9px)!important;right:auto!important;top:10px!important;bottom:auto!important;
+  transform:translateZ(54px)!important;
+}
+
+/* ----- my hand has its own bottom-left/centre zone ----- */
+body.game-active .my-panel{
+  position:fixed!important;
+  left:34%!important;
+  bottom:8px!important;
+  transform:translateX(-50%) translateZ(80px)!important;
+  z-index:62!important;
+  display:flex!important;
+  flex-direction:row!important;
+  align-items:flex-end!important;
+  gap:10px!important;
+  margin:0!important;
+  perspective:800px!important;
+  pointer-events:none;
+}
+body.game-active .my-cards{
+  gap:7px!important;
+  transform-style:preserve-3d!important;
+}
+body.game-active .my-cards .card-ui{
+  width:54px!important;height:75px!important;
+  box-shadow:0 4px 0 #b4a77f,0 10px 19px rgba(0,0,0,.45),0 18px 28px rgba(0,0,0,.20)!important;
+}
+body.game-active .my-cards .card-ui:first-child{transform:translate3d(0,-3px,26px) rotateZ(-4deg) rotateY(2deg)!important}
+body.game-active .my-cards .card-ui:last-child{transform:translate3d(-3px,-3px,30px) rotateZ(4deg) rotateY(-2deg)!important}
+body.game-active .made{
+  margin:0 0 5px!important;padding:6px 10px!important;border-radius:10px!important;
+  color:#e7ddc5!important;background:linear-gradient(180deg,rgba(15,20,17,.92),rgba(7,10,8,.93))!important;
+  border:1px solid rgba(224,200,142,.15)!important;
+  box-shadow:0 5px 12px rgba(0,0,0,.28),inset 0 1px rgba(255,255,255,.035)!important;
+  white-space:nowrap!important;
+}
+
+/* ----- HUD is a raised metal/glass console ----- */
+body.game-active .player-hud{
+  perspective:900px!important;
+  transform-style:preserve-3d!important;
+}
+body.game-active .hud-box{
+  position:relative!important;
+  overflow:hidden!important;
+  transform:translateZ(24px)!important;
+  background:linear-gradient(155deg,rgba(25,30,27,.96),rgba(8,12,10,.98))!important;
+  border:1px solid rgba(224,200,142,.20)!important;
+  box-shadow:inset 0 1px rgba(255,255,255,.055),0 3px 0 #050705,0 9px 17px rgba(0,0,0,.37)!important;
+}
+body.game-active .hud-box:before{
+  content:"";position:absolute;inset:1px 1px 55% 1px;border-radius:inherit;
+  background:linear-gradient(180deg,rgba(255,255,255,.055),transparent);pointer-events:none;
+}
+body.game-active .hud-box.hand{transform:translateZ(32px)!important}
+body.game-active .hud-box.chips{transform:translateZ(27px)!important}
+body.game-active .hud-box.profit{transform:translateZ(22px)!important}
+
+/* ----- action console: physical buttons on a separate near plane ----- */
+body.game-active .actionbar{
+  perspective:850px!important;
+  transform-style:preserve-3d!important;
+  background:linear-gradient(180deg,rgba(8,12,10,.60),rgba(5,8,6,.96))!important;
+  border:1px solid rgba(224,200,142,.13)!important;
+  box-shadow:0 10px 28px rgba(0,0,0,.38),inset 0 1px rgba(255,255,255,.035)!important;
+}
+body.game-active .action{
+  transform:translateZ(30px)!important;
+  border:1px solid rgba(224,200,142,.13)!important;
+  box-shadow:inset 0 1px rgba(255,255,255,.07),0 4px 0 #060806,0 10px 15px rgba(0,0,0,.30)!important;
+  text-shadow:0 1px 2px rgba(0,0,0,.45)!important;
+}
+body.game-active .action:not(:disabled):active{
+  transform:translate3d(0,3px,12px)!important;
+  box-shadow:inset 0 1px rgba(255,255,255,.03),0 1px 0 #060806,0 4px 7px rgba(0,0,0,.24)!important;
+}
+body.game-active .action.fold{background:linear-gradient(180deg,#7c2d35,#4d171e)!important}
+body.game-active .action.neutral{background:linear-gradient(180deg,#303733,#181d1a)!important}
+body.game-active .action.raise{background:linear-gradient(180deg,#1c674a,#103b2b)!important}
+body.game-active .action.allin{background:linear-gradient(180deg,#775326,#442d13)!important}
+
+/* Header also participates in the same premium depth language. */
+body.game-active .game-header{
+  box-shadow:0 2px 0 rgba(200,169,104,.06),0 12px 28px rgba(0,0,0,.34)!important;
+}
+body.game-active .icon-btn{
+  background:linear-gradient(180deg,#252b27,#111613)!important;
+  border-color:rgba(224,200,142,.17)!important;
+  box-shadow:inset 0 1px rgba(255,255,255,.06),0 2px 0 #050705,0 5px 10px rgba(0,0,0,.25)!important;
+}
+body.game-active .icon-btn:active{transform:translateY(2px)!important;box-shadow:inset 0 1px rgba(255,255,255,.03),0 1px 0 #050705!important}
+
+/* ----- native landscape geometry ----- */
+@media (orientation:landscape){
+  body.room-landscape.game-active .stage{
+    padding:6px 174px 92px 12px!important;
+  }
+  body.room-landscape.game-active .poker-table{
+    width:min(74vw,930px)!important;
+    height:calc(100dvh - 82px)!important;
+    min-height:292px!important;
+    margin:8px auto 0!important;
+  }
+  body.room-landscape.game-active .pos3{left:50%!important;top:12%!important}
+  body.room-landscape.game-active .pos2{left:14%!important;top:28%!important}
+  body.room-landscape.game-active .pos4{left:86%!important;top:28%!important}
+  body.room-landscape.game-active .pos1{left:14%!important;top:67%!important}
+  body.room-landscape.game-active .pos5{left:86%!important;top:67%!important}
+  body.room-landscape.game-active .pos0{left:50%!important;top:82%!important}
+  body.room-landscape.game-active .player-hud{right:9px!important;top:54px!important;width:154px!important}
+  body.room-landscape.game-active .actionbar{right:8px!important;bottom:8px!important;width:342px!important}
+}
+
+/* ----- virtual landscape / iPhone: same composition, proportionally tighter ----- */
+@media (orientation:portrait){
+  body.virtual-landscape.game-active .stage{padding:5px 154px 82px 8px!important}
+  body.virtual-landscape.game-active .poker-table{
+    width:calc(100vh - 178px)!important;
+    height:calc(100vw - 66px)!important;
+    min-height:268px!important;
+    margin:5px auto 0!important;
+  }
+  body.virtual-landscape.game-active .seat-v18:not(.empty){width:98px!important;height:55px!important;min-height:55px!important}
+  body.virtual-landscape.game-active .seat-v18.pos3{top:12%!important;transform:translate(-50%,-50%) scale(.84)!important}
+  body.virtual-landscape.game-active .seat-v18.pos2,
+  body.virtual-landscape.game-active .seat-v18.pos4{top:28%!important;transform:translate(-50%,-50%) scale(.88)!important}
+  body.virtual-landscape.game-active .seat-v18.pos1,
+  body.virtual-landscape.game-active .seat-v18.pos5{top:67%!important;transform:translate(-50%,-50%) scale(.93)!important}
+  body.virtual-landscape.game-active .seat-v18.pos0{top:81%!important;transform:translate(-50%,-50%) scale(1.00)!important}
+  body.virtual-landscape.game-active .table-center{width:56%!important;top:47%!important}
+  body.virtual-landscape.game-active .community .card-ui,
+  body.virtual-landscape.game-active .community .slot{width:34px!important;height:48px!important}
+  body.virtual-landscape.game-active .seat-v18 .mini-hole-v18 .card-ui{width:23px!important;height:32px!important}
+  body.virtual-landscape.game-active .my-panel{left:31%!important;bottom:5px!important;gap:7px!important}
+  body.virtual-landscape.game-active .my-cards .card-ui{width:46px!important;height:64px!important}
+  body.virtual-landscape.game-active .made{font-size:8px!important;padding:5px 7px!important}
+  body.virtual-landscape.game-active .player-hud{right:7px!important;top:49px!important;width:142px!important}
+  body.virtual-landscape.game-active .actionbar{right:7px!important;bottom:6px!important;width:310px!important;grid-template-columns:82px 100px 112px!important}
+}
+
+/* Very short landscape phones: protect all four interaction/info zones. */
+@media (max-height:430px) and (orientation:landscape){
+  body.room-landscape.game-active .stage{padding-right:158px!important;padding-bottom:76px!important}
+  body.room-landscape.game-active .poker-table{width:min(72vw,820px)!important;height:calc(100dvh - 70px)!important}
+  body.room-landscape.game-active .seat-v18:not(.empty){width:99px!important;height:55px!important;min-height:55px!important}
+  body.room-landscape.game-active .seat-v18.pos3{top:13%!important;transform:translate(-50%,-50%) scale(.82)!important}
+  body.room-landscape.game-active .seat-v18.pos0{top:80%!important;transform:translate(-50%,-50%) scale(.98)!important}
+  body.room-landscape.game-active .table-center{top:46%!important;width:54%!important}
+  body.room-landscape.game-active .community .card-ui,
+  body.room-landscape.game-active .community .slot{width:34px!important;height:48px!important}
+  body.room-landscape.game-active .my-panel{left:30%!important;bottom:5px!important}
+  body.room-landscape.game-active .my-cards .card-ui{width:45px!important;height:63px!important}
+  body.room-landscape.game-active .player-hud{width:140px!important}
+  body.room-landscape.game-active .actionbar{width:300px!important;grid-template-columns:78px 96px 110px!important}
+}
+
+@media (prefers-reduced-motion:reduce){
+  body.game-active .poker-table,
+  body.game-active .seat-v18,
+  body.game-active .seat-plate-v18,
+  body.game-active .action,
+  body.game-active .hud-box{transition:none!important}
+}
