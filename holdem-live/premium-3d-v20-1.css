@@ -1,0 +1,235 @@
+/* v20.1 — reference-layout tuning: collision-free premium 3D mobile poker scene.
+   Visual only. No game/server logic changes. */
+
+/* The reference layout is split into four protected zones:
+   1) table/player space, 2) centre board/pot, 3) right HUD/actions, 4) lower hero hand. */
+body.game-active .stage{
+  --v201-table-offset:-80px;
+  --v201-seat-w:112px;
+  overflow:hidden!important;
+}
+
+/* Stronger single-camera composition without expensive filters. */
+body.game-active .stage:before{
+  content:"";position:absolute;left:2%;right:160px;top:2%;bottom:3%;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse at 50% 47%,rgba(75,145,115,.08),transparent 50%);
+  transform:perspective(1300px) rotateX(7deg) translateZ(-22px);
+}
+body.game-active .poker-table{
+  transform:perspective(1500px) rotateX(8.5deg) translate3d(0,-5px,0)!important;
+  transform-origin:50% 46%!important;
+}
+body.game-active .poker-table:before{
+  background:
+    radial-gradient(ellipse at 50% 31%,rgba(50,119,91,.22),transparent 31%),
+    repeating-linear-gradient(128deg,rgba(255,255,255,.009) 0 1px,transparent 1px 9px),
+    radial-gradient(ellipse at 50% 48%,#18513d 0%,#113b2d 55%,#0a281e 84%,#061710 100%)!important;
+  box-shadow:
+    0 0 0 2px #080605,
+    0 0 0 5px #4b3523,
+    0 0 0 6px rgba(224,200,142,.45),
+    0 0 0 11px #1d130d,
+    0 13px 0 #120b08,
+    0 23px 0 #070504,
+    0 40px 44px rgba(0,0,0,.48),
+    0 66px 104px rgba(0,0,0,.58),
+    inset 0 0 90px rgba(0,0,0,.31)!important;
+}
+
+/* Board is slightly above visual centre, like the supplied reference. */
+body.game-active .table-center{
+  top:43%!important;
+  width:55%!important;
+  gap:6px!important;
+  transform:translate(-50%,-50%) translateZ(52px) rotateX(-4deg)!important;
+}
+body.game-active .community{gap:5px!important}
+body.game-active .pot{
+  min-width:104px!important;
+  padding:34px 10px 6px!important;
+  font-size:14px!important;
+}
+body.game-active .recent{max-width:180px!important}
+
+/* Player pods: one coherent 3D object. Avatar protrudes from the pod instead of
+   fighting with nickname/stack/card lanes. */
+body.game-active .seat-v18:not(.empty){
+  width:var(--v201-seat-w)!important;height:58px!important;min-height:58px!important;
+}
+body.game-active .seat-v18 .seat-plate-v18{
+  border-radius:15px!important;
+  transform:translateZ(34px)!important;
+}
+body.game-active .seat-v18 .avatar{
+  left:-13px!important;top:9px!important;width:38px!important;height:38px!important;
+  font-size:12px!important;z-index:9!important;
+  border:2px solid rgba(224,200,142,.56)!important;
+  box-shadow:inset 0 1px rgba(255,255,255,.16),0 3px 0 #080906,0 8px 14px rgba(0,0,0,.48)!important;
+}
+body.game-active .seat-v18 .seat-copy-v18{
+  left:31px!important;right:6px!important;top:5px!important;bottom:5px!important;
+  grid-template-rows:13px 18px 10px!important;gap:0!important;
+}
+body.game-active .seat-v18 .seat-copy-v18>strong{font-size:9px!important;line-height:13px!important}
+body.game-active .seat-v18 .stack-v18{height:18px!important;gap:4px!important}
+body.game-active .seat-v18 .stack-v18>span{font-size:11px!important;line-height:16px!important;color:#f2dda5!important}
+body.game-active .seat-v18 .stack-v18>i{width:13px!important;height:13px!important;flex-basis:13px!important}
+body.game-active .seat-v18 .seat-copy-v18>small{font-size:6.5px!important;line-height:9px!important}
+
+/* Camera depth. Far opponents are deliberately smaller and higher. */
+body.game-active .seat-v18.pos3{top:8.5%!important;transform:translate(-50%,-50%) scale(.80)!important}
+body.game-active .seat-v18.pos2,
+body.game-active .seat-v18.pos4{top:26%!important;transform:translate(-50%,-50%) scale(.87)!important}
+body.game-active .seat-v18.pos1,
+body.game-active .seat-v18.pos5{top:65%!important;transform:translate(-50%,-50%) scale(.93)!important}
+body.game-active .seat-v18.pos0{top:87%!important;transform:translate(-50%,-50%) scale(1.03)!important}
+
+/* Opponent hole cards have a dedicated inward rail. No card may occupy the pod's
+   nickname/stack area, and street bets get their own separate lane. */
+body.game-active .seat-v18 .mini-hole-v18{z-index:14!important}
+body.game-active .seat-v18 .mini-hole-v18 .card-ui{width:25px!important;height:35px!important;border-radius:6px!important}
+body.game-active .seat-v18.pos3 .mini-hole-v18{
+  left:50%!important;top:calc(100% + 12px)!important;
+  transform:translateX(-50%) translateZ(34px)!important;
+}
+body.game-active .seat-v18.pos3 .bet-chip{
+  left:calc(100% + 14px)!important;top:65%!important;
+  transform:translateY(-50%) translateZ(58px)!important;
+}
+body.game-active .seat-v18.pos2 .mini-hole-v18,
+body.game-active .seat-v18.pos1 .mini-hole-v18{
+  left:calc(100% + 15px)!important;top:28%!important;
+  transform:translateY(-50%) translateZ(34px)!important;
+}
+body.game-active .seat-v18.pos2 .bet-chip,
+body.game-active .seat-v18.pos1 .bet-chip{
+  left:calc(100% + 17px)!important;top:calc(100% + 11px)!important;
+  transform:translateZ(58px)!important;
+}
+body.game-active .seat-v18.pos4 .mini-hole-v18,
+body.game-active .seat-v18.pos5 .mini-hole-v18{
+  right:calc(100% + 15px)!important;top:28%!important;
+  transform:translateY(-50%) translateZ(34px)!important;
+}
+body.game-active .seat-v18.pos4 .bet-chip,
+body.game-active .seat-v18.pos5 .bet-chip{
+  right:calc(100% + 17px)!important;top:calc(100% + 11px)!important;
+  transform:translateZ(58px)!important;
+}
+
+/* Hero street bet belongs to the right shoulder of the pod — never under cards. */
+body.game-active .seat-v18.pos0 .bet-chip{
+  left:calc(100% + 15px)!important;right:auto!important;top:-3px!important;bottom:auto!important;
+  transform:translateZ(62px)!important;
+}
+
+/* Critical v20.1 fix: the hero hand now lives INSIDE the stage camera coordinates.
+   It is no longer fixed to the viewport bottom, eliminating card/stack collisions. */
+body.game-active .my-panel{
+  position:absolute!important;
+  left:calc(50% + var(--v201-table-offset))!important;
+  top:67%!important;bottom:auto!important;
+  transform:translate(-50%,-50%) translateZ(78px)!important;
+  z-index:42!important;
+  display:flex!important;flex-direction:column!important;align-items:center!important;gap:5px!important;
+  margin:0!important;pointer-events:none!important;
+}
+body.game-active .my-cards{gap:5px!important}
+body.game-active .my-cards .card-ui{
+  width:48px!important;height:67px!important;border-radius:9px!important;
+  box-shadow:0 3px 0 #b4a77f,0 9px 16px rgba(0,0,0,.44),0 17px 25px rgba(0,0,0,.17)!important;
+}
+body.game-active .my-cards .card-ui:first-child{transform:translate3d(2px,0,26px) rotateZ(-4deg) rotateY(2deg)!important}
+body.game-active .my-cards .card-ui:last-child{transform:translate3d(-2px,0,30px) rotateZ(4deg) rotateY(-2deg)!important}
+body.game-active .made{
+  margin:0!important;padding:4px 8px!important;font-size:8px!important;
+  background:rgba(7,12,9,.86)!important;
+}
+
+/* Right console is intentionally compact so the table has breathing room. */
+body.game-active .player-hud{right:8px!important;width:142px!important;gap:5px!important}
+body.game-active .hud-box{padding:7px 9px!important;min-height:0!important;border-radius:10px!important}
+body.game-active .hud-box span{font-size:7px!important}
+body.game-active .hud-box b{font-size:14px!important;line-height:17px!important}
+body.game-active .hud-box.chips b,body.game-active .hud-box.profit b{font-size:17px!important}
+
+/* Action console remains bottom-right and never extends into the hero-card lane. */
+body.game-active .actionbar{
+  right:8px!important;width:302px!important;grid-template-columns:78px 98px 110px!important;gap:7px!important;padding:6px!important;
+  border-radius:14px!important;
+}
+body.game-active .action{height:44px!important;font-size:11px!important;border-radius:12px!important}
+body.game-active .waitbar{right:8px!important;width:302px!important;padding:11px!important;font-size:9px!important}
+
+/* Native landscape: table centre offset follows the reserved right console. */
+@media (orientation:landscape){
+  body.room-landscape.game-active .stage{
+    --v201-table-offset:-78px;
+    padding:6px 158px 64px 10px!important;
+  }
+  body.room-landscape.game-active .poker-table{
+    width:min(76vw,940px)!important;height:calc(100dvh - 76px)!important;min-height:286px!important;
+    margin:7px auto 0!important;
+  }
+  body.room-landscape.game-active .pos2{left:13%!important}
+  body.room-landscape.game-active .pos4{left:87%!important}
+  body.room-landscape.game-active .pos1{left:13%!important}
+  body.room-landscape.game-active .pos5{left:87%!important}
+  body.room-landscape.game-active .player-hud{top:53px!important}
+}
+
+/* iPhone/virtual landscape. This is tuned specifically to prevent the overlap
+   visible in the supplied portrait screenshot after the 90° app rotation. */
+@media (orientation:portrait){
+  body.virtual-landscape.game-active .stage{
+    --v201-table-offset:-67px;
+    padding:5px 142px 56px 7px!important;
+  }
+  body.virtual-landscape.game-active .poker-table{
+    width:calc(100vh - 158px)!important;height:calc(100vw - 62px)!important;min-height:264px!important;
+    margin:5px auto 0!important;
+  }
+  body.virtual-landscape.game-active .seat-v18:not(.empty){width:92px!important;height:50px!important;min-height:50px!important}
+  body.virtual-landscape.game-active .seat-v18 .avatar{left:-10px!important;top:8px!important;width:33px!important;height:33px!important}
+  body.virtual-landscape.game-active .seat-v18 .seat-copy-v18{left:27px!important;right:5px!important;top:4px!important;bottom:4px!important;grid-template-rows:11px 16px 8px!important}
+  body.virtual-landscape.game-active .seat-v18 .seat-copy-v18>strong{font-size:8px!important;line-height:11px!important}
+  body.virtual-landscape.game-active .seat-v18 .stack-v18>span{font-size:9px!important}
+  body.virtual-landscape.game-active .seat-v18.pos3{top:8%!important;transform:translate(-50%,-50%) scale(.75)!important}
+  body.virtual-landscape.game-active .seat-v18.pos2,
+  body.virtual-landscape.game-active .seat-v18.pos4{top:25%!important;transform:translate(-50%,-50%) scale(.82)!important}
+  body.virtual-landscape.game-active .seat-v18.pos1,
+  body.virtual-landscape.game-active .seat-v18.pos5{top:64%!important;transform:translate(-50%,-50%) scale(.88)!important}
+  body.virtual-landscape.game-active .seat-v18.pos0{top:88%!important;transform:translate(-50%,-50%) scale(.96)!important}
+  body.virtual-landscape.game-active .seat-v18 .mini-hole-v18 .card-ui{width:20px!important;height:28px!important}
+  body.virtual-landscape.game-active .table-center{top:42%!important;width:52%!important}
+  body.virtual-landscape.game-active .community .card-ui,
+  body.virtual-landscape.game-active .community .slot{width:31px!important;height:44px!important}
+  body.virtual-landscape.game-active .pot{min-width:88px!important;padding:29px 8px 5px!important;font-size:12px!important}
+  body.virtual-landscape.game-active .my-panel{top:68%!important;left:calc(50% + var(--v201-table-offset))!important}
+  body.virtual-landscape.game-active .my-cards .card-ui{width:41px!important;height:58px!important}
+  body.virtual-landscape.game-active .made{font-size:7px!important;padding:3px 6px!important}
+  body.virtual-landscape.game-active .player-hud{right:6px!important;top:48px!important;width:130px!important;gap:4px!important}
+  body.virtual-landscape.game-active .hud-box{padding:5px 7px!important}
+  body.virtual-landscape.game-active .hud-box b{font-size:12px!important;line-height:14px!important}
+  body.virtual-landscape.game-active .hud-box.chips b,body.virtual-landscape.game-active .hud-box.profit b{font-size:15px!important}
+  body.virtual-landscape.game-active .actionbar{right:6px!important;bottom:6px!important;width:278px!important;grid-template-columns:72px 90px 102px!important;gap:5px!important;padding:5px!important}
+  body.virtual-landscape.game-active .action{height:39px!important;font-size:10px!important}
+  body.virtual-landscape.game-active .waitbar{right:6px!important;bottom:6px!important;width:278px!important;padding:9px!important}
+}
+
+/* Very short real landscape phones: trade decorative size for guaranteed readability. */
+@media (max-height:430px) and (orientation:landscape){
+  body.room-landscape.game-active .stage{--v201-table-offset:-70px;padding-right:142px!important;padding-bottom:54px!important}
+  body.room-landscape.game-active .poker-table{width:min(76vw,830px)!important;height:calc(100dvh - 66px)!important}
+  body.room-landscape.game-active .seat-v18:not(.empty){width:90px!important;height:49px!important;min-height:49px!important}
+  body.room-landscape.game-active .seat-v18 .avatar{width:32px!important;height:32px!important;top:8px!important}
+  body.room-landscape.game-active .seat-v18.pos3{top:9%!important;transform:translate(-50%,-50%) scale(.74)!important}
+  body.room-landscape.game-active .seat-v18.pos0{top:88%!important;transform:translate(-50%,-50%) scale(.95)!important}
+  body.room-landscape.game-active .table-center{top:41%!important;width:51%!important}
+  body.room-landscape.game-active .community .card-ui,
+  body.room-landscape.game-active .community .slot{width:30px!important;height:43px!important}
+  body.room-landscape.game-active .my-panel{top:67%!important}
+  body.room-landscape.game-active .my-cards .card-ui{width:40px!important;height:57px!important}
+  body.room-landscape.game-active .player-hud{width:128px!important}
+  body.room-landscape.game-active .actionbar{width:274px!important;grid-template-columns:70px 89px 101px!important}
+}
