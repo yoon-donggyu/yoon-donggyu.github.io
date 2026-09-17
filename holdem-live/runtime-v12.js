@@ -70,7 +70,6 @@
     let body=baseRenderLobby(member)
       .replaceAll('>앉기<','>준비<')
       .replaceAll('>빈 자리<','>대기<')
-      .replace('빈 좌석을 선택하세요.','준비할 자리를 선택하세요.')
       .replace('2명 이상 착석하면 시작할 수 있습니다.','2명 이상 준비하면 시작할 수 있습니다.');
 
     body=body.replace(
