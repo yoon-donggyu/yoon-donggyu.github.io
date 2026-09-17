@@ -1,0 +1,61 @@
+/* v14 motion/effects layer — GPU-friendly, state-driven, no gameplay changes */
+:root{--fx14-ease:cubic-bezier(.16,.84,.25,1);--fx14-spring:cubic-bezier(.2,1.05,.32,1)}
+
+/* Disable older ghost effects; app-d may still create them but v14 owns visuals. */
+.chip-fx,.deal-fx{display:none!important}
+.win-glow{animation:none!important}
+
+.poker-table,.seat,.card-ui,.action,.icon-btn,.btn,.hud-box,.recent{backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.poker-table,.seat,.card-ui,.fx14-layer,.fx14-chip,.fx14-card,.fx14-spark{transform:translateZ(0)}
+
+/* Softer persistent motion, no blinking. */
+.seat{transition:border-color .24s ease,filter .24s ease,opacity .24s ease,background .24s ease!important}
+.seat.turn{position:absolute}
+.seat.turn:after{content:"";position:absolute;inset:-6px;border-radius:inherit;border:1px solid rgba(241,205,122,.7);pointer-events:none;animation:fx14TurnHalo 1.8s ease-in-out infinite;will-change:transform,opacity}
+.seat.folded{filter:saturate(.48) brightness(.72);opacity:.72}
+.timer{transition:transform .18s ease,background .18s ease,color .18s ease}
+.timer.fx14-urgent{animation:fx14Timer .72s ease-in-out infinite}
+
+.action,.icon-btn,.btn,.seat-choice{position:relative;overflow:hidden;transition:transform .16s var(--fx14-ease),filter .18s ease,box-shadow .18s ease!important;touch-action:manipulation}
+.action:not(:disabled):active,.icon-btn:active,.btn:not(:disabled):active,.seat-choice:not(:disabled):active{transform:translateY(1px) scale(.975)!important}
+.fx14-ripple{position:absolute;border-radius:50%;background:rgba(255,255,255,.20);width:14px;height:14px;margin:-7px 0 0 -7px;pointer-events:none;z-index:20;animation:fx14Ripple .46s ease-out forwards;will-change:transform,opacity}
+
+/* Actual newly-rendered cards get motion only when state says they are new. */
+.card-ui.fx14-own-deal{animation:fx14OwnDeal .52s var(--fx14-spring) both;will-change:transform,opacity}
+.card-ui.fx14-board-deal{animation:fx14BoardDeal .46s var(--fx14-spring) both;will-change:transform,opacity}
+.card-ui.fx14-board-deal:nth-child(2){animation-delay:.055s}.card-ui.fx14-board-deal:nth-child(3){animation-delay:.11s}.card-ui.fx14-board-deal:nth-child(4){animation-delay:.055s}.card-ui.fx14-board-deal:nth-child(5){animation-delay:.09s}
+.recent.fx14-action-pop{animation:fx14ActionPop .34s var(--fx14-spring) both}
+.hud-box b.fx14-value-pop{animation:fx14ValuePop .34s var(--fx14-spring) both}
+
+/* Effect layer lives inside the table so virtual landscape rotates with it. */
+.fx14-layer{position:absolute;inset:0;z-index:30;overflow:visible;pointer-events:none;contain:layout style;isolation:isolate}
+.fx14-chip{position:absolute;left:50%;top:50%;width:15px;height:7px;margin:-4px 0 0 -8px;border-radius:50%;background:radial-gradient(ellipse at 50% 25%,#fff5cf 0 8%,#d84a55 10% 28%,#f0d391 30% 39%,#8b1f2a 41% 100%);border:1px solid rgba(34,14,14,.8);box-shadow:0 3px 5px rgba(0,0,0,.55),inset 0 1px rgba(255,255,255,.55);will-change:transform,opacity}
+.fx14-chip.blue{background:radial-gradient(ellipse at 50% 25%,#fff7db 0 8%,#2970a7 10% 28%,#ead59d 30% 39%,#123c60 41% 100%)}
+.fx14-chip.black{background:radial-gradient(ellipse at 50% 25%,#fff6d2 0 8%,#2b2b2b 10% 28%,#d9c27e 30% 39%,#090a09 41% 100%)}
+.fx14-card{position:absolute;left:50%;top:50%;width:34px;height:49px;margin:-25px 0 0 -17px;border-radius:6px;background:linear-gradient(135deg,#17372c,#315f4e);border:1px solid #ceb87f;box-shadow:0 8px 18px rgba(0,0,0,.45),inset 0 0 0 2px rgba(255,255,255,.04);will-change:transform,opacity}
+.fx14-card:after{content:"♠";position:absolute;inset:0;display:grid;place-items:center;color:rgba(232,211,163,.42);font:700 14px Georgia,serif}
+.fx14-spark{position:absolute;left:50%;top:50%;width:5px;height:5px;margin:-3px;border-radius:50%;background:#ffe2a1;box-shadow:0 0 10px rgba(255,212,126,.8);will-change:transform,opacity}
+.fx14-flare{position:absolute;left:50%;top:50%;width:12px;height:12px;margin:-6px;border-radius:50%;border:1px solid rgba(245,202,111,.85);will-change:transform,opacity}
+.fx14-fold-label{position:absolute;left:50%;top:50%;padding:4px 8px;border-radius:999px;background:rgba(62,22,25,.92);border:1px solid rgba(225,122,126,.25);color:#ffd5d7;font-size:9px;font-weight:900;letter-spacing:.8px;will-change:transform,opacity}
+
+.results.fx14-results-in .result-card{animation:fx14ResultIn .5s var(--fx14-spring) both}
+.seat.fx14-winner{animation:fx14Winner 1.15s ease-out both}
+.poker-table.fx14-allin{animation:fx14TableAllin .58s ease-out both}
+
+@keyframes fx14TurnHalo{0%,100%{opacity:.35;transform:scale(.985)}50%{opacity:.9;transform:scale(1.045)}}
+@keyframes fx14Timer{0%,100%{transform:scale(1);background:#3a170f!important;color:#ffd7a2!important}50%{transform:scale(1.1);background:#742119!important;color:#fff1cf!important}}
+@keyframes fx14Ripple{0%{transform:scale(.2);opacity:.45}100%{transform:scale(12);opacity:0}}
+@keyframes fx14OwnDeal{0%{opacity:0;transform:translate3d(0,-28px,0) scale(.78) rotate(-7deg)}70%{opacity:1;transform:translate3d(0,2px,0) scale(1.035) rotate(1deg)}100%{opacity:1}}
+@keyframes fx14BoardDeal{0%{opacity:0;transform:translate3d(0,-16px,0) scale(.78) rotateY(34deg)}72%{opacity:1;transform:translate3d(0,2px,0) scale(1.025) rotateY(0)}100%{opacity:1;transform:none}}
+@keyframes fx14ActionPop{0%{opacity:0;transform:translate3d(0,7px,0) scale(.96)}100%{opacity:1;transform:none}}
+@keyframes fx14ValuePop{0%{transform:scale(.9);opacity:.68}65%{transform:scale(1.07);opacity:1}100%{transform:scale(1)}}
+@keyframes fx14ResultIn{0%{opacity:0;transform:translate3d(0,18px,0) scale(.96)}100%{opacity:1;transform:none}}
+@keyframes fx14Winner{0%{filter:brightness(1);transform:translate(-50%,-50%) scale(1)}40%{filter:brightness(1.28);transform:translate(-50%,-50%) scale(1.045)}100%{filter:brightness(1);transform:translate(-50%,-50%) scale(1)}}
+@keyframes fx14TableAllin{0%,100%{filter:none}45%{filter:brightness(1.12) saturate(1.08)}}
+
+/* Avoid expensive layout/paint animations and honor accessibility. */
+@media (prefers-reduced-motion:reduce){
+  .seat.turn:after,.timer.fx14-urgent,.card-ui.fx14-own-deal,.card-ui.fx14-board-deal,.recent.fx14-action-pop,.hud-box b.fx14-value-pop,.results.fx14-results-in .result-card,.seat.fx14-winner,.poker-table.fx14-allin{animation:none!important}
+  .fx14-layer{display:none!important}
+  .action,.icon-btn,.btn,.seat-choice,.seat{transition:none!important}
+}
